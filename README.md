@@ -18,12 +18,30 @@ const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
 // responsiveImage.images => [{path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
-React.render(<img srcSet={responsiveImage.srcSet} src=[responsiveImage.images[0].path] />, el);
+React.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.images[0].path} />, el);
+```
+
+Alternatively, you can resize a single image. Note that responsive-loader returns only a path string in this case (no `srcSet`). This is useful for CSS.
+
+```js
+const responsiveImage = require('responsive?size=100!myImage.jpg');
+
+// responsiveImage => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
+React.render(<img src={responsiveImage} />, el);
+```
+
+```css
+.myImage { background: url('responsive?size=1140!myImage.jpg'); }
+
+@media (max-width: 480px) {
+  .myImage { background: url('responsive?size=480!myImage.jpg'); }
+}
 ```
 
 ### Options
 
 - `sizes: array`: specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
+- `size: integer`: specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
 - `quality: integer`: JPEG compression quality; defaults to `95`
 - `ext: string`: either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
 - `background: hex`: Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
@@ -31,7 +49,6 @@ React.render(<img srcSet={responsiveImage.srcSet} src=[responsiveImage.images[0]
 ## Notes
 
 - Doesn't support `1x`, `2x` sizes.
-- The image hash is based on the original image's content plus a size suffix, e.g. `2fefae46cb857bc750fa5e5eed4a0cde-100.jpg`, `2fefae46cb857bc750fa5e5eed4a0cde-200.jpg`, etc.
 
 ## See also
 

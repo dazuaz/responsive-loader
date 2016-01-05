@@ -15,7 +15,8 @@ module.exports = function(content) {
   this.cacheable && this.cacheable();
   var loaderCallback = this.async();
   var query = loaderUtils.parseQuery(this.query);
-  var sizes = query.sizes;
+  var sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
+  var singleImage = !!query.size || (!query.sizes && !query.size);
   var name = query.name || '[hash]-[width].';
   // JPEG compression
   var quality = parseInt(query.quality, 10) || 95;
@@ -50,7 +51,7 @@ module.exports = function(content) {
               return queueCallback(err);
             }
 
-            var fileName = loaderUtils.interpolateName(loaderContext, '[hash]-[width].' + ext, {content: content}).replace(/\[width\]/g, width);
+            var fileName = loaderUtils.interpolateName(loaderContext, '[hash]-[width].' + ext, {content: buf}).replace(/\[width\]/ig, width);
 
             loaderContext.emitFile(fileName, buf);
 
@@ -64,13 +65,18 @@ module.exports = function(content) {
 
     var q = queue();
     
-    sizes.forEach(function(size) {
+    (Array.isArray(sizes) ? sizes : [sizes]).forEach(function(size) {
       var width = Math.min(img.bitmap.width, parseInt(size, 10));
 
       q.defer(resizeImage, width);
     });
 
     q.awaitAll(function(err, files) {
+      // Shortcut for single images
+      if (singleImage) {
+        return loaderCallback(null, 'module.exports = ' + files[0].path);
+      }
+
       var srcset = files.map(function(f) {
         return f.src;
       }).join('+","+');
