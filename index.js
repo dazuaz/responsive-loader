@@ -74,8 +74,12 @@ module.exports = function(content) {
       var srcset = files.map(function(f) {
         return f.src;
       }).join('+","+');
+
+      var images = files.map(function(f) {
+        return '{path:' + f.path + ',width:' + f.width + '}';
+      }).join(',');
       
-      loaderCallback(null, 'module.exports = {srcSet:' + srcset + '};');
+      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + ']};');
     });
   });
 };
