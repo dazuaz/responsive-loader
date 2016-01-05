@@ -1,0 +1,35 @@
+{
+  "name": "responsive-loader",
+  "version": "0.0.1",
+  "description": "A webpack loader for responsive images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herrstucki/responsive-loader.git"
+  },
+  "keywords": [
+    "webpack",
+    "responsive",
+    "loader",
+    "srcset"
+  ],
+  "author": "Jeremy Stucki <jeremy@interactivethings.com>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/herrstucki/responsive-loader/issues"
+  },
+  "homepage": "https://github.com/herrstucki/responsive-loader",
+  "dependencies": {
+    "loader-utils": "^0.2.12",
+    "queue-async": "^1.0.7"
+  },
+  "devDependencies": {
+    "jimp": "^0.2.21"
+  },
+  "peerDependencies": {
+    "jimp": "^0.2.21"
+  }
+}
