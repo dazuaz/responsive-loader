@@ -17,7 +17,7 @@ responsive-loader uses [jimp](https://github.com/oliver-moran/jimp), a pure JS i
 const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
-React.render(<div srcSet={responsiveImage.srcSet} />, el);
+React.render(<img srcSet={responsiveImage.srcSet} />, el);
 ```
 
 ### Options
