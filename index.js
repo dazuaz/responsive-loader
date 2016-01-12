@@ -37,7 +37,7 @@ module.exports = function(content) {
 
   if (options.pass) {
     // emit original content only
-    const f = loaderUtils.interpolateName(loaderContext, '[hash]-xxx.[ext]', {content: content});
+    const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {content: content});
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
     if (singleImage) {
@@ -64,7 +64,7 @@ module.exports = function(content) {
               return queueCallback(err);
             }
 
-            var fileName = loaderUtils.interpolateName(loaderContext, '[hash]-[width].' + ext, {content: buf}).replace(/\[width\]/ig, width);
+            var fileName = loaderUtils.interpolateName(loaderContext, name + ext, {content: buf}).replace(/\[width\]/ig, width);
 
             loaderContext.emitFile(fileName, buf);
 
