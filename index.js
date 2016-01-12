@@ -7,8 +7,7 @@ var queue = require('queue-async');
 var MIMES = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
-  'png': 'image/png',
-  'gif': 'image/gif'
+  'png': 'image/png'
 };
 
 module.exports = function(content) {
