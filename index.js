@@ -14,6 +14,7 @@ module.exports = function(content) {
   this.cacheable && this.cacheable();
   var loaderCallback = this.async();
   var query = loaderUtils.parseQuery(this.query);
+  var options = this.options.responsiveLoader || {};
   var sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
   var singleImage = !!query.size || (!query.sizes && !query.size);
   var name = query.name || '[hash]-[width].';
@@ -32,6 +33,19 @@ module.exports = function(content) {
 
   if (!mime) {
     return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
+  }
+
+  if (options.pass) {
+    // emit original content only
+    const f = loaderUtils.interpolateName(loaderContext, '[hash]-xxx.[ext]', {content: content});
+    loaderContext.emitFile(f, content);
+    const p = '__webpack_public_path__ + ' + JSON.stringify(f);
+    if (singleImage) {
+      loaderCallback(null, 'module.exports = ' + p);
+    } else {
+      loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}]};');
+    }
+    return;
   }
 
   jimp.read(loaderContext.resourcePath, function(err, img) {
