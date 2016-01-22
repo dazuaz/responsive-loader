@@ -16,7 +16,6 @@ module.exports = function(content) {
   var query = loaderUtils.parseQuery(this.query);
   var options = this.options.responsiveLoader || {};
   var sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
-  var singleImage = !!query.size || (!query.sizes && !query.size);
   var name = query.name || '[hash]-[width].';
   // JPEG compression
   var quality = parseInt(query.quality, 10) || 95;
@@ -40,12 +39,7 @@ module.exports = function(content) {
     const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {content: content});
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
-    if (singleImage) {
-      loaderCallback(null, 'module.exports = ' + p);
-    } else {
-      loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}]};');
-    }
-    return;
+    return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
   jimp.read(loaderContext.resourcePath, function(err, img) {
@@ -85,11 +79,6 @@ module.exports = function(content) {
     });
 
     q.awaitAll(function(err, files) {
-      // Shortcut for single images
-      if (singleImage) {
-        return loaderCallback(null, 'module.exports = ' + files[0].path);
-      }
-
       var srcset = files.map(function(f) {
         return f.src;
       }).join('+","+');
@@ -97,8 +86,10 @@ module.exports = function(content) {
       var images = files.map(function(f) {
         return '{path:' + f.path + ',width:' + f.width + '}';
       }).join(',');
+
+      var firstImagePath = files[0].path;
       
-      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + ']};');
+      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}};');
     });
   });
 };

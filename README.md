@@ -18,17 +18,15 @@ const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
 // responsiveImage.images => [{path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
-React.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.images[0].path} />, el);
+// responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
+// responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
+React.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />, el);
+
+// Or you can just use it as props, `srcSet` and `src` will be set properly
+React.render(<img {...responsiveImage} />, el);
 ```
 
-Alternatively, you can resize a single image. Note that responsive-loader returns only a path string in this case (no `srcSet`). This is useful for CSS.
-
-```js
-const responsiveImage = require('responsive?size=100!myImage.jpg');
-
-// responsiveImage => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
-React.render(<img src={responsiveImage} />, el);
-```
+Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
 
 ```css
 .myImage { background: url('responsive?size=1140!myImage.jpg'); }
