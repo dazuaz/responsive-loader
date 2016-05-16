@@ -71,17 +71,14 @@ module.exports = function(content) {
     }
 
     var q = queue();
-    var widthsToGenerate = [];
+    var widthsToGenerate = new Set();
 
     (Array.isArray(sizes) ? sizes : [sizes]).forEach(function(size) {
       var width = Math.min(img.bitmap.width, parseInt(size, 10));
-      // This is a "shorthand" for array.prototype.includes() for places that don't support it.
-      // It returns true if the item exists in the array, false otherwise.
-      var widthExists = !!~widthsToGenerate.indexOf(width);
 
       // Only resize images if they aren't an exact copy of one already being resized...
-      if (!widthExists) {
-        widthsToGenerate.push(width);
+      if (!widthsToGenerate.has(width)) {
+        widthsToGenerate.add(width);
         q.defer(resizeImage, width);
       }
 
