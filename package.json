@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/herrstucki/responsive-loader",
   "dependencies": {
-    "loader-utils": "^0.2.12",
-    "queue-async": "^1.0.7"
+    "d3-queue": "^2.0.3",
+    "loader-utils": "^0.2.12"
   },
   "devDependencies": {
     "jimp": "^0.2.21"

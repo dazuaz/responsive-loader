@@ -2,7 +2,7 @@
 var path = require('path');
 var loaderUtils = require('loader-utils');
 var jimp = require('jimp');
-var queue = require('queue-async');
+var queue = require('d3-queue').queue;
 
 var MIMES = {
   'jpg': 'image/jpeg',
