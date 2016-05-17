@@ -71,11 +71,17 @@ module.exports = function(content) {
     }
 
     var q = queue();
-    
+    var widthsToGenerate = new Set();
+
     (Array.isArray(sizes) ? sizes : [sizes]).forEach(function(size) {
       var width = Math.min(img.bitmap.width, parseInt(size, 10));
 
-      q.defer(resizeImage, width);
+      // Only resize images if they aren't an exact copy of one already being resized...
+      if (!widthsToGenerate.has(width)) {
+        widthsToGenerate.add(width);
+        q.defer(resizeImage, width);
+      }
+
     });
 
     q.awaitAll(function(err, files) {
@@ -88,7 +94,7 @@ module.exports = function(content) {
       }).join(',');
 
       var firstImagePath = files[0].path;
-      
+
       loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}};');
     });
   });
