@@ -4,8 +4,12 @@
   "description": "A webpack loader for responsive images",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build-test": "webpack --config=./test/webpack.config.js",
+    "test": "npm run build-test && tape './test/build/test.js' | tap-spec"
   },
+  "files": [
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/herrstucki/responsive-loader.git"
@@ -27,7 +31,10 @@
     "loader-utils": "^0.2.12"
   },
   "devDependencies": {
-    "jimp": "^0.2.21"
+    "jimp": "^0.2.21",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.5.1",
+    "webpack": "^1.13.0"
   },
   "peerDependencies": {
     "jimp": "^0.2.21"
