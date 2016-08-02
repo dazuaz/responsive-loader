@@ -44,7 +44,7 @@ module.exports = function(content) {
 
   jimp.read(loaderContext.resourcePath, function(err, img) {
     if (err) {
-      return queueCallback(err);
+      return loaderCallback(err);
     }
 
     function resizeImage(width, queueCallback) {
