@@ -1,7 +1,7 @@
 const path = require('path');
 const loaderUtils = require('loader-utils');
 const jimp = require('jimp');
-const {queue} = require('d3-queue');
+const queue = require('d3-queue').queue;
 
 const MIMES = {
   'jpg': 'image/jpeg',
