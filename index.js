@@ -1,4 +1,3 @@
-/* eslint-disable */
 var path = require('path');
 var loaderUtils = require('loader-utils');
 var jimp = require('jimp');
