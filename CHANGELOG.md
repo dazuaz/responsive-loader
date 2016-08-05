@@ -1,4 +1,17 @@
-# Changelog
+# Change Log
+
+## 0.5.3
+
+- Fix wrong callback being called on file load error ([#6](https://github.com/herrstucki/responsive-loader/pull/6))
+
+## 0.5.2
+
+- Added tests!
+- Update `queue-async` to `d3-queue`
+
+## 0.5.1
+
+- Optimization: skip resizing images of the same size ([#5](https://github.com/herrstucki/responsive-loader/pull/5))
 
 ## 0.5.0
 
