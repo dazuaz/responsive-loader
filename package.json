@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build-test": "webpack --config=./test/webpack.config.js",
-    "test": "npm run build-test && tape './test/build/test.js' | tap-spec"
+    "lint": "eslint --ignore-path=.gitignore .",
+    "test": "npm run lint && npm run build-test && tape './test/build/test.js' | tap-spec"
   },
   "files": [
     "index.js"
