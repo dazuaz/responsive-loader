@@ -3,6 +3,9 @@
   "version": "0.5.2",
   "description": "A webpack loader for responsive images",
   "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
   "scripts": {
     "build-test": "webpack --config=./test/webpack.config.js",
     "test": "npm run build-test && tape './test/build/test.js' | tap-spec"
