@@ -1,30 +1,29 @@
-/* eslint-disable */
-var path = require('path');
-var loaderUtils = require('loader-utils');
-var jimp = require('jimp');
-var queue = require('d3-queue').queue;
+const path = require('path');
+const loaderUtils = require('loader-utils');
+const jimp = require('jimp');
+const queue = require('d3-queue').queue;
 
-var MIMES = {
+const MIMES = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
   'png': 'image/png'
 };
 
-module.exports = function(content) {
+module.exports = function loader(content) {
   this.cacheable && this.cacheable();
-  var loaderCallback = this.async();
-  var query = loaderUtils.parseQuery(this.query);
-  var options = this.options.responsiveLoader || {};
-  var sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
-  var name = query.name || '[hash]-[width].';
+  const loaderCallback = this.async();
+  const query = loaderUtils.parseQuery(this.query);
+  const options = this.options.responsiveLoader || {};
+  const sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
+  const name = query.name || '[hash]-[width].';
   // JPEG compression
-  var quality = parseInt(query.quality, 10) || 95;
+  const quality = parseInt(query.quality, 10) || 95;
   // Useful when converting from PNG to JPG
-  var background = parseInt(query.background, 16) || 0xFFFFFFFF;
+  const background = parseInt(query.background, 16) || 0xFFFFFFFF;
   // Specify ext to convert to another format
-  var ext = query.ext || path.extname(this.resourcePath).replace(/\./, '');
-  var mime = MIMES[ext];
-  var loaderContext = this;
+  const ext = query.ext || path.extname(this.resourcePath).replace(/\./, '');
+  const mime = MIMES[ext];
+  const loaderContext = this;
 
   if (!sizes) {
     return loaderCallback(null, content);
@@ -42,27 +41,27 @@ module.exports = function(content) {
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  jimp.read(loaderContext.resourcePath, function(err, img) {
+  return jimp.read(loaderContext.resourcePath, (err, img) => {
     if (err) {
       return loaderCallback(err);
     }
 
     function resizeImage(width, queueCallback) {
-        img
+      img
           .clone()
           .resize(width, jimp.AUTO)
           .quality(quality)
           .background(background)
-          .getBuffer(mime, function(err, buf) {
+          .getBuffer(mime, function resizeCallback(queueErr, buf) {
             if (err) {
-              return queueCallback(err);
+              return queueCallback(queueErr);
             }
 
-            var fileName = loaderUtils.interpolateName(loaderContext, name + ext, {content: buf}).replace(/\[width\]/ig, width);
+            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {content: buf}).replace(/\[width\]/ig, width);
 
             loaderContext.emitFile(fileName, buf);
 
-            queueCallback(null, {
+            return queueCallback(null, {
               src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
               path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
               width: width
@@ -70,30 +69,25 @@ module.exports = function(content) {
           });
     }
 
-    var q = queue();
-    var widthsToGenerate = new Set();
+    const q = queue();
+    const widthsToGenerate = new Set();
 
-    (Array.isArray(sizes) ? sizes : [sizes]).forEach(function(size) {
-      var width = Math.min(img.bitmap.width, parseInt(size, 10));
+    (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
+      const width = Math.min(img.bitmap.width, parseInt(size, 10));
 
       // Only resize images if they aren't an exact copy of one already being resized...
       if (!widthsToGenerate.has(width)) {
         widthsToGenerate.add(width);
         q.defer(resizeImage, width);
       }
-
     });
 
-    q.awaitAll(function(err, files) {
-      var srcset = files.map(function(f) {
-        return f.src;
-      }).join('+","+');
+    return q.awaitAll((queueErr, files) => {
+      const srcset = files.map(f => f.src).join('+","+');
 
-      var images = files.map(function(f) {
-        return '{path:' + f.path + ',width:' + f.width + '}';
-      }).join(',');
+      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + '}').join(',');
 
-      var firstImagePath = files[0].path;
+      const firstImagePath = files[0].path;
 
       loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}};');
     });
