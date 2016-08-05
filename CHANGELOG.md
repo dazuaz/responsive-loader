@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.6.0
+
+- Add linting ([#7](https://github.com/herrstucki/responsive-loader/pull/7))
+- Breaking (maybe): Require node >= v4
+
 ## 0.5.3
 
 - Fix wrong callback being called on file load error ([#6](https://github.com/herrstucki/responsive-loader/pull/6))
