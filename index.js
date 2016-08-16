@@ -15,12 +15,12 @@ module.exports = function loader(content) {
   const query = loaderUtils.parseQuery(this.query);
   const options = this.options.responsiveLoader || {};
   const sizes = query.sizes || query.size || options.sizes || [Number.MAX_SAFE_INTEGER];
-  const name = query.name || '[hash]-[width].';
-  const outputContext = query.context || '';
+  const name = query.name || options.name || '[hash]-[width].';
+  const outputContext = query.context || options.context || '';
   // JPEG compression
-  const quality = parseInt(query.quality, 10) || 95;
+  const quality = parseInt(query.quality, 10) || options.quality || 95;
   // Useful when converting from PNG to JPG
-  const background = parseInt(query.background, 16) || 0xFFFFFFFF;
+  const background = parseInt(query.background, 16) || options.background || 0xFFFFFFFF;
   // Specify ext to convert to another format
   const ext = query.ext || path.extname(this.resourcePath).replace(/\./, '');
   const mime = MIMES[ext];
@@ -36,7 +36,7 @@ module.exports = function loader(content) {
 
   if (options.pass) {
     // emit original content only
-    const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {content: content});
+    const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {context: outputContext, content: content});
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
