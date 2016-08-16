@@ -40,11 +40,32 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 
 ### Options
 
-- `sizes: array`: specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
+- `sizes: array`: specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
 - `size: integer`: specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
 - `quality: integer`: JPEG compression quality; defaults to `95`
 - `ext: string`: either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
 - `background: hex`: Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
+
+
+### Examples
+
+Set a default `sizes` array, so you don't have to declare them with each `require`.
+
+```js
+module.exports = {
+  entry: {...},
+  output: {...},
+  module: {
+    loaders: [{
+      test: /\.(jpe?g|png)$/i,
+      loader: 'responsive'
+    ]}
+  },
+  responsiveLoader: {
+    sizes: [300, 600, 1200, 2000]
+  }
+}
+```
 
 ## Notes
 
