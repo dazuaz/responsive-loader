@@ -14,8 +14,9 @@ module.exports = function loader(content) {
   const loaderCallback = this.async();
   const query = loaderUtils.parseQuery(this.query);
   const options = this.options.responsiveLoader || {};
-  const sizes = query.sizes || query.size || [Number.MAX_SAFE_INTEGER];
+  const sizes = query.sizes || query.size || options.sizes || [Number.MAX_SAFE_INTEGER];
   const name = query.name || '[hash]-[width].';
+  const outputContext = query.context || '';
   // JPEG compression
   const quality = parseInt(query.quality, 10) || 95;
   // Useful when converting from PNG to JPG
@@ -57,7 +58,10 @@ module.exports = function loader(content) {
               return queueCallback(queueErr);
             }
 
-            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {content: buf}).replace(/\[width\]/ig, width);
+            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+              context: outputContext,
+              content: buf
+            }).replace(/\[width\]/ig, width);
 
             loaderContext.emitFile(fileName, buf);
 
