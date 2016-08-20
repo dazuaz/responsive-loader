@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.6.1
+
+- Declare default `name`, `context`, `quality`, and `background` through webpack options when they're not specified in the loader query ([#12](https://github.com/herrstucki/responsive-loader/pull/12)).
+
 ## 0.6.0
 
 - Add linting ([#7](https://github.com/herrstucki/responsive-loader/pull/7))
