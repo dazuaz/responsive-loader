@@ -1,5 +1,13 @@
 language: node_js
 node_js:
-  - "6"
-  - "5"
-  - "4"
+- '6'
+- '5'
+- '4'
+deploy:
+  provider: npm
+  email: jeremy@interactivethings.com
+  api_key:
+    secure: X8NL2lXVc8lCEWQXjU0mDqi0/8qns188sK/zlKwIKqAAdqfUAAKP/0XiCruT9B1yOGaWSOb2rU2axZ3txdqKmdFk+dXYBV/99nWdsjZKsT75DAalY6GFzeBYskaj5vEHVjNjVI3VzgXV6u5XkSRi0dTwJjDEbD2tblBjt0Ke34RG/vDAt4zfoVqGvQkqAd1rwjdyOqKy54eABr0AzlZAqcvn9hZzLdU6Q/XjuMQ35IfHH6JfWUCHpQ8aPYyQdc2y3Ds+ZBF4ls7SsKjKjvLgn2UaZlOBRF2RwBVoAhl5EY6uzM+mrOkeFoaXYu1xQpvI8VdFD13dA7DxiiuewZDtajeg4Bre3049faUk9Ye/c2ojGUFabMTKCKoSe4vakIvxxekdXNmk/R/Omn9YWOLsfgkVinLSd2dRIHOOENdvpjUV6vplbpj5W06SxigDSDStWm+0mZ5MmXivXJ5rjMNYZlQFcFuVB75KVcVQsSffMsPRceMYbhqri/umADViFhz3DNgF7CBGl+Uu25k3G4Wun/m1Rqz+gHPd/p2dTY6R2pjoLxmw+LAvKHwtdYcFL4uI8ApQ5EwkCQ9eLc4ghzjp2ICkSeykmV4YuNQQ+IdTpe88eNUBl71Zfet9p1ZOmp9DyItp9le9T5TuIA4wiO5hlX1EghQJ1NicEbU+fZ2Leeo=
+  on:
+    tags: true
+    repo: herrstucki/responsive-loader
