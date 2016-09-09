@@ -17,6 +17,8 @@ module.exports = function loader(content) {
   const sizes = query.sizes || query.size || options.sizes || [Number.MAX_SAFE_INTEGER];
   const name = query.name || options.name || '[hash]-[width].';
   const outputContext = query.context || options.context || '';
+  const outputPlaceholder = query.placeholder || query.placeholder !== false && options.placeholder || false;
+  const placeholderWidth = query.placeholderWidth || options.placeholderWidth || 40;
   // JPEG compression
   const quality = parseInt(query.quality, 10) || options.quality || 95;
   // Useful when converting from PNG to JPG
@@ -58,19 +60,24 @@ module.exports = function loader(content) {
               return queueCallback(queueErr);
             }
 
-            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
-              context: outputContext,
-              content: buf
-            }).replace(/\[width\]/ig, width);
+            if (width !== placeholderWidth) {
+              const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+                context: outputContext,
+                content: buf
+              }).replace(/\[width\]/ig, width);
 
-            loaderContext.emitFile(fileName, buf);
+              loaderContext.emitFile(fileName, buf);
 
-            return queueCallback(null, {
-              src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-              path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
-              width: width,
-              height: this.bitmap.height
-            });
+              return queueCallback(null, {
+                src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
+                path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+                width: width,
+                height: this.bitmap.height
+              });
+            }
+
+            const placeholder = buf.toString('base64');
+            return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
           });
     }
 
@@ -87,14 +94,24 @@ module.exports = function loader(content) {
       }
     });
 
+    if (outputPlaceholder && !widthsToGenerate.has(placeholderWidth)) {
+      widthsToGenerate.add(placeholderWidth);
+      q.defer(resizeImage, placeholderWidth);
+    }
+
     return q.awaitAll((queueErr, files) => {
+      let placeholder;
+      if (outputPlaceholder) {
+        placeholder = files.pop();
+      }
+
       const srcset = files.map(f => f.src).join('+","+');
 
       const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
 
       const firstImagePath = files[0].path;
 
-      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}};');
+      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}, placeholder: ' + placeholder + '};');
     });
   });
 };
