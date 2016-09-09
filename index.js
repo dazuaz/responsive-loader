@@ -100,6 +100,8 @@ module.exports = function loader(content) {
     }
 
     return q.awaitAll((queueErr, files) => {
+      'use strict'; // eslint-disable-line
+
       let placeholder;
       if (outputPlaceholder) {
         placeholder = files.pop();
