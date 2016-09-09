@@ -38,13 +38,24 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 }
 ```
 
+```js
+// Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
+const responsiveImage = require('responsive?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
+
+// responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
+React.render(<img src={responsiveImage.placeholder} srcSet={responsiveImage.srcSet} />, el);
+```
+
+
 ### Options
 
-- `sizes: array`: specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
-- `size: integer`: specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
-- `quality: integer`: JPEG compression quality; defaults to `95`
-- `ext: string`: either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
-- `background: hex`: Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
+- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
+- `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
+- `quality: integer` — JPEG compression quality; defaults to `95`
+- `ext: string` — either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
+- `background: hex` — Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
+- `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI. (Defaults to `false`)
+- `placeholderWidth: integer` — A number value specifying the width of the placeholder image, if enabled with the option above. (Defaults to `40`)
 
 
 ### Examples
@@ -62,7 +73,9 @@ module.exports = {
     ]}
   },
   responsiveLoader: {
-    sizes: [300, 600, 1200, 2000]
+    sizes: [300, 600, 1200, 2000],
+    placeholder: true,
+    placeholderWidth: 50
   }
 }
 ```
