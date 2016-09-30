@@ -19,7 +19,7 @@ responsive-loader uses [jimp](https://github.com/oliver-moran/jimp), a pure JS i
 const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
-// responsiveImage.images => [{path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
+// responsiveImage.images => [{height: 50, path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {height: 100, path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
 // responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
 // responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
 React.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />, el);
