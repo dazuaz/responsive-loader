@@ -68,7 +68,8 @@ module.exports = function loader(content) {
             return queueCallback(null, {
               src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
               path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
-              width: width
+              width: width,
+              height: this.bitmap.height
             });
           });
     }
@@ -89,7 +90,7 @@ module.exports = function loader(content) {
     return q.awaitAll((queueErr, files) => {
       const srcset = files.map(f => f.src).join('+","+');
 
-      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + '}').join(',');
+      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
 
       const firstImagePath = files[0].path;
 
