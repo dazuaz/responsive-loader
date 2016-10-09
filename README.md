@@ -55,7 +55,7 @@ React.render(<img src={responsiveImage.src} srcSet={responsiveImage.srcSet} styl
 - `ext: string` — either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
 - `background: hex` — Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
 - `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI. (Defaults to `false`)
-- `placeholderWidth: integer` — A number value specifying the width of the placeholder image, if enabled with the option above. (Defaults to `40`)
+- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above. (Defaults to `40`)
 
 
 ### Examples
@@ -75,7 +75,7 @@ module.exports = {
   responsiveLoader: {
     sizes: [300, 600, 1200, 2000],
     placeholder: true,
-    placeholderWidth: 50
+    placeholderSize: 50
   }
 }
 ```
