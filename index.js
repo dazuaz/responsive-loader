@@ -125,8 +125,10 @@ module.exports = function loader(content) {
           'images:[' + images + '],' +
           'src:' + firstImagePath + ',' +
           'toString:function(){return ' + firstImagePath + '},' +
-          'placeholder: ' + placeholder
-        + '};');
+          'placeholder: ' + placeholder + ',' +
+          'width:' + img.bitmap.width + ',' +
+          'height:' + img.bitmap.height +
+      '};');
     });
   });
 };
