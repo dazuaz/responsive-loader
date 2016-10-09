@@ -43,7 +43,7 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 const responsiveImage = require('responsive?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
-React.render(<img src={responsiveImage.src} srcSet={responsiveImage.srcSet} style={{height: responsiveImage.height, width: responsiveImage.width, backgroundImage: 'url("' + responsiveImage.placeholder + '")'}} />, el);
+React.render(<img src={responsiveImage.src} srcSet={responsiveImage.srcSet} style={{height: responsiveImage.height, width: responsiveImage.width, backgroundSize: 'cover', backgroundImage: 'url("' + responsiveImage.placeholder + '")'}} />, el);
 ```
 
 
