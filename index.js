@@ -18,7 +18,7 @@ module.exports = function loader(content) {
   const name = query.name || options.name || '[hash]-[width].';
   const outputContext = query.context || options.context || '';
   const outputPlaceholder = query.placeholder || query.placeholder !== false && options.placeholder || false;
-  const placeholderWidth = query.placeholderWidth || options.placeholderWidth || 40;
+  const placeholderSize = query.placeholderSize || options.placeholderSize || 40;
   // JPEG compression
   const quality = parseInt(query.quality, 10) || options.quality || 95;
   // Useful when converting from PNG to JPG
@@ -60,24 +60,19 @@ module.exports = function loader(content) {
               return queueCallback(queueErr);
             }
 
-            if (width !== placeholderWidth) {
-              const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
-                context: outputContext,
-                content: buf
-              }).replace(/\[width\]/ig, width);
+            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+              context: outputContext,
+              content: buf
+            }).replace(/\[width\]/ig, width);
 
-              loaderContext.emitFile(fileName, buf);
+            loaderContext.emitFile(fileName, buf);
 
-              return queueCallback(null, {
-                src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-                path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
-                width: width,
-                height: this.bitmap.height
-              });
-            }
-
-            const placeholder = buf.toString('base64');
-            return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
+            return queueCallback(null, {
+              src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
+              path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+              width: width,
+              height: this.bitmap.height
+            });
           });
     }
 
@@ -94,14 +89,26 @@ module.exports = function loader(content) {
       }
     });
 
-    if (outputPlaceholder && !widthsToGenerate.has(placeholderWidth)) {
-      widthsToGenerate.add(placeholderWidth);
-      q.defer(resizeImage, placeholderWidth);
+    if (outputPlaceholder) {
+      q.defer(function generatePlaceholder(queueCallback) {
+        img
+            .clone()
+            .resize(placeholderSize, jimp.AUTO)
+            .quality(quality)
+            .background(background)
+            .getBuffer(mime, function resizeCallback(queueErr, buf) {
+              if (err) {
+                return queueCallback(queueErr);
+              }
+
+              const placeholder = buf.toString('base64');
+              return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
+            });
+      });
     }
 
     return q.awaitAll((queueErr, files) => {
       'use strict'; // eslint-disable-line
-
       let placeholder;
       if (outputPlaceholder) {
         placeholder = files.pop();
@@ -113,7 +120,13 @@ module.exports = function loader(content) {
 
       const firstImagePath = files[0].path;
 
-      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}, placeholder: ' + placeholder + '};');
+      loaderCallback(null, 'module.exports = {' +
+          'srcSet:' + srcset + ',' +
+          'images:[' + images + '],' +
+          'src:' + firstImagePath + ',' +
+          'toString:function(){return ' + firstImagePath + '},' +
+          'placeholder: ' + placeholder
+        + '};');
     });
   });
 };
