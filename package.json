@@ -37,7 +37,7 @@
   "devDependencies": {
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
-    "eslint-plugin-react": "^5.2.2",
+    "eslint-plugin-react": "^6.4.1",
     "jimp": "^0.2.21",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
