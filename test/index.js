@@ -53,9 +53,9 @@ test('with placeholder image', t => {
   t.end();
 });
 
-test('output original image height & width', t => {
-  const output = require('../index!./cat-1000.jpg');
-  t.equal(output.height, 900);
-  t.equal(output.width, 1000);
+test('output first resized image height & width', t => {
+  const output = require('../index?size=500!./cat-1000.jpg');
+  t.equal(output.height, 450);
+  t.equal(output.width, 500);
   t.end();
 });

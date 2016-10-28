@@ -118,16 +118,16 @@ module.exports = function loader(content) {
 
       const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
 
-      const firstImagePath = files[0].path;
+      const firstImage = files[0];
 
       loaderCallback(null, 'module.exports = {' +
           'srcSet:' + srcset + ',' +
           'images:[' + images + '],' +
-          'src:' + firstImagePath + ',' +
-          'toString:function(){return ' + firstImagePath + '},' +
+          'src:' + firstImage.path + ',' +
+          'toString:function(){return ' + firstImage.path + '},' +
           'placeholder: ' + placeholder + ',' +
-          'width:' + img.bitmap.width + ',' +
-          'height:' + img.bitmap.height +
+          'width:' + firstImage.width + ',' +
+          'height:' + firstImage.height +
       '};');
     });
   });
