@@ -38,6 +38,16 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 }
 ```
 
+To use it in SASS, consider the following example.
+
+```scss
+.myImage { background: url("~responsive?size=1140!myImage.jpg"); }
+
+@media (max-width: 480px) {
+  .myImage { background: url("~responsive?size=480!myImage.jpg"); }
+}
+```
+
 ### Options
 
 - `sizes: array`: specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
