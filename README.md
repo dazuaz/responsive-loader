@@ -22,10 +22,10 @@ const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!
 // responsiveImage.images => [{height: 50, path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {height: 100, path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
 // responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
 // responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
-React.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />, el);
+ReactDOM.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />, el);
 
 // Or you can just use it as props, `srcSet` and `src` will be set properly
-React.render(<img {...responsiveImage} />, el);
+ReactDOM.render(<img {...responsiveImage} />, el);
 ```
 
 Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
@@ -43,7 +43,15 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 const responsiveImage = require('responsive?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
-React.render(<img src={responsiveImage.src} srcSet={responsiveImage.srcSet} style={{height: responsiveImage.height, width: responsiveImage.width, backgroundSize: 'cover', backgroundImage: 'url("' + responsiveImage.placeholder + '")'}} />, el);
+ReactDOM.render(
+  <div style={{
+    height: responsiveImage.height,
+    width: responsiveImage.width,
+    backgroundSize: 'cover',
+    backgroundImage: 'url("' + responsiveImage.placeholder + '")'
+  }}>
+    <img src={responsiveImage.src} srcSet={responsiveImage.srcSet} />
+  </div>, el);
 ```
 
 
