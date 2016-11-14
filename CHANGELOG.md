@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.7.0
+
+- Add `placeholder` option ([#16](https://github.com/herrstucki/responsive-loader/pull/16))
+- Add `width` and `height` attributes to output ([#19](https://github.com/herrstucki/responsive-loader/pull/19))
+
 ## 0.6.1
 
 - Declare default `name`, `context`, `quality`, and `background` through webpack options when they're not specified in the loader query ([#12](https://github.com/herrstucki/responsive-loader/pull/12)).
