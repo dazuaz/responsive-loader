@@ -1,6 +1,7 @@
 const path = require('path');
 const loaderUtils = require('loader-utils');
-const jimp = require('jimp');
+// const jimp = require('jimp');
+const sharp = require('sharp');
 const queue = require('d3-queue').queue;
 
 const MIMES = {
@@ -44,7 +45,8 @@ module.exports = function loader(content) {
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  return jimp.read(loaderContext.resourcePath, (err, img) => {
+  const img = sharp(loaderContext.resourcePath);
+  return img.metadata((err, metadata) => {
     if (err) {
       return loaderCallback(err);
     }
@@ -52,14 +54,13 @@ module.exports = function loader(content) {
     function resizeImage(width, queueCallback) {
       img
           .clone()
-          .resize(width, jimp.AUTO)
+          .resize(width, null)
           .quality(quality)
           .background(background)
-          .getBuffer(mime, function resizeCallback(queueErr, buf) {
+          .toBuffer(function resizeCallback(queueErr, buf, info) {
             if (err) {
               return queueCallback(queueErr);
             }
-
             const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
               context: outputContext,
               content: buf
@@ -71,7 +72,7 @@ module.exports = function loader(content) {
               src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
               path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
               width: width,
-              height: this.bitmap.height
+              height: info.height
             });
           });
     }
@@ -80,7 +81,7 @@ module.exports = function loader(content) {
     const widthsToGenerate = new Set();
 
     (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
-      const width = Math.min(img.bitmap.width, parseInt(size, 10));
+      const width = Math.min(metadata.width, parseInt(size, 10));
 
       // Only resize images if they aren't an exact copy of one already being resized...
       if (!widthsToGenerate.has(width)) {
@@ -93,10 +94,10 @@ module.exports = function loader(content) {
       q.defer(function generatePlaceholder(queueCallback) {
         img
             .clone()
-            .resize(placeholderSize, jimp.AUTO)
+            .resize(placeholderSize, null)
             .quality(quality)
             .background(background)
-            .getBuffer(mime, function resizeCallback(queueErr, buf) {
+            .toBuffer(function resizeCallback(queueErr, buf) {
               if (err) {
                 return queueCallback(queueErr);
               }
