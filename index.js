@@ -17,6 +17,8 @@ module.exports = function loader(content) {
   const sizes = query.sizes || query.size || options.sizes || [Number.MAX_SAFE_INTEGER];
   const name = query.name || options.name || '[hash]-[width].';
   const outputContext = query.context || options.context || '';
+  const outputPlaceholder = query.placeholder || query.placeholder !== false && options.placeholder || false;
+  const placeholderSize = query.placeholderSize || options.placeholderSize || 40;
   // JPEG compression
   const quality = parseInt(query.quality, 10) || options.quality || 95;
   // Useful when converting from PNG to JPG
@@ -87,14 +89,46 @@ module.exports = function loader(content) {
       }
     });
 
+    if (outputPlaceholder) {
+      q.defer(function generatePlaceholder(queueCallback) {
+        img
+            .clone()
+            .resize(placeholderSize, jimp.AUTO)
+            .quality(quality)
+            .background(background)
+            .getBuffer(mime, function resizeCallback(queueErr, buf) {
+              if (err) {
+                return queueCallback(queueErr);
+              }
+
+              const placeholder = buf.toString('base64');
+              return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
+            });
+      });
+    }
+
     return q.awaitAll((queueErr, files) => {
+      'use strict'; // eslint-disable-line
+      let placeholder;
+      if (outputPlaceholder) {
+        placeholder = files.pop();
+      }
+
       const srcset = files.map(f => f.src).join('+","+');
 
       const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
 
-      const firstImagePath = files[0].path;
+      const firstImage = files[0];
 
-      loaderCallback(null, 'module.exports = {srcSet:' + srcset + ',images:[' + images + '],src:' + firstImagePath + ',toString:function(){return ' + firstImagePath + '}};');
+      loaderCallback(null, 'module.exports = {' +
+          'srcSet:' + srcset + ',' +
+          'images:[' + images + '],' +
+          'src:' + firstImage.path + ',' +
+          'toString:function(){return ' + firstImage.path + '},' +
+          'placeholder: ' + placeholder + ',' +
+          'width:' + firstImage.width + ',' +
+          'height:' + firstImage.height +
+      '};');
     });
   });
 };
