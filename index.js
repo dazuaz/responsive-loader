@@ -1,7 +1,6 @@
 const path = require('path');
 const loaderUtils = require('loader-utils');
-const jimp = require('jimp');
-const queue = require('d3-queue').queue;
+const sharp = require('sharp');
 
 const MIMES = {
   'jpg': 'image/jpeg',
@@ -44,70 +43,74 @@ module.exports = function loader(content) {
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  return jimp.read(loaderContext.resourcePath, (err, img) => {
-    if (err) {
-      return loaderCallback(err);
-    }
+  const promises = [];
+  const widthsToGenerate = new Set();
 
-    function resizeImage(width, queueCallback) {
-      img
-          .clone()
-          .resize(width, jimp.AUTO)
-          .quality(quality)
-          .background(background)
-          .getBuffer(mime, function resizeCallback(queueErr, buf) {
-            if (err) {
-              return queueCallback(queueErr);
-            }
+  const img = sharp(loaderContext.resourcePath);
 
-            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
-              context: outputContext,
-              content: buf
-            }).replace(/\[width\]/ig, width);
+  img
+    .metadata()
+    .then(metadata => {
+      (Array.isArray(sizes) ? sizes : [sizes])
+        .map(size => parseInt(size, 10))
+        .forEach(size => {
+          const width = Math.min(metadata.width, size);
 
-            loaderContext.emitFile(fileName, buf);
+          // Only resize images if they aren't an exact copy of one already being resized...
+          if (!widthsToGenerate.has(width)) {
+            widthsToGenerate.add(width);
 
-            return queueCallback(null, {
-              src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-              path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
-              width: width,
-              height: this.bitmap.height
-            });
-          });
-    }
+            promises.push(
+              img
+              .clone()
+              .resize(width, null)
+              .quality(quality)
+              .background(background)
+              .toBuffer()
+              .then((buf) => {
+                const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+                  context: outputContext,
+                  content: buf
+                }).replace(/\[width\]/ig, width);
+                let factor;
+                if (width < metadata.width) {
+                  factor = metadata.width / width;
+                } else if (width > metadata.width) {
+                  factor = width / metadata.width;
+                }
+                const height = metadata.height * factor;
 
-    const q = queue();
-    const widthsToGenerate = new Set();
+                loaderContext.emitFile(fileName, buf);
 
-    (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
-      const width = Math.min(img.bitmap.width, parseInt(size, 10));
-
-      // Only resize images if they aren't an exact copy of one already being resized...
-      if (!widthsToGenerate.has(width)) {
-        widthsToGenerate.add(width);
-        q.defer(resizeImage, width);
-      }
+                return {
+                  src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
+                  path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+                  width: width,
+                  height: height
+                };
+              }));
+          }
+        });
     });
 
-    if (outputPlaceholder) {
-      q.defer(function generatePlaceholder(queueCallback) {
-        img
-            .clone()
-            .resize(placeholderSize, jimp.AUTO)
-            .quality(quality)
-            .background(background)
-            .getBuffer(mime, function resizeCallback(queueErr, buf) {
-              if (err) {
-                return queueCallback(queueErr);
-              }
+  if (outputPlaceholder) {
+    promises.push(
+      img
+        .clone()
+        .resize(placeholderSize, null)
+        .quality(quality)
+        .background(background)
+        .toBuffer()
+        .then(buf => {
+          const placeholder = buf.toString('base64');
+          return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
+        })
+    );
+  }
 
-              const placeholder = buf.toString('base64');
-              return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
-            });
-      });
-    }
-
-    return q.awaitAll((queueErr, files) => {
+  Promise
+    .all(promises)
+    .then(files => {
       'use strict'; // eslint-disable-line
       let placeholder;
       if (outputPlaceholder) {
@@ -129,8 +132,8 @@ module.exports = function loader(content) {
           'width:' + firstImage.width + ',' +
           'height:' + firstImage.height +
       '};');
-    });
-  });
+    })
+    .catch(err => loaderCallback(err));
 };
 
 module.exports.raw = true; // get buffer stream instead of utf8 string

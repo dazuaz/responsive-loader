@@ -38,12 +38,12 @@
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
-    "jimp": "^0.2.21",
+    "sharp": "^0.16.2",
     "tap-spec": "^4.1.1",
     "tape": "^4.5.1",
     "webpack": "^1.13.0"
   },
   "peerDependencies": {
-    "jimp": "^0.2.21"
+    "sharp": "^0.16.2"
   }
 }
