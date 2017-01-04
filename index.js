@@ -18,7 +18,7 @@ module.exports = function loader(content) {
   const name = query.name || options.name || '[hash]-[width].';
   const outputContext = query.context || options.context || '';
   const outputPlaceholder = query.placeholder || query.placeholder !== false && options.placeholder || false;
-  const placeholderSize = query.placeholderSize || options.placeholderSize || 40;
+  const placeholderSize = parseInt(query.placeholderSize, 10) || options.placeholderSize || 40;
   // JPEG compression
   const quality = parseInt(query.quality, 10) || options.quality || 95;
   // Useful when converting from PNG to JPG
