@@ -5,23 +5,33 @@ module.exports = (imagePath) => {
 
   return {
     metadata: () => image.metadata(),
-    resize: ({width, quality, background}) =>
+    resize: ({width, quality, background, mime}) =>
       new Promise((resolve, reject) => {
-        image.clone()
-          .resize(width, null)
-          .quality(quality)
-          .background(background)
-          .toBuffer((err, data, {height}) => {
-            if (err) {
-              reject(err);
-            } else {
-              resolve({
-                data,
-                width,
-                height
-              });
-            }
+        let resized = image.clone()
+          .resize(width, null);
+
+        if (background) {
+          resized = resized.background(background)
+          .flatten();
+        }
+
+        if (mime === 'image/jpeg') {
+          resized = resized.jpeg({
+            quality
           });
+        }
+
+        resized.toBuffer((err, data, {height}) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({
+              data,
+              width,
+              height
+            });
+          }
+        });
       })
   };
 };

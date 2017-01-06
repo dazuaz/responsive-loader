@@ -7,9 +7,12 @@
     "node": ">=4"
   },
   "scripts": {
-    "build-test": "rm -rf test/build && webpack --config=./test/webpack.config.js",
+    "build-test-jimp": "rm -rf test/jimp/build && webpack --config=./test/jimp/webpack.config.js",
+    "build-test-sharp": "rm -rf test/sharp/build && webpack --config=./test/sharp/webpack.config.js",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "npm run lint && npm run build-test && tape './test/build/test.js' | tap-spec"
+    "test-jimp": "npm run build-test-jimp && tape './test/jimp/build/test.js' | tap-spec",
+    "test-sharp": "npm run build-test-sharp && tape './test/sharp/build/test.js' | tap-spec",
+    "test": "npm run test-jimp && npm run test-sharp"
   },
   "files": [
     "index.js"

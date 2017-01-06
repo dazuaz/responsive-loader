@@ -1,7 +1,5 @@
 const path = require('path');
 const loaderUtils = require('loader-utils');
-// const jimp = require('jimp');
-const adapter = require('./adapters/jimp');
 
 const MIMES = {
   'jpg': 'image/jpeg',
@@ -21,10 +19,11 @@ module.exports = function loader(content) {
   // JPEG compression
   const quality = parseInt(config.quality, 10) || 95;
   // Useful when converting from PNG to JPG
-  const background = parseInt(config.background, 16) || 0xFFFFFFFF;
+  const background = config.background;
   // Specify ext to convert to another format
   const ext = config.ext || path.extname(this.resourcePath).replace(/\./, '');
   const mime = MIMES[ext];
+  const adapter = config.adapter || require('./adapters/jimp');
   const loaderContext = this;
 
   if (!sizes) {

@@ -12,7 +12,7 @@ module.exports = (imagePath) => {
           image.clone()
             .resize(width, jimp.AUTO)
             .quality(quality)
-            .background(background)
+            .background(parseInt(background, 16) || 0xFFFFFFFF)
             .getBuffer(mime, function(err, data) {
               if (err) {
                 reject(err);

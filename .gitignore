@@ -1,4 +1,5 @@
 node_modules
 *.log
 test/build
+test/**/build
 .node-version
