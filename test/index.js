@@ -59,3 +59,15 @@ test('output first resized image height & width', t => {
   t.equal(output.width, 500);
   t.end();
 });
+
+test('png to jpeg with background color', t => {
+  const output = require('../index?background=0xFF0000FF&ext=jpg!./cat-transparent.png');
+  t.equal(output.srcSet, 'foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg 500w,foobar/044a43c1ce8f89e691ac24b270cc3bb5-513.jpg 513w');
+  t.equal(output.src, 'foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg');
+  t.deepEqual(output.images, [
+    {path: 'foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg', width: 500, height: 580},
+    {path: 'foobar/044a43c1ce8f89e691ac24b270cc3bb5-513.jpg', width: 513, height: 595}
+  ]);
+  t.equal(output.toString(), 'foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg');
+  t.end();
+});
