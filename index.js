@@ -1,8 +1,7 @@
 const path = require('path');
 const loaderUtils = require('loader-utils');
 // const jimp = require('jimp');
-const sharp = require('sharp');
-const queue = require('d3-queue').queue;
+const adapter = require('./adapters/jimp');
 
 const MIMES = {
   'jpg': 'image/jpeg',
@@ -45,76 +44,69 @@ module.exports = function loader(content) {
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  const img = sharp(loaderContext.resourcePath);
-  return img.metadata((err, metadata) => {
-    if (err) {
-      return loaderCallback(err);
-    }
+  const createFile = ({data, width, height}) => {
+    const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+      context: outputContext,
+      content: data
+    }).replace(/\[width\]/ig, width);
 
-    function resizeImage(width, queueCallback) {
-      img
-          .clone()
-          .resize(width, null)
-          .quality(quality)
-          .background(background)
-          .toBuffer(function resizeCallback(queueErr, buf, info) {
-            if (err) {
-              return queueCallback(queueErr);
-            }
-            const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
-              context: outputContext,
-              content: buf
-            }).replace(/\[width\]/ig, width);
+    loaderContext.emitFile(fileName, data);
 
-            loaderContext.emitFile(fileName, buf);
+    return {
+      src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
+      path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+      width: width,
+      height: height
+    };
+  };
 
-            return queueCallback(null, {
-              src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-              path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
-              width: width,
-              height: info.height
-            });
-          });
-    }
+  const createPlaceholder = ({data}) => {
+    const placeholder = data.toString('base64');
+    return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
+  };
 
-    const q = queue();
-    const widthsToGenerate = new Set();
+  const img = adapter(loaderContext.resourcePath);
+  return img.metadata()
+    .then((metadata) => {
+      let promises = [];
+      const widthsToGenerate = new Set();
 
-    (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
-      const width = Math.min(metadata.width, parseInt(size, 10));
+      (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
+        const width = Math.min(metadata.width, parseInt(size, 10));
 
-      // Only resize images if they aren't an exact copy of one already being resized...
-      if (!widthsToGenerate.has(width)) {
-        widthsToGenerate.add(width);
-        q.defer(resizeImage, width);
-      }
-    });
-
-    if (outputPlaceholder) {
-      q.defer(function generatePlaceholder(queueCallback) {
-        img
-            .clone()
-            .resize(placeholderSize, null)
-            .quality(quality)
-            .background(background)
-            .toBuffer(function resizeCallback(queueErr, buf) {
-              if (err) {
-                return queueCallback(queueErr);
-              }
-
-              const placeholder = buf.toString('base64');
-              return queueCallback(null, JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder));
-            });
+        // Only resize images if they aren't an exact copy of one already being resized...
+        if (!widthsToGenerate.has(width)) {
+          widthsToGenerate.add(width);
+          promises.push(img.resize({
+            width,
+            quality,
+            background,
+            mime
+          }));
+        }
       });
-    }
 
-    return q.awaitAll((queueErr, files) => {
-      'use strict'; // eslint-disable-line
-      let placeholder;
       if (outputPlaceholder) {
-        placeholder = files.pop();
+        promises.push(img.resize({
+          width: placeholderSize,
+          quality,
+          background,
+          mime
+        }));
       }
 
+      return Promise.all(promises)
+        .then(results => outputPlaceholder
+          ? {
+            files: results.slice(0, -1).map(createFile),
+            placeholder: createPlaceholder(results[results.length - 1])
+          }
+          : {
+            files: results.map(createFile)
+          }
+         );
+    })
+    .then(({files, placeholder}) => {
       const srcset = files.map(f => f.src).join('+","+');
 
       const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
@@ -130,8 +122,8 @@ module.exports = function loader(content) {
           'width:' + firstImage.width + ',' +
           'height:' + firstImage.height +
       '};');
-    });
-  });
+    })
+    .catch(err => loaderCallback(err));
 };
 
 module.exports.raw = true; // get buffer stream instead of utf8 string
