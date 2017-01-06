@@ -32,8 +32,7 @@
   "homepage": "https://github.com/herrstucki/responsive-loader",
   "dependencies": {
     "d3-queue": "^3.0.2",
-    "loader-utils": "^0.2.12",
-    "sharp": "^0.16.2"
+    "loader-utils": "^0.2.16"
   },
   "devDependencies": {
     "eslint": "^3.2.2",

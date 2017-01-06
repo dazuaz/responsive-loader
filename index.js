@@ -12,19 +12,18 @@ const MIMES = {
 module.exports = function loader(content) {
   this.cacheable && this.cacheable();
   const loaderCallback = this.async();
-  const query = loaderUtils.parseQuery(this.query);
-  const options = this.options.responsiveLoader || {};
-  const sizes = query.sizes || query.size || options.sizes || [Number.MAX_SAFE_INTEGER];
-  const name = query.name || options.name || '[hash]-[width].';
-  const outputContext = query.context || options.context || '';
-  const outputPlaceholder = query.placeholder || query.placeholder !== false && options.placeholder || false;
-  const placeholderSize = query.placeholderSize || options.placeholderSize || 40;
+  const config = loaderUtils.getLoaderConfig(this, 'responsiveLoader');
+  const sizes = config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
+  const name = config.name || '[hash]-[width].';
+  const outputContext = config.context || '';
+  const outputPlaceholder = config.placeholder || false;
+  const placeholderSize = config.placeholderSize || 40;
   // JPEG compression
-  const quality = parseInt(query.quality, 10) || options.quality || 95;
+  const quality = parseInt(config.quality, 10) || 95;
   // Useful when converting from PNG to JPG
-  const background = parseInt(query.background, 16) || options.background || 0xFFFFFFFF;
+  const background = parseInt(config.background, 16) || 0xFFFFFFFF;
   // Specify ext to convert to another format
-  const ext = query.ext || path.extname(this.resourcePath).replace(/\./, '');
+  const ext = config.ext || path.extname(this.resourcePath).replace(/\./, '');
   const mime = MIMES[ext];
   const loaderContext = this;
 
@@ -36,7 +35,7 @@ module.exports = function loader(content) {
     return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
   }
 
-  if (options.pass) {
+  if (config.pass) {
     // emit original content only
     const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {context: outputContext, content: content});
     loaderContext.emitFile(f, content);
