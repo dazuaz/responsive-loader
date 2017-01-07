@@ -5,3 +5,4 @@ test/**/build/*.js
 test/**/build/**/*.png
 test/**/build/**/*.jpg
 .node-version
+/lib

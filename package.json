@@ -2,7 +2,7 @@
   "name": "responsive-loader",
   "version": "0.7.0",
   "description": "A webpack loader for responsive images",
-  "main": "index.js",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=4"
   },
@@ -10,11 +10,12 @@
     "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
     "build-test-jimp": "webpack --config=./test/jimp/webpack.config.js",
     "build-test-sharp": "webpack --config=./test/sharp/webpack.config.js",
+    "build": "babel src --out-dir lib",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest"
+    "test": "npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest"
   },
   "files": [
-    "index.js"
+    "lib"
   ],
   "repository": {
     "type": "git",
@@ -33,10 +34,13 @@
   },
   "homepage": "https://github.com/herrstucki/responsive-loader",
   "dependencies": {
-    "d3-queue": "^3.0.2",
     "loader-utils": "^0.2.16"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.21.0",
+    "babel-jest": "^18.0.0",
+    "babel-preset-env": "^1.1.6",
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",

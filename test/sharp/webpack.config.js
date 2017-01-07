@@ -4,7 +4,7 @@ module.exports = {
   entry: path.resolve(__dirname, 'index'),
   responsiveLoader: {
     sizes: [500, 750, 1000],
-    adapter: require('../../adapters/sharp')
+    adapter: require('../../lib/adapters/sharp')
   },
   output: {
     path: path.resolve(__dirname, 'build'),
