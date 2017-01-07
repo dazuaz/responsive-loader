@@ -1,6 +1,7 @@
 dist: trusty
 sudo: false
 language: node_js
+cache: yarn
 node_js:
   - '6'
   - '5'
