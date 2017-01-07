@@ -1,0 +1,188 @@
+exports[`test multiple sizes 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test output first resized image height & width 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test output should be relative to context 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/test/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w,foobar/test/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test png 1`] = `
+Object {
+  "height": 580,
+  "images": Array [
+    Object {
+      "height": 580,
+      "path": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png",
+      "width": 500,
+    },
+    Object {
+      "height": 595,
+      "path": "foobar/711285969b04c54a921259f638713eaf-513.png",
+      "width": 513,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png",
+  "srcSet": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png 500w,foobar/711285969b04c54a921259f638713eaf-513.png 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test png to jpeg with background color 1`] = `
+Object {
+  "height": 580,
+  "images": Array [
+    Object {
+      "height": 580,
+      "path": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 595,
+      "path": "foobar/1b6868f2cfc8a01322d2ec5c5dcfe6a8-513.jpg",
+      "width": 513,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg",
+  "srcSet": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg 500w,foobar/1b6868f2cfc8a01322d2ec5c5dcfe6a8-513.jpg 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test single size 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test with placeholder image 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": "data:image/jpeg;base64,/9j/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCAAkACgDAREAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAACAEDBgcJBAL/xAAvEAABAwMDAgQFBAMAAAAAAAABAgMEBQYRAAchCBIJEzFBChQiUWEVIzKRQnHB/8QAGgEAAgMBAQAAAAAAAAAAAAAAAAIBAwQFBv/EACkRAAIBBAEBBgcAAAAAAAAAAAECAAMEESExQQUGEiJR0RMUMkJhcaH/2gAMAwEAAhEDEQA/AIJuv8O0ivXXCY2gv2g25QXZA/UZDsaUuVGZGMIaa7lIfJwTlS28E/bjXQe0QnyjEzfFqFfCxzI3P+Geuxm9afMpXVNAm0P5oqqTdQthxmSloHKUtpQ6tDhPoe5SB/v00hsznRkrUOMGSnc74aDam5acZljb7VKi1UkkOJojbkVX4LXmgp5zyFentqw2iEaMBVYSkrm+HA6tdr36Veu0+61s3VU4EzzZdLfSqnkpB48pxwlCspyD3lGCeM+ustxYNVolAeRNdpefLXSVcfSQYRfTz4Oe411VWJcHVXMhUymtOBT9s0aYl6RJxj6XJDeUIQffsKlEcApJyONZ93HFQNXOvQe89h2j3yD0Slouz9x6foe/9mmcmbSqRTpNXqs2PFhw2VPSZbygltltIypaz7AAEk+2vWnieAzAo338fDof2irj1BsdmtX/ACGFFLky3UNswu77B58pDo/KQRrO91TXjcZUdumIx0x+PN0qb+bi0/bi7bJrtkTKw+I8Co1SQzIgqfUcIQtbZJb7vQKUO3PHvpVu6bHeoNSqYhrMV606gR+n3HS5JKgj9ioMufUeMYSonOfbWoMMRR6R5cFo5SonkkFBGANTCZ7b69D/AIn+8u3FXo3Up11RUWzCpb702n0QCKzMCGyoB8oCeOOST288g651SneuMEgCWhqK7IMyGnWRIMlSI7jT7CEg+awfNSpGcckcgfk/3rngl1z1E1HCNiX/ANEPh5b1dQtbrtStyO1SJNnSY/czWSqOtTjifMQlIIz/AAIOftg6dqRZDFFQI4hw9C/hpbu7M9Ultbt1qtxkQGJLk692naml1lb480MtMISB3Z7m3Co+hSR9tPb0KjVFJ4EmrVTwsR14mmBejTFd7ZwCv6gU/wDddoYMwyI3Rt1at8WnUbRvOnmpU2uRVxanSZjnc1KacT2KbWM4IUk4I9xqo+YY6Q4gi7v+Dta1c34t3ebZO0bUt2JSXGWqvbiqb2QJkds9yFJQ1/mD6pI7VYTn01mqW3mBTX46GWCocENLY3N2/wB1oC5D8K26cmbcHZGnXDT4TiXS4hJDSleWc5SnKUqIwMjPAxpbhCVyBuQmM7j3QHafUSqwa9B6h33JkqFdL7dHrjkNDPzsMAY+hPP0qynuP8sE6m1FTDBhjB1GqeDRWEKKLIjEuNOnGMc8f3raBqVToiIS88pSuO1RwB6caYAQiSlLYdIbWQE8garYnMJ5p8lyU6954SccDjQu4TsQopjllJISUegOMasHEIqAVpLqlkkgpPPqNTCf/9k=",
+  "src": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w,foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`test with size defined in webpack.config.js 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+  "srcSet": "foobar/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w,foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;

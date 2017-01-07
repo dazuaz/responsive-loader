@@ -7,12 +7,11 @@
     "node": ">=4"
   },
   "scripts": {
-    "build-test-jimp": "rm -rf test/jimp/build && webpack --config=./test/jimp/webpack.config.js",
-    "build-test-sharp": "rm -rf test/sharp/build && webpack --config=./test/sharp/webpack.config.js",
+    "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
+    "build-test-jimp": "webpack --config=./test/jimp/webpack.config.js",
+    "build-test-sharp": "webpack --config=./test/sharp/webpack.config.js",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test-jimp": "npm run build-test-jimp && tape './test/jimp/build/test.js' | tap-spec",
-    "test-sharp": "npm run build-test-sharp && tape './test/sharp/build/test.js' | tap-spec",
-    "test": "npm run test-jimp && npm run test-sharp"
+    "test": "npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest"
   },
   "files": [
     "index.js"
@@ -41,13 +40,15 @@
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
+    "jest": "^18.1.0",
     "jimp": "^0.2.21",
     "sharp": "^0.17.0",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.5.1",
     "webpack": "^1.13.0"
   },
   "peerDependencies": {
     "jimp": "^0.2.21"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
