@@ -12,7 +12,8 @@
     "build-test-sharp": "webpack --config=./test/sharp/webpack.config.js",
     "build": "babel src --out-dir lib",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest"
+    "test": "npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest",
+    "shipit": "scripts/publish"
   },
   "files": [
     "lib"
