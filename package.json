@@ -50,7 +50,7 @@
     "flow-bin": "^0.44.0",
     "jest": "^19.0.2",
     "jimp": "^0.2.21",
-    "sharp": "0.17.0",
+    "sharp": "^0.17.3",
     "webpack": "^1.13.0"
   },
   "peerDependencies": {
