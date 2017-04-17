@@ -1,3 +1,5 @@
+// @flow
+
 const path = require('path');
 const loaderUtils = require('loader-utils');
 
@@ -7,24 +9,38 @@ const MIMES = {
   'png': 'image/png'
 };
 
-module.exports = function loader(content) {
+type Config = {
+  size: string | number | void;
+  sizes: [string | number] | void;
+  name: string | void;
+  context: string | void;
+  outputPlaceholder: string | boolean | void;
+  placeholderSize: string | number | void;
+  quality: string | number | void;
+  background: string | number | void;
+  ext: string | void;
+  placeholder: string | boolean | void;
+  adapter: ?Function;
+};
+
+module.exports = function loader(content: Buffer) {
   this.cacheable && this.cacheable();
   const loaderCallback = this.async();
-  const config = loaderUtils.getLoaderConfig(this, 'responsiveLoader');
+  const config: Config = loaderUtils.getLoaderConfig(this, 'responsiveLoader');
   const sizes = config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
   const name = config.name || '[hash]-[width].';
-  const outputContext = config.context || '';
-  const outputPlaceholder = config.placeholder || false;
-  const placeholderSize = config.placeholderSize || 40;
+  const outputContext: string = config.context || '';
+  const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
+  const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
   // JPEG compression
-  const quality = parseInt(config.quality, 10) || 95;
+  const quality: number = parseInt(config.quality, 10) || 95;
   // Useful when converting from PNG to JPG
-  const background = config.background;
+  const background: string | number | void = config.background;
   // Specify ext to convert to another format
-  const ext = config.ext || path.extname(this.resourcePath).replace(/\./, '');
-  const mime = MIMES[ext];
-  const adapter = config.adapter || require('./adapters/jimp');
-  const loaderContext = this;
+  const ext: string = config.ext || path.extname(this.resourcePath).replace(/\./, '');
+  const mime: string = MIMES[ext];
+  const adapter: Function = config.adapter || require('./adapters/jimp');
+  const loaderContext: any = this;
 
   if (!sizes) {
     return loaderCallback(null, content);
@@ -58,7 +74,7 @@ module.exports = function loader(content) {
     };
   };
 
-  const createPlaceholder = ({data}) => {
+  const createPlaceholder = ({data}: {data: Buffer}) => {
     const placeholder = data.toString('base64');
     return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
   };

@@ -12,7 +12,7 @@
     "build-test-sharp": "webpack --config=./test/sharp/webpack.config.js",
     "build": "babel src --out-dir lib",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest",
+    "test": "flow && npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest",
     "shipit": "scripts/publish"
   },
   "files": [
@@ -35,18 +35,22 @@
   },
   "homepage": "https://github.com/herrstucki/responsive-loader",
   "dependencies": {
-    "loader-utils": "^0.2.16"
+    "loader-utils": "0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "18",
     "babel-preset-env": "^1.1.6",
+    "babel-preset-flow": "^6.23.0",
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
-    "jest": "^18.1.0",
+    "flow-bin": "^0.44.0",
+    "jest": "18",
     "jimp": "^0.2.21",
-    "sharp": "^0.17.0",
+    "sharp": "0.17.0",
     "webpack": "^1.13.0"
   },
   "peerDependencies": {
