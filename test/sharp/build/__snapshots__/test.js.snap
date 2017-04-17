@@ -1,4 +1,6 @@
-exports[`test multiple sizes 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`multiple sizes 1`] = `
 Object {
   "height": 450,
   "images": Array [
@@ -21,7 +23,7 @@ Object {
 }
 `;
 
-exports[`test output first resized image height & width 1`] = `
+exports[`output first resized image height & width 1`] = `
 Object {
   "height": 450,
   "images": Array [
@@ -39,7 +41,7 @@ Object {
 }
 `;
 
-exports[`test output should be relative to context 1`] = `
+exports[`output should be relative to context 1`] = `
 Object {
   "height": 450,
   "images": Array [
@@ -67,7 +69,7 @@ Object {
 }
 `;
 
-exports[`test png 1`] = `
+exports[`png 1`] = `
 Object {
   "height": 580,
   "images": Array [
@@ -90,7 +92,7 @@ Object {
 }
 `;
 
-exports[`test png to jpeg with background color 1`] = `
+exports[`png to jpeg with background color 1`] = `
 Object {
   "height": 580,
   "images": Array [
@@ -113,7 +115,7 @@ Object {
 }
 `;
 
-exports[`test single size 1`] = `
+exports[`single size 1`] = `
 Object {
   "height": 450,
   "images": Array [
@@ -131,7 +133,7 @@ Object {
 }
 `;
 
-exports[`test with placeholder image 1`] = `
+exports[`with placeholder image 1`] = `
 Object {
   "height": 450,
   "images": Array [
@@ -159,7 +161,7 @@ Object {
 }
 `;
 
-exports[`test with size defined in webpack.config.js 1`] = `
+exports[`with size defined in webpack.config.js 1`] = `
 Object {
   "height": 450,
   "images": Array [
