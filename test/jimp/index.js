@@ -15,7 +15,7 @@ test('with size defined in webpack.config.js', () => {
 });
 
 test('output should be relative to context', () => {
-  const multi = require('../../lib/index?name=[path][hash]-[width].&context=./!../cat-1000.jpg');
+  const multi = require('../../lib/index?name=[path][hash]-[width]x[height].&context=./!../cat-1000.jpg');
   expect(multi).toMatchSnapshot();
 });
 

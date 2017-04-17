@@ -47,23 +47,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
+      "path": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500x450.jpg",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/test/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "path": "foobar/test/fb9a96e23c0f6afc0375cf511502b124-750x675.jpg",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "path": "foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000x900.jpg",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg",
-  "srcSet": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500.jpg 500w,foobar/test/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "src": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500x450.jpg",
+  "srcSet": "foobar/test/a33103b9f9aa12254bd59400e9b74bc7-500x450.jpg 500w,foobar/test/fb9a96e23c0f6afc0375cf511502b124-750x675.jpg 750w,foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000x900.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }

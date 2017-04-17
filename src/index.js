@@ -63,7 +63,9 @@ module.exports = function loader(content: Buffer) {
     const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
       context: outputContext,
       content: data
-    }).replace(/\[width\]/ig, width);
+    })
+    .replace(/\[width\]/ig, width)
+    .replace(/\[height\]/ig, height);
 
     loaderContext.emitFile(fileName, data);
 
