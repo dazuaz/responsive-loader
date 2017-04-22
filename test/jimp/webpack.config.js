@@ -5,6 +5,12 @@ module.exports = {
   responsiveLoader: {
     sizes: [500, 750, 1000]
   },
+  module: {
+    loaders: [{
+      test: /\.(png|jpg)(\?.+)?$/,
+      loader: require.resolve('../../lib/index')
+    }]
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: 'foobar/',
