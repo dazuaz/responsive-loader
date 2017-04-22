@@ -115,6 +115,29 @@ Object {
 }
 `;
 
+exports[`png to jpeg with background color 2`] = `
+Object {
+  "height": 580,
+  "images": Array [
+    Object {
+      "height": 580,
+      "path": "foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 595,
+      "path": "foobar/044a43c1ce8f89e691ac24b270cc3bb5-513.jpg",
+      "width": 513,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg",
+  "srcSet": "foobar/06e7bae0ae188cc9121aa82a068b5d1f-500.jpg 500w,foobar/044a43c1ce8f89e691ac24b270cc3bb5-513.jpg 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
 exports[`single size 1`] = `
 Object {
   "height": 450,

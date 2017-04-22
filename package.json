@@ -8,11 +8,11 @@
   },
   "scripts": {
     "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
-    "build-test-jimp": "webpack --config=./test/jimp/webpack.config.js",
-    "build-test-sharp": "webpack --config=./test/sharp/webpack.config.js",
+    "build-test-jimp": "webpack --config=./test/jimp/webpack2.config.js",
+    "build-test-sharp": "webpack --config=./test/sharp/webpack2.config.js",
     "build": "babel src --out-dir lib",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "flow && npm run build && npm run clean-test && npm run build-test-jimp && npm run build-test-sharp && jest",
+    "test": "flow && yarn run build && yarn run clean-test && yarn run build-test-jimp && yarn run build-test-sharp && jest",
     "shipit": "scripts/publish"
   },
   "files": [
@@ -47,11 +47,11 @@
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
-    "flow-bin": "^0.44.0",
+    "flow-bin": "^0.44.2",
     "jest": "^19.0.2",
     "jimp": "^0.2.21",
     "sharp": "^0.17.3",
-    "webpack": "^1.13.0"
+    "webpack": "2"
   },
   "peerDependencies": {
     "jimp": "^0.2.21"

@@ -27,7 +27,8 @@ module.exports = function loader(content: Buffer) {
   this.cacheable && this.cacheable();
   const loaderCallback = this.async();
   const legacyWebpackOptions = this.options.responsiveLoader;
-  const config: Config = Object.assign({}, legacyWebpackOptions, loaderUtils.getOptions(this));
+  const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
+  const config: Config = Object.assign({}, legacyWebpackOptions, loaderUtils.getOptions(this), parsedResourceQuery);
   const sizes = config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
   const name = config.name || '[hash]-[width].';
   const outputContext: string = config.context || '';
