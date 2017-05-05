@@ -96,6 +96,7 @@ module.exports = function loader(content) {
             .resize(placeholderSize, jimp.AUTO)
             .quality(quality)
             .background(background)
+            .blur(1)
             .getBuffer(mime, function resizeCallback(queueErr, buf) {
               if (err) {
                 return queueCallback(queueErr);
