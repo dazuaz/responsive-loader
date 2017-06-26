@@ -9,7 +9,7 @@ module.exports = {
         loader: require.resolve('../../lib/index'),
         options: {
           sizes: [500, 750, 1000],
-          adapter: require('../../lib/adapters/sharp')
+          adapter: require('../../sharp')
         }
       }
     ]

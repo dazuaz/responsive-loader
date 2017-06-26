@@ -14,7 +14,9 @@
     "shipit": "scripts/publish"
   },
   "files": [
-    "lib"
+    "lib",
+    "jimp.js",
+    "sharp.js"
   ],
   "repository": {
     "type": "git",
