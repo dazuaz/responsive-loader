@@ -1,4 +1,4 @@
-os: osx
+# os: osx
 language: node_js
 cache: yarn
 node_js:
