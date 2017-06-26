@@ -1,6 +1,6 @@
 {
   "name": "responsive-loader",
-  "version": "0.8.0-alpha.1",
+  "version": "1.0.0-rc.1",
   "description": "A webpack loader for responsive images",
   "main": "lib/index.js",
   "engines": {
