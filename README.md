@@ -6,17 +6,69 @@ A webpack loader for responsive images. Creates multiple images from one source 
 
 ## Install
 
+### With jimp
+
 ```
 npm install responsive-loader jimp --save-dev
 ```
 
-responsive-loader uses [jimp](https://github.com/oliver-moran/jimp), a pure JS image manipulation library (so no other dependencies, yay :v:), to transform images which needs to be installed alongside responsive-loader.
+Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow.
+
+### With sharp
+
+```
+npm install responsive-loader sharp --save-dev
+```
+
+For [super-charged performance](http://sharp.dimens.io/en/stable/performance/), responsive-loader also works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform.
+
+If you want to use sharp, you need to configure responsive-loader to use its adapter:
+
+```diff
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
++         adapter: require('responsive-loader/sharp')
+        }
+      }
+    ]
+  },
+}
+```
+
 
 ## Usage
 
+Add a rule for loading responsive images to your webpack config:
+
+```js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
+          // If you want to enable sharp support:
+          // adapter: require('responsive-loader/sharp')
+        }
+      }
+    ]
+  },
+}
+```
+
+Then import images in your JavaScript files:
+
 ```js
 // Outputs three images with 100, 200, and 300px widths
-const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
+const responsiveImage = require('myImage.jpg?sizes[]=100,sizes[]=200,sizes[]=300');
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
 // responsiveImage.images => [{height: 50, path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {height: 100, path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
@@ -31,16 +83,16 @@ ReactDOM.render(<img {...responsiveImage} />, el);
 Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
 
 ```css
-.myImage { background: url('responsive?size=1140!myImage.jpg'); }
+.myImage { background: url('myImage.jpg?size=1140'); }
 
 @media (max-width: 480px) {
-  .myImage { background: url('responsive?size=480!myImage.jpg'); }
+  .myImage { background: url('myImage.jpg?size=480'); }
 }
 ```
 
 ```js
 // Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
-const responsiveImage = require('responsive?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
+const responsiveImage = require('myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300');
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
 ReactDOM.render(
@@ -75,16 +127,18 @@ module.exports = {
   entry: {...},
   output: {...},
   module: {
-    loaders: [{
-      test: /\.(jpe?g|png)$/i,
-      loader: 'responsive'
-    ]}
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
+          sizes: [300, 600, 1200, 2000],
+          placeholder: true,
+          placeholderSize: 50
+        }
+      }
+    ]
   },
-  responsiveLoader: {
-    sizes: [300, 600, 1200, 2000],
-    placeholder: true,
-    placeholderSize: 50
-  }
 }
 ```
 

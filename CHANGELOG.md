@@ -1,33 +1,75 @@
 # Change Log
 
-## 0.7.0
+## v1.0.0 [Unreleased]
+
+### New
+
+- 🚀 Added support for [sharp](https://github.com/lovell/sharp) ([#19](https://github.com/herrstucki/responsive-loader/pull/29))
+
+### Breaking
+
+Removed support for webpack 1! Please upgrade to webpack >= 2.
+
+The syntax to import images has changed. The query part now comes _after_ the resource (the image) instead of the loader.
+
+```diff
+- require('responsive-loader?size=100!some-image.jpg')
++ require('responsive-loader!some-image.jpg?size=100')
+```
+
+That means if `responsive-loader` is configured in your webpack-config, it's possible to specify image-specific options without having to add the loader part to the import path. For example:
+
+```js
+// webpack.config.js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.jpg$/,
+        loader: 'responsive-loader',
+        options: {
+          size: 1000
+          //...
+        }
+      }
+    ]
+  },
+}
+
+// some-file.js
+const image1000 = require('some-image.jpg') // will have size 1000 from the config
+const image500 = require('some-image.jpg?size=500')
+```
+
+## v0.7.0
 
 - Add `placeholder` option ([#16](https://github.com/herrstucki/responsive-loader/pull/16))
 - Add `width` and `height` attributes to output ([#19](https://github.com/herrstucki/responsive-loader/pull/19))
 
-## 0.6.1
+## v0.6.1
 
 - Declare default `name`, `context`, `quality`, and `background` through webpack options when they're not specified in the loader query ([#12](https://github.com/herrstucki/responsive-loader/pull/12)).
 
-## 0.6.0
+## v0.6.0
 
 - Add linting ([#7](https://github.com/herrstucki/responsive-loader/pull/7))
 - Breaking (maybe): Require node >= v4
 
-## 0.5.3
+## v0.5.3
 
 - Fix wrong callback being called on file load error ([#6](https://github.com/herrstucki/responsive-loader/pull/6))
 
-## 0.5.2
+## v0.5.2
 
 - Added tests!
 - Update `queue-async` to `d3-queue`
 
-## 0.5.1
+## v0.5.1
 
 - Optimization: skip resizing images of the same size ([#5](https://github.com/herrstucki/responsive-loader/pull/5))
 
-## 0.5.0
+## v0.5.0
 
 Using the `size` option for getting only one resized image no longer just returns a string but the same object structure as when using `sizes`. The difference is, that when `toString()` is called on that object, it will return the path of the first resized image.
 
