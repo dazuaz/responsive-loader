@@ -49,7 +49,7 @@
     "jest": "^20.0.4",
     "jimp": "^0.2.21",
     "sharp": "^0.18.1",
-    "webpack": "^2.4.1"
+    "webpack": "^3.0.0"
   },
   "peerDependencies": {
     "jimp": "^0.2.21"
