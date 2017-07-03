@@ -24,7 +24,6 @@ type Config = {
 };
 
 module.exports = function loader(content: Buffer) {
-  this.cacheable && this.cacheable();
   const loaderCallback = this.async();
   const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
   const config: Config = Object.assign({}, loaderUtils.getOptions(this), parsedResourceQuery);
