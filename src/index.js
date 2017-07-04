@@ -19,7 +19,6 @@ type Config = {
   sizes: [string | number] | void;
   name: string | void;
   context: string | void;
-  outputPlaceholder: string | boolean | void;
   placeholderSize: string | number | void;
   quality: string | number | void;
   background: string | number | void;
@@ -61,6 +60,12 @@ module.exports = function loader(content: Buffer) {
 
   const adapter: Function = config.adapter || require('./adapters/jimp');
   const loaderContext: any = this;
+
+  // The config that is passed to the adatpers
+  const adapterOptions = Object.assign({}, config, {
+    quality,
+    background
+  });
 
   if (!sizes) {
     return loaderCallback(null, content);
@@ -111,9 +116,8 @@ module.exports = function loader(content: Buffer) {
           widthsToGenerate.add(width);
           promises.push(img.resize({
             width,
-            quality,
-            background,
-            mime
+            mime,
+            options: adapterOptions
           }));
         }
       });
@@ -121,8 +125,7 @@ module.exports = function loader(content: Buffer) {
       if (outputPlaceholder) {
         promises.push(img.resize({
           width: placeholderSize,
-          quality,
-          background,
+          options: adapterOptions,
           mime
         }));
       }

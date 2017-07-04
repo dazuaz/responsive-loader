@@ -8,14 +8,14 @@ module.exports = (imagePath: string) => {
   return {
     metadata: () => readImage
       .then(image => ({width: image.bitmap.width, height: image.bitmap.height})),
-    resize: ({width, quality, background, mime}: {width: number, quality: number | void, background: string, mime: string}) =>
+    resize: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}, ) =>
       new Promise((resolve, reject) => {
         readImage.then(image => {
           image.clone()
             .resize(width, jimp.AUTO)
-            .quality(quality)
-            .background(parseInt(background, 16) || 0xFFFFFFFF)
-            .getBuffer(mime, function(err, data) {
+            .quality(options.quality)
+            .background(parseInt(options.background, 16) || 0xFFFFFFFF)
+            .getBuffer(mime, function(err, data) { // eslint-disable-line func-names
               if (err) {
                 reject(err);
               } else {

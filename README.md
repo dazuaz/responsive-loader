@@ -109,13 +109,23 @@ ReactDOM.render(
 
 ### Options
 
-- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
+- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.
 - `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
-- `quality: integer` — JPEG compression quality; defaults to `95`
-- `ext: string` — either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
-- `background: hex` — Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
-- `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI. (Defaults to `false`)
-- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above. (Defaults to `40`)
+- `quality: integer` — JPEG compression quality; defaults to `85`
+- `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
+- `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
+- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above; defaults to `40`
+- `adapter: Adapter` — Specify which adapter to use. Can only be specified in the loader options.
+
+#### Adapter-specific options
+
+##### jimp
+
+- `background: number` — Background fill when converting transparent to opaque images. Make sure this is a valid hex number, e.g. `0xFFFFFFFF`)
+
+##### sharp
+
+- `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF`
 
 
 ### Examples
@@ -139,6 +149,32 @@ module.exports = {
       }
     ]
   },
+}
+```
+
+### Writing Your Own Adapter
+
+Maybe you want to use another image processing library or you want to change an existing one's behavior. You can write your own adapter with the following signature:
+
+```js
+type Adapter = (imagePath: string) => {
+  metadata: () => Promise<{width: number, height: number}>
+  resize: (config: {width: number, mime: string, options: Object}) => Promise<{data: Buffer, width: number, height: number}>
+}
+```
+
+The `resize` method takes a single argument which has a `width`, `mime` and `options` property (which receives all loader options)
+
+In your webpack config, require your adapter
+
+```js
+{
+  test: /\.(jpe?g|png)$/i,
+  loader: 'responsive-loader',
+  options: {
+    adapter: require('./my-adapter')
+    foo: 'bar' // will get passed to adapter.resize({width, mime, options: {foo: 'bar}})
+  }
 }
 ```
 

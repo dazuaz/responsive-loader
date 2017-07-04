@@ -7,19 +7,19 @@ module.exports = (imagePath: string) => {
 
   return {
     metadata: () => image.metadata(),
-    resize: ({width, quality, background, mime}: {width: number, quality: number | void, background: string, mime: string}) =>
+    resize: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}) =>
       new Promise((resolve, reject) => {
         let resized = image.clone()
           .resize(width, null);
 
-        if (background) {
-          resized = resized.background(background)
+        if (options.background) {
+          resized = resized.background(options.background)
           .flatten();
         }
 
         if (mime === 'image/jpeg') {
           resized = resized.jpeg({
-            quality
+            quality: options.quality
           });
         }
 
