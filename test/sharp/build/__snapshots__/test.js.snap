@@ -6,18 +6,18 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
       "width": 500,
     },
     Object {
       "height": 900,
-      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
-  "srcSet": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg 500w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }
@@ -29,13 +29,13 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
       "width": 500,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
-  "srcSet": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg 500w",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w",
   "toString": [Function],
   "width": 500,
 }
@@ -47,23 +47,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/test/2add071a9e85f275bcb9217ccd2ffca9-500x450.jpg",
+      "path": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/test/fb9a96e23c0f6afc0375cf511502b124-750x675.jpg",
+      "path": "foobar/test/a011c4fb35cda2d2c8cd4384711ce65e-750x675.jpg",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000x900.jpg",
+      "path": "foobar/test/c0e86e74879bf9156e7b1e92b38f293c-1000x900.jpg",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/test/2add071a9e85f275bcb9217ccd2ffca9-500x450.jpg",
-  "srcSet": "foobar/test/2add071a9e85f275bcb9217ccd2ffca9-500x450.jpg 500w,foobar/test/fb9a96e23c0f6afc0375cf511502b124-750x675.jpg 750w,foobar/test/c239a7d5a3e69d39dac5998c1ebb11d0-1000x900.jpg 1000w",
+  "src": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg",
+  "srcSet": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg 500w,foobar/test/a011c4fb35cda2d2c8cd4384711ce65e-750x675.jpg 750w,foobar/test/c0e86e74879bf9156e7b1e92b38f293c-1000x900.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }
@@ -98,18 +98,18 @@ Object {
   "images": Array [
     Object {
       "height": 580,
-      "path": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg",
+      "path": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg",
       "width": 500,
     },
     Object {
       "height": 595,
-      "path": "foobar/1b6868f2cfc8a01322d2ec5c5dcfe6a8-513.jpg",
+      "path": "foobar/064787a0e33e6aba3b8f8417d05447c0-513.jpg",
       "width": 513,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg",
-  "srcSet": "foobar/3fe5038768ca37c6d6c90b3ac693eff5-500.jpg 500w,foobar/1b6868f2cfc8a01322d2ec5c5dcfe6a8-513.jpg 513w",
+  "src": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg",
+  "srcSet": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg 500w,foobar/064787a0e33e6aba3b8f8417d05447c0-513.jpg 513w",
   "toString": [Function],
   "width": 500,
 }
@@ -121,13 +121,13 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
       "width": 500,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
-  "srcSet": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg 500w",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w",
   "toString": [Function],
   "width": 500,
 }
@@ -139,23 +139,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "path": "foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
       "width": 1000,
     },
   ],
-  "placeholder": "data:image/jpeg;base64,/9j/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCAAkACgDAREAAhEBAxEB/8QAGwAAAgIDAQAAAAAAAAAAAAAABQgGCQIEBwP/xAAuEAACAQMDAgQFBAMAAAAAAAABAgMEBREABgcIIQkSMUEKEyJRYRQjMnEVUrH/xAAaAQACAwEBAAAAAAAAAAAAAAAAAgMEBQEG/8QAKBEAAgIBAwMDBAMAAAAAAAAAAQIAAxEEITEFEkEGIlETFDKBcZGx/9oADAMBAAIRAxEAPwCGcofDr2rcW76GPirkez7a288+bnJ+hqJKyGEYxHDGXMcpOCfM7Jgn3HbWg+kQn27St9SwrhjmAF+GeudJv63XGDqkgrtvxzM9wp67azR1RUHKIipK0bj/AGLMvp2B0n2W/M6LDjeHOVPhmeI9x0LVnG/O93slzIODLZ45aVz7AxiQMnvkgn+vvI2kQjY4gLWE5Bcfh0urLhjc1m3zw5yltnd01L5hc7fWMba4J7ERtISjLj3YqfxqlrOnPfQa1PM0emdQGh1qXkcf5Gj6XvB8qqPcVDv/AKrK2214pHWaHadsIkp2lU5H6mXGJVGB+2n0t7kjKnP6f6fFNgsvOcePH7noerern1NRq0q9oPLHn9fH8ywe+3/b2ztvV+7d1XWnt9rtlM9TXV9R9MdPCgyzufYDGvTnYTxBOBEI5x+Ij6T+Pb3NZuI+Pr5vr5LFf8rHOluo3b7p81GkkX8+VP61VfVopwBmSLW5GeIU6QvHl6feovkuh4t5B44uOxK+7kpbrlU3OOqoZJsFgjsFVocgdmORnsceuuJrKycNtA02GOlYeTeK94VCU20eRtu3aSV/lxpbL5S1BZ+/0gRuTnse2rPenzEwYUeiikTykk574f0zp4SvDqN8Njqi3nxNuC8dWniM3i97Z2/ZqmsmommenoyYoy6tUD6UIB9XZWPfWdbTqmU9zgCTK9S79sqQh2RLeKwRWORa9MRlFo0MhcMcLlf5DJwB9yffWeMund5lk4RseI1nRJ4W/MPLSbiv13uMe0LztK9i3rbr9BLHMZvlK7ZAGVGHBHrntprKiUOTgxEuCWA+I8nh0+G1dul7qLh5km3bQm2w2eVLpRJUPM1bdZQymVAY08kSgqQTk58wwOx1PpaGFoc8CctuUoVHmP5HPTVIEqqwUE+ZSB27ffWvtKkjd12HtrcFmqLJfrBBXQXGMxVlDWxfOgmVvVZEYFXBHqCMffUWM7Qi68jeFptPdnUXYepTZF0tm3LnZpEWqpKWyQtT1kcYIiKxqFEcqZ7Nj2B9QDqF9MC4cbYjh2CkGSjlzhHmW80s1jo69JIbvGy1l1oqJFq1kRPod3BDDsvkD9yOwHtqO+tnwRBCAd4c6FuH+bth8F0di5/vlTc7rT3WsNNc6yRWqamkaT9ppgoAV+zdh6AjTaZLQmH+T/U7YULe2doeyGnVpImLD3U/81bxtI5uRU6K5kJJOfc66dt4TxqU8syFXYZ7+vppD+UJjb55XglkdyxL47/3plHMJv1kSwqkSkkSH6s/jGnhMIwHjErd2f8Akfvg40Qn/9k=",
-  "src": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
-  "srcSet": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg 500w,foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "placeholder": "data:image/jpeg;base64,/9j/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAkACgDASIAAhEBAxEB/8QAHAAAAgEFAQAAAAAAAAAAAAAAAAcGAQIDBAgF/8QALRAAAQMDAgMHBAMAAAAAAAAAAQIDBAAFEQYhBxIxCBMiQWFxgSMyUaFCUpH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQMCBP/EAB0RAAMAAgIDAAAAAAAAAAAAAAABAgMRBBIhIjH/2gAMAwEAAhEDEQA/APLvfZ1ak3BoWq5RYEIq+qe7WXEp/CRnCvckVpDszuourDidUoehBRLqXIZDmPIAAkH1yRXSEqRHhxHpcp1DMdlBW44rYISOpNJzU3aJ0nbpKmbRb5d35TjvgoMtk+mQSR8Cr1ML6TTZHr52ZrRJaK7bfpMSR6sBTZ+M5H+1GHuzpq2yzYs6zXSBclIz3rS/oH4J2I98U0NAcedPajvLVruFtfs70jZp1bwcaKuuCcZT7mmpFudqmLCYlxhSSo8oDUhC8n8bGk4i1o1N1DTQndE8Hlols3DVa2Hu7IUmE14kFQ/ur+Q9Bsf1RTqKAR5n3oojDELSRTLyMmWu1MSer+GuqZthmvat4jSpcCIwt1TZUUN+EZBWNh8kGubEwS85hgh4bYCBnOem3Wu9n4EaRHWxIjoeQ8OVbbg5kKB8iDsahF34WRJeroepYLseDIjkBaER0lDgH24SMYUPzWax78omqEJw24W3i7CbIecTbJUCR3IakpUFc3KCfbrTc4RcNntL6uReTLZ7hLCg82FFRcfVkcw2GEjb91L7/Y7y8hTCHAUyAQt5tsBwEDYk9fLGa2+GNnvcDTDTGoH3JElDznI64QVrbJ8JVjYHrSUewdnolQUlW++PMUUFjlBIOaK6DBlSkZJqxY8QwTRRSYFGlEpUSc71mcAAA8j1oopoCg3GfM9aKKKAP//Z",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg 750w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }
@@ -167,23 +167,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg",
+      "path": "foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg",
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg",
-  "srcSet": "foobar/2add071a9e85f275bcb9217ccd2ffca9-500.jpg 500w,foobar/fb9a96e23c0f6afc0375cf511502b124-750.jpg 750w,foobar/c239a7d5a3e69d39dac5998c1ebb11d0-1000.jpg 1000w",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg 750w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }

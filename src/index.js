@@ -37,7 +37,7 @@ module.exports = function loader(content: Buffer) {
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
   // JPEG compression
-  const quality: number = parseInt(config.quality, 10) || 95;
+  const quality: number = parseInt(config.quality, 10) || 85;
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
   // Specify mimetype to convert to another format
