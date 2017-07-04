@@ -15,7 +15,7 @@ test('with size defined in webpack.config.js', () => {
 });
 
 test('output should be relative to context', () => {
-  const multi = require('../cat-1000.jpg?name=[path][hash]-[width]x[height].&context=./');
+  const multi = require('../cat-1000.jpg?name=[path][hash]-[width]x[height].[ext]&context=./');
   expect(multi).toMatchSnapshot();
 });
 
@@ -35,6 +35,6 @@ test('png', () => {
 });
 
 test('png to jpeg with background color', () => {
-  const output = require('../cat-transparent.png?background=#FF0000&ext=jpg');
+  const output = require('../cat-transparent.png?background=#FF0000&format=jpg');
   expect(output).toMatchSnapshot();
 });

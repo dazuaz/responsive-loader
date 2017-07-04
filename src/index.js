@@ -9,6 +9,11 @@ const MIMES = {
   'png': 'image/png'
 };
 
+const EXTS = {
+  'image/jpeg': 'jpg',
+  'image/png': 'png'
+};
+
 type Config = {
   size: string | number | void;
   sizes: [string | number] | void;
@@ -18,9 +23,9 @@ type Config = {
   placeholderSize: string | number | void;
   quality: string | number | void;
   background: string | number | void;
-  ext: string | void;
   placeholder: string | boolean | void;
   adapter: ?Function;
+  format: 'png' | 'jpg' | 'jpeg'
 };
 
 module.exports = function loader(content: Buffer) {
@@ -28,7 +33,6 @@ module.exports = function loader(content: Buffer) {
   const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
   const config: Config = Object.assign({}, loaderUtils.getOptions(this), parsedResourceQuery);
   const sizes = config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
-  const name = config.name || '[hash]-[width].';
   const outputContext: string = config.context || '';
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
@@ -36,9 +40,25 @@ module.exports = function loader(content: Buffer) {
   const quality: number = parseInt(config.quality, 10) || 95;
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
-  // Specify ext to convert to another format
-  const ext: string = config.ext || path.extname(this.resourcePath).replace(/\./, '');
-  const mime: string = MIMES[ext];
+  // Specify mimetype to convert to another format
+  let mime: string;
+  let ext: string;
+  if (config.format) {
+    if (!MIMES.hasOwnProperty(config.format)) {
+      return loaderCallback(new Error('Format "' + config.format + '" not supported'));
+    }
+    mime = MIMES[config.format];
+    ext = EXTS[mime];
+  } else {
+    ext = path.extname(this.resourcePath).replace(/\./, '');
+    mime = MIMES[ext];
+    if (!mime) {
+      return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
+    }
+  }
+
+  const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
+
   const adapter: Function = config.adapter || require('./adapters/jimp');
   const loaderContext: any = this;
 
@@ -46,20 +66,16 @@ module.exports = function loader(content: Buffer) {
     return loaderCallback(null, content);
   }
 
-  if (!mime) {
-    return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
-  }
-
   if (config.pass) {
     // emit original content only
-    const f = loaderUtils.interpolateName(loaderContext, '[hash].[ext]', {context: outputContext, content: content});
+    const f = loaderUtils.interpolateName(loaderContext, name, {context: outputContext, content: content});
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
   const createFile = ({data, width, height}) => {
-    const fileName = loaderUtils.interpolateName(loaderContext, name + ext, {
+    const fileName = loaderUtils.interpolateName(loaderContext, name, {
       context: outputContext,
       content: data
     })

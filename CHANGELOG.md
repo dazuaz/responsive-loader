@@ -8,6 +8,8 @@
 
 ### Breaking
 
+#### Webpack 2 support
+
 Removed support for webpack 1! Please upgrade to webpack >= 2.
 
 The syntax to import images has changed. The query part now comes _after_ the resource (the image) instead of the loader.
@@ -41,6 +43,10 @@ module.exports = {
 const image1000 = require('some-image.jpg') // will have size 1000 from the config
 const image500 = require('some-image.jpg?size=500')
 ```
+
+#### Other breaking changes
+
+- The `ext` option was removed, in favor of `format=jpg|png`. `[ext]` is now part of the `name` option like in other loaders (fixes [#13](https://github.com/herrstucki/responsive-loader/issues/13))
 
 ## v0.7.0
 
