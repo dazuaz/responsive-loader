@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`disable 1`] = `
+Object {
+  "images": Array [
+    Object {
+      "height": 100,
+      "path": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+      "width": 100,
+    },
+  ],
+  "src": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+  "srcSet": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+  "toString": [Function],
+}
+`;
+
 exports[`multiple sizes 1`] = `
 Object {
   "height": 450,

@@ -15,16 +15,17 @@ const EXTS = {
 };
 
 type Config = {
-  size: string | number | void;
-  sizes: [string | number] | void;
-  name: string | void;
-  context: string | void;
-  placeholderSize: string | number | void;
-  quality: string | number | void;
-  background: string | number | void;
-  placeholder: string | boolean | void;
-  adapter: ?Function;
-  format: 'png' | 'jpg' | 'jpeg'
+  size: string | number | void,
+  sizes: [string | number] | void,
+  name: string | void,
+  context: string | void,
+  placeholderSize: string | number | void,
+  quality: string | number | void,
+  background: string | number | void,
+  placeholder: string | boolean | void,
+  adapter: ?Function,
+  format: 'png' | 'jpg' | 'jpeg',
+  disable: ?boolean,
 };
 
 module.exports = function loader(content: Buffer) {
@@ -71,12 +72,17 @@ module.exports = function loader(content: Buffer) {
     return loaderCallback(null, content);
   }
 
-  if (config.pass) {
+  if (config.disable) {
     // emit original content only
-    const f = loaderUtils.interpolateName(loaderContext, name, {context: outputContext, content: content});
+    const f = loaderUtils.interpolateName(loaderContext, name, {
+      context: outputContext,
+      content: content
+    })
+      .replace(/\[width\]/ig, '100')
+      .replace(/\[height\]/ig, '100');
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
-    return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:1}],src: ' + p + ',toString:function(){return ' + p + '}};');
+    return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:100,height:100}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
   const createFile = ({data, width, height}) => {

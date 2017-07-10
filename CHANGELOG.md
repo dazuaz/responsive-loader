@@ -48,6 +48,7 @@ const image500 = require('some-image.jpg?size=500')
 
 - The `ext` option was removed, in favor of `format=jpg|png`. `[ext]` is now part of the `name` option like in other loaders (fixes [#13](https://github.com/herrstucki/responsive-loader/issues/13))
 - Changed default JPEG `quality` to `85`
+- The `pass` option is now called `disable`
 
 ## v0.7.0
 

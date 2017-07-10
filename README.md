@@ -6,6 +6,8 @@ A webpack loader for responsive images. Creates multiple images from one source 
 
 ## Install
 
+> Note: starting with v1.0.0, responsive-loader is only compatible with webpack 2+. For webpack 1 support, use responsive-loader@0.7.0
+
 ### With jimp
 
 ```
@@ -113,9 +115,10 @@ ReactDOM.render(
 - `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
 - `quality: integer` — JPEG compression quality; defaults to `85`
 - `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
-- `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
+- `placeholder: boolean` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
 - `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above; defaults to `40`
 - `adapter: Adapter` — Specify which adapter to use. Can only be specified in the loader options.
+- `disable: boolean` — Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions.
 
 #### Adapter-specific options
 
