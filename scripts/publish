@@ -19,7 +19,7 @@ fi
 
 version=$(node -p 'require("./package.json").version')
 
-if [[ $(npm view gsheets@$version name) == "gsheets" ]]
+if [[ $(npm view responsive-loader@$version name) == "responsive-loader" ]]
 then
   echo -e "$CLI_SUCCESS Version \"$version\" is already published. Aborting.$CLI_RESET"
   exit 0
