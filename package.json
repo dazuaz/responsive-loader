@@ -53,9 +53,6 @@
     "sharp": "^0.18.2",
     "webpack": "^3.1.0"
   },
-  "peerDependencies": {
-    "jimp": "^0.2.21"
-  },
   "jest": {
     "testEnvironment": "node"
   }
