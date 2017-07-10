@@ -6,17 +6,71 @@ A webpack loader for responsive images. Creates multiple images from one source 
 
 ## Install
 
+> Note: starting with v1.0.0, responsive-loader is only compatible with webpack 2+. For webpack 1 support, use responsive-loader@0.7.0
+
+### With jimp
+
 ```
 npm install responsive-loader jimp --save-dev
 ```
 
-responsive-loader uses [jimp](https://github.com/oliver-moran/jimp), a pure JS image manipulation library (so no other dependencies, yay :v:), to transform images which needs to be installed alongside responsive-loader.
+Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow.
+
+### With sharp
+
+```
+npm install responsive-loader sharp --save-dev
+```
+
+For [super-charged performance](http://sharp.dimens.io/en/stable/performance/), responsive-loader also works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform.
+
+If you want to use sharp, you need to configure responsive-loader to use its adapter:
+
+```diff
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
++         adapter: require('responsive-loader/sharp')
+        }
+      }
+    ]
+  },
+}
+```
+
 
 ## Usage
 
+Add a rule for loading responsive images to your webpack config:
+
+```js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
+          // If you want to enable sharp support:
+          // adapter: require('responsive-loader/sharp')
+        }
+      }
+    ]
+  },
+}
+```
+
+Then import images in your JavaScript files:
+
 ```js
 // Outputs three images with 100, 200, and 300px widths
-const responsiveImage = require('responsive?sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
+const responsiveImage = require('myImage.jpg?sizes[]=100,sizes[]=200,sizes[]=300');
 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
 // responsiveImage.images => [{height: 50, path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {height: 100, path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
@@ -31,16 +85,16 @@ ReactDOM.render(<img {...responsiveImage} />, el);
 Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
 
 ```css
-.myImage { background: url('responsive?size=1140!myImage.jpg'); }
+.myImage { background: url('myImage.jpg?size=1140'); }
 
 @media (max-width: 480px) {
-  .myImage { background: url('responsive?size=480!myImage.jpg'); }
+  .myImage { background: url('myImage.jpg?size=480'); }
 }
 ```
 
 ```js
 // Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
-const responsiveImage = require('responsive?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300!myImage.jpg');
+const responsiveImage = require('myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300');
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
 ReactDOM.render(
@@ -57,13 +111,24 @@ ReactDOM.render(
 
 ### Options
 
-- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in `responsiveLoader` in your `webpack.config.js`.
+- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.
 - `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
-- `quality: integer` — JPEG compression quality; defaults to `95`
-- `ext: string` — either `png`, `jpg`, or `gif`; use to convert to another format; defaults to original file's extension
-- `background: hex` — Background fill when converting transparent to opaque images; defaults to `0xFFFFFFFF` (note: make sure this is a valid hex number)
-- `placeholder: bool` — A true or false value to specify wether to output a placeholder image as a data URI. (Defaults to `false`)
-- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above. (Defaults to `40`)
+- `quality: integer` — JPEG compression quality; defaults to `85`
+- `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
+- `placeholder: boolean` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
+- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above; defaults to `40`
+- `adapter: Adapter` — Specify which adapter to use. Can only be specified in the loader options.
+- `disable: boolean` — Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions.
+
+#### Adapter-specific options
+
+##### jimp
+
+- `background: number` — Background fill when converting transparent to opaque images. Make sure this is a valid hex number, e.g. `0xFFFFFFFF`)
+
+##### sharp
+
+- `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF`
 
 
 ### Examples
@@ -75,15 +140,43 @@ module.exports = {
   entry: {...},
   output: {...},
   module: {
-    loaders: [{
-      test: /\.(jpe?g|png)$/i,
-      loader: 'responsive'
-    ]}
+    rules: [
+      {
+        test: /\.(jpe?g|png)$/i,
+        loader: 'responsive-loader',
+        options: {
+          sizes: [300, 600, 1200, 2000],
+          placeholder: true,
+          placeholderSize: 50
+        }
+      }
+    ]
   },
-  responsiveLoader: {
-    sizes: [300, 600, 1200, 2000],
-    placeholder: true,
-    placeholderSize: 50
+}
+```
+
+### Writing Your Own Adapter
+
+Maybe you want to use another image processing library or you want to change an existing one's behavior. You can write your own adapter with the following signature:
+
+```js
+type Adapter = (imagePath: string) => {
+  metadata: () => Promise<{width: number, height: number}>
+  resize: (config: {width: number, mime: string, options: Object}) => Promise<{data: Buffer, width: number, height: number}>
+}
+```
+
+The `resize` method takes a single argument which has a `width`, `mime` and `options` property (which receives all loader options)
+
+In your webpack config, require your adapter
+
+```js
+{
+  test: /\.(jpe?g|png)$/i,
+  loader: 'responsive-loader',
+  options: {
+    adapter: require('./my-adapter')
+    foo: 'bar' // will get passed to adapter.resize({width, mime, options: {foo: 'bar}})
   }
 }
 ```

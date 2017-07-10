@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`disable 1`] = `
+Object {
+  "images": Array [
+    Object {
+      "height": 100,
+      "path": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+      "width": 100,
+    },
+  ],
+  "src": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+  "srcSet": "foobar/c9fec88e524931764f00bab4a70790b2-100.jpg",
+  "toString": [Function],
+}
+`;
+
+exports[`multiple sizes 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`output first resized image height & width 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+      "width": 500,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`output should be relative to context 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/test/a011c4fb35cda2d2c8cd4384711ce65e-750x675.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/test/c0e86e74879bf9156e7b1e92b38f293c-1000x900.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg",
+  "srcSet": "foobar/test/953a024b44e6d2a7ea721eb06626b913-500x450.jpg 500w,foobar/test/a011c4fb35cda2d2c8cd4384711ce65e-750x675.jpg 750w,foobar/test/c0e86e74879bf9156e7b1e92b38f293c-1000x900.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`png 1`] = `
+Object {
+  "height": 580,
+  "images": Array [
+    Object {
+      "height": 580,
+      "path": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png",
+      "width": 500,
+    },
+    Object {
+      "height": 595,
+      "path": "foobar/711285969b04c54a921259f638713eaf-513.png",
+      "width": 513,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png",
+  "srcSet": "foobar/dfeecbec599f476d3a0215bb6e7f3dd6-500.png 500w,foobar/711285969b04c54a921259f638713eaf-513.png 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`png to jpeg with background color 1`] = `
+Object {
+  "height": 580,
+  "images": Array [
+    Object {
+      "height": 580,
+      "path": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 595,
+      "path": "foobar/064787a0e33e6aba3b8f8417d05447c0-513.jpg",
+      "width": 513,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg",
+  "srcSet": "foobar/52440c55e0faa5afd07962bc15e4eb82-500.jpg 500w,foobar/064787a0e33e6aba3b8f8417d05447c0-513.jpg 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`single size 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+      "width": 500,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`with placeholder image 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": "data:image/jpeg;base64,/9j/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAkACgDASIAAhEBAxEB/8QAHAAAAgEFAQAAAAAAAAAAAAAAAAcGAQIDBAgF/8QALRAAAQMDAgMHBAMAAAAAAAAAAQIDBAAFEQYhBxIxCBMiQWFxgSMyUaFCUpH/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQMCBP/EAB0RAAMAAgIDAAAAAAAAAAAAAAABAgMRBBIhIjH/2gAMAwEAAhEDEQA/APLvfZ1ak3BoWq5RYEIq+qe7WXEp/CRnCvckVpDszuourDidUoehBRLqXIZDmPIAAkH1yRXSEqRHhxHpcp1DMdlBW44rYISOpNJzU3aJ0nbpKmbRb5d35TjvgoMtk+mQSR8Cr1ML6TTZHr52ZrRJaK7bfpMSR6sBTZ+M5H+1GHuzpq2yzYs6zXSBclIz3rS/oH4J2I98U0NAcedPajvLVruFtfs70jZp1bwcaKuuCcZT7mmpFudqmLCYlxhSSo8oDUhC8n8bGk4i1o1N1DTQndE8Hlols3DVa2Hu7IUmE14kFQ/ur+Q9Bsf1RTqKAR5n3oojDELSRTLyMmWu1MSer+GuqZthmvat4jSpcCIwt1TZUUN+EZBWNh8kGubEwS85hgh4bYCBnOem3Wu9n4EaRHWxIjoeQ8OVbbg5kKB8iDsahF34WRJeroepYLseDIjkBaER0lDgH24SMYUPzWax78omqEJw24W3i7CbIecTbJUCR3IakpUFc3KCfbrTc4RcNntL6uReTLZ7hLCg82FFRcfVkcw2GEjb91L7/Y7y8hTCHAUyAQt5tsBwEDYk9fLGa2+GNnvcDTDTGoH3JElDznI64QVrbJ8JVjYHrSUewdnolQUlW++PMUUFjlBIOaK6DBlSkZJqxY8QwTRRSYFGlEpUSc71mcAAA8j1oopoCg3GfM9aKKKAP//Z",
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg 750w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`with size defined in webpack.config.js 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg",
+  "srcSet": "foobar/953a024b44e6d2a7ea721eb06626b913-500.jpg 500w,foobar/a011c4fb35cda2d2c8cd4384711ce65e-750.jpg 750w,foobar/c0e86e74879bf9156e7b1e92b38f293c-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;

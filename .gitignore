@@ -1,4 +1,8 @@
 node_modules
 *.log
 test/build
+test/**/build/*.js
+test/**/build/**/*.png
+test/**/build/**/*.jpg
 .node-version
+/lib

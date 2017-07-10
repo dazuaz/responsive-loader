@@ -2,8 +2,16 @@ const path = require('path');
 
 module.exports = {
   entry: path.resolve(__dirname, 'index'),
-  responsiveLoader: {
-    sizes: [500, 750, 1000]
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg)$/,
+        loader: require.resolve('../../lib/index'),
+        options: {
+          sizes: [500, 750, 1000]
+        }
+      }
+    ]
   },
   output: {
     path: path.resolve(__dirname, 'build'),
