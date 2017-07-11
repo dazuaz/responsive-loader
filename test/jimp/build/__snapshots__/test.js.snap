@@ -171,6 +171,67 @@ Object {
 }
 `;
 
+exports[`with min and max sizes 1`] = `
+Object {
+  "height": 540,
+  "images": Array [
+    Object {
+      "height": 540,
+      "path": "foobar/52dba34908ff9d9ed720ad3c51e5b651-600.jpg",
+      "width": 600,
+    },
+    Object {
+      "height": 630,
+      "path": "foobar/86240606919a79fc3de5a7dbe5a97d87-700.jpg",
+      "width": 700,
+    },
+    Object {
+      "height": 720,
+      "path": "foobar/f794cdac765d222d40585d283c49bddc-800.jpg",
+      "width": 800,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/52dba34908ff9d9ed720ad3c51e5b651-600.jpg",
+  "srcSet": "foobar/52dba34908ff9d9ed720ad3c51e5b651-600.jpg 600w,foobar/86240606919a79fc3de5a7dbe5a97d87-700.jpg 700w,foobar/f794cdac765d222d40585d283c49bddc-800.jpg 800w",
+  "toString": [Function],
+  "width": 600,
+}
+`;
+
+exports[`with min and max sizes, and default steps 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 600,
+      "path": "foobar/24b8e1d900d0f26e0ac60c406f85c0ce-667.jpg",
+      "width": 667,
+    },
+    Object {
+      "height": 751,
+      "path": "foobar/63dc049fe958369666cc1793fca64800-834.jpg",
+      "width": 834,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/654f812ac2833fdf5dae880cceefa8c6-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+  "srcSet": "foobar/8b1d7d4d688417adcd8603807f44314e-500.jpg 500w,foobar/24b8e1d900d0f26e0ac60c406f85c0ce-667.jpg 667w,foobar/63dc049fe958369666cc1793fca64800-834.jpg 834w,foobar/654f812ac2833fdf5dae880cceefa8c6-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
 exports[`with placeholder image 1`] = `
 Object {
   "height": 450,

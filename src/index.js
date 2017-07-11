@@ -17,6 +17,9 @@ const EXTS = {
 type Config = {
   size: string | number | void,
   sizes: [string | number] | void,
+  min: string | number | void,
+  max: string | number | void,
+  steps: string | number | void,
   name: string | void,
   context: string | void,
   placeholderSize: string | number | void,
@@ -32,7 +35,6 @@ module.exports = function loader(content: Buffer) {
   const loaderCallback = this.async();
   const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
   const config: Config = Object.assign({}, loaderUtils.getOptions(this), parsedResourceQuery);
-  const sizes = config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
   const outputContext: string = config.context || '';
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
@@ -67,6 +69,22 @@ module.exports = function loader(content: Buffer) {
     quality,
     background
   });
+
+  const min: number | void = config.min !== undefined ? Number(config.min) : undefined;
+  const max: number | void = config.max !== undefined ? Number(config.max) : undefined;
+  const steps: number = config.steps === undefined ? 4 : Number(config.steps);
+
+  let generatedSizes;
+  if (typeof min === 'number' && max) {
+    generatedSizes = [];
+
+    for (let step = 0; step < steps; step++) {
+      const size = min + (max - min) / (steps - 1) * step;
+      generatedSizes.push(Math.ceil(size));
+    }
+  }
+
+  const sizes = parsedResourceQuery.sizes || generatedSizes || config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
 
   if (!sizes) {
     return loaderCallback(null, content);
