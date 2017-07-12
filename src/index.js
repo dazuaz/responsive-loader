@@ -70,9 +70,9 @@ module.exports = function loader(content: Buffer) {
     background
   });
 
-  const min: number | void = config.min !== undefined ? Number(config.min) : undefined;
-  const max: number | void = config.max !== undefined ? Number(config.max) : undefined;
-  const steps: number = config.steps === undefined ? 4 : Number(config.steps);
+  const min: number | void = config.min !== undefined ? parseInt(config.min, 10) : undefined;
+  const max: number | void = config.max !== undefined ? parseInt(config.max, 10) : undefined;
+  const steps: number = config.steps === undefined ? 4 : parseInt(config.steps, 10);
 
   let generatedSizes;
   if (typeof min === 'number' && max) {
@@ -84,7 +84,7 @@ module.exports = function loader(content: Buffer) {
     }
   }
 
-  const sizes = parsedResourceQuery.sizes || generatedSizes || config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
+  const sizes = parsedResourceQuery.size || parsedResourceQuery.sizes || generatedSizes || config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
 
   if (!sizes) {
     return loaderCallback(null, content);

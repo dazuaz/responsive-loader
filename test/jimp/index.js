@@ -58,3 +58,18 @@ test('with min and max sizes, and default steps', () => {
   const output = require('../cat-1000.jpg?min=500&max=1000');
   expect(output).toMatchSnapshot();
 });
+
+test('with min and max sizes options', () => {
+  const output = require('../cat-1000.jpg?minmax');
+  expect(output).toMatchSnapshot();
+});
+
+test('override min and max with sizes', () => {
+  const output = require('../cat-1000.jpg?minmax&sizes[]=100&sizes[]=200');
+  expect(output).toMatchSnapshot();
+});
+
+test('override min and max with size', () => {
+  const output = require('../cat-1000.jpg?minmax&size=100');
+  expect(output).toMatchSnapshot();
+});
