@@ -113,6 +113,9 @@ ReactDOM.render(
 
 - `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.
 - `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
+- `min: integer` - as an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you.
+- `max: integer` - see `min` above
+- `steps: integer` - configure the number of images generated between `min` and `max` (inclusive). Defaults to 4.
 - `quality: integer` — JPEG compression quality; defaults to `85`
 - `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
 - `placeholder: boolean` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
