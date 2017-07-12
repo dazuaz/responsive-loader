@@ -1,5 +1,7 @@
 # Change Log
-  
+
+## v1.1.0
+
  - Added `min` and `max` options to automatically generate a number of images, and `steps` option to say how many images ([#31](https://github.com/herrstucki/responsive-loader/pull/31)).
 
 ## v1.0.0
