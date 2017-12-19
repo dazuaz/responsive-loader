@@ -111,17 +111,21 @@ ReactDOM.render(
 
 ### Options
 
-- `sizes: array` — specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.
-- `size: integer` — specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)
-- `min: integer` - as an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you.
-- `max: integer` - see `min` above
-- `steps: integer` - configure the number of images generated between `min` and `max` (inclusive). Defaults to 4.
-- `quality: integer` — JPEG compression quality; defaults to `85`
-- `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
-- `placeholder: boolean` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
-- `placeholderSize: integer` — A number value specifying the width of the placeholder image, if enabled with the option above; defaults to `40`
-- `adapter: Adapter` — Specify which adapter to use. Can only be specified in the loader options.
-- `disable: boolean` — Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions.
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `name` | `string` | `[hash]-[width].[ext]` | Filename template for output files. |
+| `context` | `string` | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context) |
+| `sizes` | `array` | *original size* | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`. |
+| `size` | `integer` | *original size* | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up) |
+| `min` | `integer` | | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you. |
+| `max` | `integer` | | See `min` above |
+| `steps` | `integer` |`4` | Configure the number of images generated between `min` and `max` (inclusive) |
+| `quality` | `integer` | `85` | JPEG compression quality |
+| `format` | `string` | *original format* | Either `png` or `jpg`; use to convert to another format |
+| `placeholder` | `boolean` | `false` | A true or false value to specify wether to output a placeholder image as a data URI |
+| `placeholderSize` | `integer` | `40` | A number value specifying the width of the placeholder image, if enabled with the option above |
+| `adapter` | `Adapter` | JIMP | Specify which adapter to use. Can only be specified in the loader options. |
+| `disable` | `boolean` | `false` | Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions. |
 
 #### Adapter-specific options
 
