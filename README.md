@@ -116,6 +116,9 @@ ReactDOM.render(
 - `min: integer` - as an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you.
 - `max: integer` - see `min` above
 - `steps: integer` - configure the number of images generated between `min` and `max` (inclusive). Defaults to 4.
+- `name: string` - configure a custom filename template for your file
+- `publicPath: string` - configure a custom public path for your file
+- `outputPath: string` - configure a custom output path for your file
 - `quality: integer` — JPEG compression quality; defaults to `85`
 - `format: string` — either `png` or `jpg`; use to convert to another format; default format is inferred from the source file's extension
 - `placeholder: boolean` — A true or false value to specify wether to output a placeholder image as a data URI; defaults to `false`
