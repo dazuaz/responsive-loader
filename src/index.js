@@ -60,6 +60,8 @@ module.exports = function loader(content: Buffer) {
   }
 
   const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
+  const publicPath = config.publicPath || '';
+  const outputPath = config.outputPath || '';
 
   const adapter: Function = config.adapter || require('./adapters/jimp');
   const loaderContext: any = this;
@@ -111,11 +113,12 @@ module.exports = function loader(content: Buffer) {
     .replace(/\[width\]/ig, width)
     .replace(/\[height\]/ig, height);
 
-    loaderContext.emitFile(fileName, data);
+    const filePath = outputPath + fileName;
+    loaderContext.emitFile(filePath, data);
 
     return {
-      src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-      path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+      src: '__webpack_public_path__ + ' + JSON.stringify(filePath + ' ' + width + 'w'),
+      path: '__webpack_public_path__ + ' + JSON.stringify(publicPath + fileName),
       width: width,
       height: height
     };
