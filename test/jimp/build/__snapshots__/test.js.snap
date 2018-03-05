@@ -56,6 +56,34 @@ Object {
 }
 `;
 
+exports[`output should be in outputPath dir 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/img/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/img/0884176ab3183a7809908a89735a26f2-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/img/654f812ac2833fdf5dae880cceefa8c6-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/img/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+  "srcSet": "foobar/img/8b1d7d4d688417adcd8603807f44314e-500.jpg 500w,foobar/img/0884176ab3183a7809908a89735a26f2-750.jpg 750w,foobar/img/654f812ac2833fdf5dae880cceefa8c6-1000.jpg 1000w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
 exports[`output should be relative to context 1`] = `
 Object {
   "height": 450,
@@ -189,6 +217,34 @@ Object {
   "placeholder": undefined,
   "src": "foobar/f0ca0d1b9ad58dfea6e8bc88b51a95d7-500.jpg",
   "srcSet": "foobar/f0ca0d1b9ad58dfea6e8bc88b51a95d7-500.jpg 500w,foobar/9affb0e18b367d321029cb1d539517fd-513.jpg 513w",
+  "toString": [Function],
+  "width": 500,
+}
+`;
+
+exports[`public path should be relative to publicPath 1`] = `
+Object {
+  "height": 450,
+  "images": Array [
+    Object {
+      "height": 450,
+      "path": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+      "width": 500,
+    },
+    Object {
+      "height": 675,
+      "path": "foobar/public/0884176ab3183a7809908a89735a26f2-750.jpg",
+      "width": 750,
+    },
+    Object {
+      "height": 900,
+      "path": "foobar/public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg",
+      "width": 1000,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+  "srcSet": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg 500w,foobar/public/0884176ab3183a7809908a89735a26f2-750.jpg 750w,foobar/public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }
