@@ -96,14 +96,18 @@ module.exports = function loader(content: Buffer) {
 
   if (config.disable) {
     // emit original content only
-    const f = loaderUtils.interpolateName(loaderContext, name, {
+    const fileName = loaderUtils.interpolateName(loaderContext, name, {
       context: outputContext,
       content: content
     })
       .replace(/\[width\]/ig, '100')
       .replace(/\[height\]/ig, '100');
-    loaderContext.emitFile(f, content);
-    const p = '__webpack_public_path__ + ' + JSON.stringify(f);
+  
+    const fileOutputPath = outputPath + fileName;
+    loaderContext.emitFile(fileOutputPath, content);
+  
+    const filePath = publicPath !== '' ? publicPath + fileName : outputPath + fileName;
+    const p = '__webpack_public_path__ + ' + JSON.stringify(filePath);
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:100,height:100}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
@@ -114,13 +118,14 @@ module.exports = function loader(content: Buffer) {
     })
     .replace(/\[width\]/ig, width)
     .replace(/\[height\]/ig, height);
-
-    const filePath = outputPath + fileName;
-    loaderContext.emitFile(filePath, data);
-
+    
+    const fileOutputPath = outputPath + fileName;
+    loaderContext.emitFile(fileOutputPath, data);
+    
+    const filePath = publicPath !== '' ? publicPath + fileName : outputPath + fileName;
     return {
       src: '__webpack_public_path__ + ' + JSON.stringify(filePath + ' ' + width + 'w'),
-      path: '__webpack_public_path__ + ' + JSON.stringify(publicPath + fileName),
+      path: '__webpack_public_path__ + ' + JSON.stringify(filePath),
       width: width,
       height: height
     };
