@@ -37,7 +37,7 @@ module.exports = function loader(content: Buffer) {
   const loaderCallback = this.async();
   const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
   const config: Config = Object.assign({}, loaderUtils.getOptions(this), parsedResourceQuery);
-  const outputContext: string = config.context || '';
+  const outputContext: string = config.context || this.rootContext || this.options && this.options.context;
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
   // JPEG compression
