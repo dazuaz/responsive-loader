@@ -6,12 +6,14 @@ const loaderUtils = require('loader-utils');
 const MIMES = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
-  'png': 'image/png'
+  'png': 'image/png',
+  'webp': 'image/webp',
 };
 
 const EXTS = {
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'image/webp': 'webp',
 };
 
 type Config = {
@@ -27,7 +29,9 @@ type Config = {
   background: string | number | void,
   placeholder: string | boolean | void,
   adapter: ?Function,
+  // for backward compatibility
   format: 'png' | 'jpg' | 'jpeg',
+  formats: ['png' | 'jpg' | 'jpeg' | 'webp'],
   disable: ?boolean,
 };
 
@@ -43,23 +47,28 @@ module.exports = function loader(content: Buffer) {
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
   // Specify mimetype to convert to another format
-  let mime: string;
-  let ext: string;
+  let originalExtension = path.extname(this.resourcePath).replace(/\./, '');
+  let formats: [string];
   if (config.format) {
-    if (!MIMES.hasOwnProperty(config.format)) {
-      return loaderCallback(new Error('Format "' + config.format + '" not supported'));
-    }
-    mime = MIMES[config.format];
-    ext = EXTS[mime];
+    formats = [config.format];
+  } else if (config.formats) {
+    formats = config.formats;
   } else {
-    ext = path.extname(this.resourcePath).replace(/\./, '');
-    mime = MIMES[ext];
-    if (!mime) {
-      return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
-    }
+    formats = originalExtension;
   }
 
-  const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
+  // throw a more friendly error than jimp failing to encode
+  if (!config.adapter && formats.find(f => f === 'webp')) {
+    return loaderCallback(new Error('JIMP does not support webp encoding, use sharp adapter.'));
+  }
+
+  const mimes = formats.map(f => MIMES[f]);
+  const errFormats = mimes.reduce((m, i) => !m ? [...acc, formats[i]] : acc, []);
+  if (errFormats.length > 0) {
+    return loaderCallback(new Error('Formats not supported: ', JSON.stringify(errFormats)));
+  }
+
+  const name = (config.name || '[hash]-[width].[ext]');
 
   const adapter: Function = config.adapter || require('./adapters/jimp');
   const loaderContext: any = this;
@@ -97,19 +106,23 @@ module.exports = function loader(content: Buffer) {
       content: content
     })
       .replace(/\[width\]/ig, '100')
-      .replace(/\[height\]/ig, '100');
+      .replace(/\[height\]/ig, '100')
+      .replace(/\[ext\]/ig, originalExtension);
     loaderContext.emitFile(f, content);
     const p = '__webpack_public_path__ + ' + JSON.stringify(f);
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:100,height:100}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  const createFile = ({data, width, height}) => {
+  const createFile = (mime, { data, width, height }) => {
+    const ext = EXTS[mime];
+
     const fileName = loaderUtils.interpolateName(loaderContext, name, {
       context: outputContext,
       content: data
     })
-    .replace(/\[width\]/ig, width)
-    .replace(/\[height\]/ig, height);
+      .replace(/\[width\]/ig, width)
+      .replace(/\[height\]/ig, height)
+      .replace(/\[ext\]/ig, ext);
 
     loaderContext.emitFile(fileName, data);
 
@@ -121,7 +134,7 @@ module.exports = function loader(content: Buffer) {
     };
   };
 
-  const createPlaceholder = ({data}: {data: Buffer}) => {
+  const createPlaceholder = (mime, { data }: { data: Buffer }) => {
     const placeholder = data.toString('base64');
     return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
   };
@@ -129,7 +142,7 @@ module.exports = function loader(content: Buffer) {
   const img = adapter(loaderContext.resourcePath);
   return img.metadata()
     .then((metadata) => {
-      let promises = [];
+      const promises = mimes.map(() => []);
       const widthsToGenerate = new Set();
 
       (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
@@ -138,49 +151,67 @@ module.exports = function loader(content: Buffer) {
         // Only resize images if they aren't an exact copy of one already being resized...
         if (!widthsToGenerate.has(width)) {
           widthsToGenerate.add(width);
-          promises.push(img.resize({
-            width,
-            mime,
-            options: adapterOptions
-          }));
+
+          mimes.forEach((mime, i) => {
+            promises[i] = img.resize({
+              width,
+              mime,
+              options: adapterOptions
+            });
+          });
         }
       });
 
-      if (outputPlaceholder) {
-        promises.push(img.resize({
-          width: placeholderSize,
-          options: adapterOptions,
-          mime
-        }));
-      }
+      return Promise.all(promises.map(arr => Promise.all(arr)))
+        .then(imagesArr => imagesArr
+          .map((images, i) => ({
+            files: images.map(img => createFile(mime, img)),
+            mime: mimes[i]
+          }))
+        )
+        .then(filesByMime => {
+          if (outputPlaceholder) {
+            return img.resize({
+              placeholderSize,
+              mime: mimes[0],
+              options: adapterOptions
+            })
+              .then(img => ({
+                filesByMime,
+                placeholder: createPlaceholder(mimes[0], img),
+              }));
+          }
 
-      return Promise.all(promises)
-        .then(results => outputPlaceholder
-          ? {
-            files: results.slice(0, -1).map(createFile),
-            placeholder: createPlaceholder(results[results.length - 1])
-          }
-          : {
-            files: results.map(createFile)
-          }
-         );
+          return { filesByMime };
+        });
     })
-    .then(({files, placeholder}) => {
-      const srcset = files.map(f => f.src).join('+","+');
+    .then(({ filesByMime, placeholder }) => {
+      const srcsets = filesByMime.map(({ mime, files }) => ({
+        mime,
+        srcset: files.map(f => f.src).join(' ')
+      }));
 
-      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
+      const images = filesByMime.map(({ mime, files }) => ({
+        mime,
+        images: files.map(({ path, width, height }) => ({ path, width, height }))
+      }));
 
-      const firstImage = files[0];
+      const firstImage = filesByMime[0][0];
 
-      loaderCallback(null, 'module.exports = {' +
-          'srcSet:' + srcset + ',' +
-          'images:[' + images + '],' +
-          'src:' + firstImage.path + ',' +
-          'toString:function(){return ' + firstImage.path + '},' +
-          'placeholder: ' + placeholder + ',' +
-          'width:' + firstImage.width + ',' +
-          'height:' + firstImage.height +
-      '};');
+      loaderCallback(null,
+        'const srcsets = ' + JSON.stringify(srcsets) + ';' +
+        'const images = ' + JSON.stringify(images) + ';' +
+        'module.exports = {' +
+        'srcSets: srcsets,' +
+        'imagesByMime: images,' +
+        'srcSet: srcsets[0].srcset,' +
+        'images: images[0].images,' +
+        'src:' + firstImage.path + ',' +
+        'toString:function(){return ' + firstImage.path + '},' +
+        'placeholder: ' + placeholder + ',' +
+        'width:' + firstImage.width + ',' +
+        'height:' + firstImage.height +
+        '};');
     })
     .catch(err => loaderCallback(err));
 };
