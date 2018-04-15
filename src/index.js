@@ -113,7 +113,7 @@ module.exports = function loader(content: Buffer) {
     return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:100,height:100}],src: ' + p + ',toString:function(){return ' + p + '}};');
   }
 
-  const createFile = (mime, { data, width, height }) => {
+  const createFile = (mime, {data, width, height}) => {
     const ext = EXTS[mime];
 
     const fileName = loaderUtils.interpolateName(loaderContext, name, {
@@ -134,7 +134,7 @@ module.exports = function loader(content: Buffer) {
     };
   };
 
-  const createPlaceholder = (mime, { data }: { data: Buffer }) => {
+  const createPlaceholder = (mime, {data}: {data: Buffer}) => {
     const placeholder = data.toString('base64');
     return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
   };
@@ -185,33 +185,34 @@ module.exports = function loader(content: Buffer) {
           return { filesByMime };
         });
     })
-    .then(({ filesByMime, placeholder }) => {
-      const srcsets = filesByMime.map(({ mime, files }) => ({
+    .then(({filesByMime, placeholder}) => {
+      const srcSets = filesByMime.map(({ mime, files }) => ({
         mime,
-        srcset: files.map(f => f.src).join(' ')
+        srcSet: files.map(f => f.src).join(' ')
       }));
 
-      const images = filesByMime.map(({ mime, files }) => ({
-        mime,
-        images: files.map(({ path, width, height }) => ({ path, width, height }))
-      }));
+      const images = filesByMime.reduce((acc, {mime, files}) =>
+        acc.concat(
+          files.map(({mime, path, width, height}) => ({ path, width, height }))
+        )
+      , []);
 
-      const firstImage = filesByMime[0][0];
+      const firstImage = images[0];
 
-      loaderCallback(null,
-        'const srcsets = ' + JSON.stringify(srcsets) + ';' +
-        'const images = ' + JSON.stringify(images) + ';' +
-        'module.exports = {' +
-        'srcSets: srcsets,' +
-        'imagesByMime: images,' +
-        'srcSet: srcsets[0].srcset,' +
-        'images: images[0].images,' +
-        'src:' + firstImage.path + ',' +
-        'toString:function(){return ' + firstImage.path + '},' +
-        'placeholder: ' + placeholder + ',' +
-        'width:' + firstImage.width + ',' +
-        'height:' + firstImage.height +
-        '};');
+      loaderCallback(null,`
+        const srcSets = ${JSON.stringify(srcSets)};
+
+        module.exports = {
+          srcSets,
+          srcSet: srcSets[0].srcSet,
+          images: ${JSON.stringify(images)};
+          src: ${firstImage.path},
+          toString:function(){return ${firstImage.path} },
+          placeholder: ${placeholder},
+          width: ${firstImage.width},
+          height: ${firstImage.height}
+        };
+      `);
     })
     .catch(err => loaderCallback(err));
 };
