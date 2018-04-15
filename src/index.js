@@ -134,8 +134,8 @@ module.exports = function loader(content: Buffer) {
       context: outputContext,
       content: data
     })
-      .replace(/\[width\]/ig, width)
-      .replace(/\[height\]/ig, height);
+    .replace(/\[width\]/ig, width)
+    .replace(/\[height\]/ig, height);
 
     loaderContext.emitFile(fileName, data);
 
@@ -147,7 +147,7 @@ module.exports = function loader(content: Buffer) {
     };
   };
 
-  const createPlaceholder = ({data}: { data: Buffer }) => {
+  const createPlaceholder = ({data}: {data: Buffer}) => {
     const placeholder = data.toString('base64');
     return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
   };
