@@ -126,6 +126,7 @@ ReactDOM.render(
 | `placeholderSize` | `integer` | `40` | A number value specifying the width of the placeholder image, if enabled with the option above |
 | `adapter` | `Adapter` | JIMP | Specify which adapter to use. Can only be specified in the loader options. |
 | `disable` | `boolean` | `false` | Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions. |
+| `moduleGenerator` | `Function` | *default generator* | Define the function used to generate the exported module. see module generator.
 
 #### Adapter-specific options
 
@@ -187,6 +188,38 @@ In your webpack config, require your adapter
   }
 }
 ```
+
+## Module generator
+By default this loader will output a module exporting an object with the following properties:
+```
+// string concatenating all images with their sizes, following the `srcSet` attribute spec.
+srcSet: string,
+// array of all images with their size.
+images: [{path: string, width: number, height: number}],
+// first image path
+src: string,
+// placeholder image encoded as a base64 string or undefined
+placeholder: string,
+// width of the first image
+width: number,
+// height of the first image
+height: number,
+```
+
+You can customize the module generation by supplying your own generator function following this signature :
+```js
+type ImageFile = {
+  src: string,
+  path: string,
+  width: number,
+  height: number,
+}
+
+type generator = (images: [ImageFile], placeholder: ?string) => string
+```
+
+`placeholder` is a base64 string.
+The return value must be a full js module code with exports.
 
 ## Notes
 

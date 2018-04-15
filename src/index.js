@@ -29,7 +29,33 @@ type Config = {
   adapter: ?Function,
   format: 'png' | 'jpg' | 'jpeg',
   disable: ?boolean,
+  moduleGenerator: ?Function,
 };
+
+type ImageFile = {
+  src: string,
+  path: string,
+  width: number,
+  height: number,
+}
+
+function defaultModuleGenerator(files: [ImageFile], placeholder: string) {
+  const srcset = files.map(f => f.src).join('+","+');
+
+  const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
+
+  const firstImage = files[0];
+
+  return 'module.exports = {' +
+    'srcSet:' + srcset + ',' +
+    'images:[' + images + '],' +
+    'src:' + firstImage.path + ',' +
+    'toString:function(){return ' + firstImage.path + '},' +
+    'placeholder: ' + placeholder + ',' +
+    'width:' + firstImage.width + ',' +
+    'height:' + firstImage.height +
+    '};';
+}
 
 module.exports = function loader(content: Buffer) {
   const loaderCallback = this.async();
@@ -108,8 +134,8 @@ module.exports = function loader(content: Buffer) {
       context: outputContext,
       content: data
     })
-    .replace(/\[width\]/ig, width)
-    .replace(/\[height\]/ig, height);
+      .replace(/\[width\]/ig, width)
+      .replace(/\[height\]/ig, height);
 
     loaderContext.emitFile(fileName, data);
 
@@ -121,7 +147,7 @@ module.exports = function loader(content: Buffer) {
     };
   };
 
-  const createPlaceholder = ({data}: {data: Buffer}) => {
+  const createPlaceholder = ({data}: { data: Buffer }) => {
     const placeholder = data.toString('base64');
     return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
   };
@@ -163,24 +189,12 @@ module.exports = function loader(content: Buffer) {
           : {
             files: results.map(createFile)
           }
-         );
+        );
     })
     .then(({files, placeholder}) => {
-      const srcset = files.map(f => f.src).join('+","+');
+      const generateModule = config.moduleGenerator || defaultModuleGenerator;
 
-      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
-
-      const firstImage = files[0];
-
-      loaderCallback(null, 'module.exports = {' +
-          'srcSet:' + srcset + ',' +
-          'images:[' + images + '],' +
-          'src:' + firstImage.path + ',' +
-          'toString:function(){return ' + firstImage.path + '},' +
-          'placeholder: ' + placeholder + ',' +
-          'width:' + firstImage.width + ',' +
-          'height:' + firstImage.height +
-      '};');
+      loaderCallback(null, generateModule(files, placeholder));
     })
     .catch(err => loaderCallback(err));
 };
