@@ -68,3 +68,13 @@ test('override min and max with size', () => {
   const output = require('../cat-1000.jpg?minmax&size=100');
   expect(output).toMatchSnapshot();
 });
+
+test('convert from jpg to webp', () => {
+  const output = require('../cat-1000.jpg?format=webp');
+  expect(output).toMatchSnapshot();
+});
+
+test('convert from png to webp', () => {
+  const output = require('../cat-transparent.png?format=webp');
+  expect(output).toMatchSnapshot();
+});

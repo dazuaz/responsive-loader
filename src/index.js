@@ -6,12 +6,15 @@ const loaderUtils = require('loader-utils');
 const MIMES = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
-  'png': 'image/png'
+  'png': 'image/png',
+  'webp': 'image/webp',
 };
 
 const EXTS = {
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'image/webp': 'webp',
+
 };
 
 type Config = {
@@ -27,7 +30,7 @@ type Config = {
   background: string | number | void,
   placeholder: string | boolean | void,
   adapter: ?Function,
-  format: 'png' | 'jpg' | 'jpeg',
+  format: 'png' | 'jpg' | 'jpeg' | 'webp',
   disable: ?boolean,
 };
 
@@ -59,9 +62,12 @@ module.exports = function loader(content: Buffer) {
     }
   }
 
-  const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
-
   const adapter: Function = config.adapter || require('./adapters/jimp');
+  if (!config.adapter && (mime === MIMES['webp'])) {
+    return loaderCallback(new Error('JIMP does not support webp encoding, use sharp adapter.'));
+  }
+
+  const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
   const loaderContext: any = this;
 
   // The config that is passed to the adatpers

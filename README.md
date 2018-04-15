@@ -14,7 +14,7 @@ A webpack loader for responsive images. Creates multiple images from one source 
 npm install responsive-loader jimp --save-dev
 ```
 
-Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow.
+Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow and it doesn't support webp encoding.
 
 ### With sharp
 
@@ -121,7 +121,7 @@ ReactDOM.render(
 | `max` | `integer` | | See `min` above |
 | `steps` | `integer` |`4` | Configure the number of images generated between `min` and `max` (inclusive) |
 | `quality` | `integer` | `85` | JPEG compression quality |
-| `format` | `string` | *original format* | Either `png` or `jpg`; use to convert to another format |
+| `format` | `string` | *original format* | One of `png`, `jpg` or `webp`(only with sharp); use to convert to another format. |
 | `placeholder` | `boolean` | `false` | A true or false value to specify wether to output a placeholder image as a data URI |
 | `placeholderSize` | `integer` | `40` | A number value specifying the width of the placeholder image, if enabled with the option above |
 | `adapter` | `Adapter` | JIMP | Specify which adapter to use. Can only be specified in the loader options. |
