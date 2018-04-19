@@ -29,6 +29,7 @@ type Config = {
   adapter: ?Function,
   format: 'png' | 'jpg' | 'jpeg',
   disable: ?boolean,
+  imageSrv: ?string,
 };
 
 module.exports = function loader(content: Buffer) {
@@ -38,6 +39,7 @@ module.exports = function loader(content: Buffer) {
   const outputContext: string = config.context || '';
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
+  const imageSrv: string = config.imageSrv || '';
   // JPEG compression
   const quality: number = parseInt(config.quality, 10) || 85;
   // Useful when converting from PNG to JPG
@@ -114,8 +116,8 @@ module.exports = function loader(content: Buffer) {
     loaderContext.emitFile(fileName, data);
 
     return {
-      src: '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
-      path: '__webpack_public_path__ + ' + JSON.stringify(fileName),
+      src: '__webpack_public_path__ + ' + JSON.stringify(config.imageSrv) + JSON.stringify(fileName + ' ' + width + 'w'),
+      path: '__webpack_public_path__ + ' + JSON.stringify(config.imageSrv) + JSON.stringify(fileName),
       width: width,
       height: height
     };
