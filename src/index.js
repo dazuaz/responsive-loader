@@ -116,8 +116,8 @@ module.exports = function loader(content: Buffer) {
     loaderContext.emitFile(fileName, data);
 
     return {
-      src: '__webpack_public_path__ + ' + JSON.stringify(config.imageSrv) + JSON.stringify(fileName + ' ' + width + 'w'),
-      path: '__webpack_public_path__ + ' + JSON.stringify(config.imageSrv) + JSON.stringify(fileName),
+      src: imageSrv ? JSON.stringify(imageSrv + fileName + ' ' + width + 'w') : '__webpack_public_path__ + ' + JSON.stringify(fileName + ' ' + width + 'w'),
+      path: imageSrv ? JSON.stringify(imageSrv + fileName) : '__webpack_public_path__ + ' + JSON.stringify(fileName),
       width: width,
       height: height
     };
