@@ -19,6 +19,11 @@ test('disable', () => {
   expect(multi).toMatchSnapshot();
 });
 
+test('doesn\'t emit file', () => {
+  const multi = require('../cat-1000.jpg?emitFile=false&sizes[]=250');
+  expect(multi).toMatchSnapshot();
+});
+
 test('output should be relative to context', () => {
   const multi = require('../cat-1000.jpg?name=[path][hash]-[width]x[height].[ext]&context=./');
   expect(multi).toMatchSnapshot();

@@ -15,6 +15,24 @@ Object {
 }
 `;
 
+exports[`doesn't emit file 1`] = `
+Object {
+  "height": 225,
+  "images": Array [
+    Object {
+      "height": 225,
+      "path": "foobar/50c66a01e4e6eb726827ab1e40e9646c-250.jpg",
+      "width": 250,
+    },
+  ],
+  "placeholder": undefined,
+  "src": "foobar/50c66a01e4e6eb726827ab1e40e9646c-250.jpg",
+  "srcSet": "foobar/50c66a01e4e6eb726827ab1e40e9646c-250.jpg 250w",
+  "toString": [Function],
+  "width": 250,
+}
+`;
+
 exports[`multiple sizes 1`] = `
 Object {
   "height": 450,
