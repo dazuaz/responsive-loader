@@ -47,7 +47,7 @@
     "eslint": "^3.2.2",
     "eslint-config-interactivethings": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
-    "flow-bin": "^0.48.0",
+    "flow-bin": "^0.85.0",
     "jest": "^20.0.4",
     "jimp": "^0.2.21",
     "sharp": "^0.18.2",

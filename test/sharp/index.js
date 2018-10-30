@@ -24,6 +24,16 @@ test('output should be relative to context', () => {
   expect(multi).toMatchSnapshot();
 });
 
+test('output should be in outputPath dir', () => {
+  const multi = require('../cat-1000.jpg?outputPath=img/');
+  expect(multi).toMatchSnapshot();
+});
+
+test('public path should replace global publicPath', () => {
+  const multi = require('../cat-1000.jpg?outputPath=img/&publicPath=public/');
+  expect(multi).toMatchSnapshot();
+});
+
 test('with placeholder image', () => {
   const output = require('../cat-1000.jpg?placeholder=true');
   expect(output).toMatchSnapshot();
