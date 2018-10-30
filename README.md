@@ -114,8 +114,8 @@ ReactDOM.render(
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
 | `name` | `string` | `[hash]-[width].[ext]` | Filename template for output files. |
-| `outputPath` | `string` | `undefined` | Configure a custom output path for your file |
-| `publicPath` | `string` | `undefined` | Configure a custom public path for your file. |
+| `outputPath` | `string | Function` | `undefined` | Configure a custom output path for your file |
+| `publicPath` | `string | Function` | `undefined` | Configure a custom public path for your file. |
 | `context` | `string` | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context) |
 | `sizes` | `array` | *original size* | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`. |
 | `size` | `integer` | *original size* | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up) |

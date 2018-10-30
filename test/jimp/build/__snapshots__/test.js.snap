@@ -228,23 +228,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+      "path": "public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/public/0884176ab3183a7809908a89735a26f2-750.jpg",
+      "path": "public/0884176ab3183a7809908a89735a26f2-750.jpg",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg",
+      "path": "public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
-  "srcSet": "foobar/public/8b1d7d4d688417adcd8603807f44314e-500.jpg 500w,foobar/public/0884176ab3183a7809908a89735a26f2-750.jpg 750w,foobar/public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg 1000w",
+  "src": "public/8b1d7d4d688417adcd8603807f44314e-500.jpg",
+  "srcSet": "public/8b1d7d4d688417adcd8603807f44314e-500.jpg 500w,public/0884176ab3183a7809908a89735a26f2-750.jpg 750w,public/654f812ac2833fdf5dae880cceefa8c6-1000.jpg 1000w",
   "toString": [Function],
   "width": 500,
 }

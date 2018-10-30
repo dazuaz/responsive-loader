@@ -21,8 +21,8 @@ type Config = {
   max: string | number | void,
   steps: string | number | void,
   name: string | void,
-  outputPath: string | void,
-  publicPath: string | void,
+  outputPath: Function | string | void,
+  publicPath: Function | string | void,
   context: string | void,
   placeholderSize: string | number | void,
   quality: string | number | void,
@@ -31,6 +31,37 @@ type Config = {
   adapter: ?Function,
   format: 'png' | 'jpg' | 'jpeg',
   disable: ?boolean,
+};
+
+const getOutputAndPublicPath = (fileName:string, config:Config) => {
+  let outputPath = fileName;
+
+  if (config.outputPath) {
+    if (typeof config.outputPath === 'function') {
+      outputPath = config.outputPath(fileName);
+    } else {
+      outputPath = path.posix.join(config.outputPath, fileName);
+    }
+  }
+
+  let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
+
+  if (config.publicPath) {
+    if (typeof config.publicPath === 'function') {
+      publicPath = config.publicPath(fileName);
+    } else if (config.publicPath.endsWith('/')) {
+      publicPath = config.publicPath + fileName;
+    } else {
+      publicPath = `${config.publicPath}/${fileName}`;
+    }
+
+    publicPath = JSON.stringify(publicPath);
+  }
+
+  return {
+    outputPath,
+    publicPath
+  };
 };
 
 module.exports = function loader(content: Buffer) {
@@ -62,8 +93,6 @@ module.exports = function loader(content: Buffer) {
   }
 
   const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
-  const publicPath = config.publicPath || '';
-  const outputPath = config.outputPath || '';
 
   const adapter: Function = config.adapter || require('./adapters/jimp');
   const loaderContext: any = this;
@@ -102,13 +131,12 @@ module.exports = function loader(content: Buffer) {
     })
       .replace(/\[width\]/ig, '100')
       .replace(/\[height\]/ig, '100');
-  
-    const fileOutputPath = outputPath + fileName;
-    loaderContext.emitFile(fileOutputPath, content);
-  
-    const filePath = publicPath !== '' ? publicPath + fileName : outputPath + fileName;
-    const p = '__webpack_public_path__ + ' + JSON.stringify(filePath);
-    return loaderCallback(null, 'module.exports = {srcSet:' + p + ',images:[{path:' + p + ',width:100,height:100}],src: ' + p + ',toString:function(){return ' + p + '}};');
+
+    const {outputPath, publicPath} = getOutputAndPublicPath(fileName, config);
+
+    loaderContext.emitFile(outputPath, content);
+
+    return loaderCallback(null, 'module.exports = {srcSet:' + publicPath + ',images:[{path:' + publicPath + ',width:100,height:100}],src: ' + publicPath + ',toString:function(){return ' + publicPath + '}};');
   }
 
   const createFile = ({data, width, height}) => {
@@ -118,14 +146,14 @@ module.exports = function loader(content: Buffer) {
     })
     .replace(/\[width\]/ig, width)
     .replace(/\[height\]/ig, height);
-    
-    const fileOutputPath = outputPath + fileName;
-    loaderContext.emitFile(fileOutputPath, data);
-    
-    const filePath = publicPath !== '' ? publicPath + fileName : outputPath + fileName;
+
+    const {outputPath, publicPath} = getOutputAndPublicPath(fileName, config);
+
+    loaderContext.emitFile(outputPath, data);
+
     return {
-      src: '__webpack_public_path__ + ' + JSON.stringify(filePath + ' ' + width + 'w'),
-      path: '__webpack_public_path__ + ' + JSON.stringify(filePath),
+      src: publicPath + `+${JSON.stringify(` ${width}w`)}`,
+      path: publicPath,
       width: width,
       height: height
     };

@@ -29,7 +29,7 @@ test('output should be in outputPath dir', () => {
   expect(multi).toMatchSnapshot();
 });
 
-test('public path should be relative to publicPath', () => {
+test('public path should replace global publicPath', () => {
   const multi = require('../cat-1000.jpg?outputPath=img/&publicPath=public/');
   expect(multi).toMatchSnapshot();
 });
