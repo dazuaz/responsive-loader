@@ -8,7 +8,7 @@ module.exports = (imagePath: string) => {
   return {
     metadata: () => readImage
       .then(image => ({width: image.bitmap.width, height: image.bitmap.height})),
-    resize: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}, ) =>
+    resize: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}): Promise<{width: number, height: number, data: Buffer}> =>
       new Promise((resolve, reject) => {
         readImage.then(image => {
           image.clone()
