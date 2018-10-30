@@ -199,7 +199,7 @@ Object {
 }
 `;
 
-exports[`public path should be relative to publicPath 1`] = `
+exports[`public path should replace global publicPath 1`] = `
 Object {
   "height": 450,
   "images": Array [
