@@ -19,7 +19,18 @@ module.exports = (imagePath: string) => {
 
         if (mime === 'image/jpeg') {
           resized = resized.jpeg({
-            quality: options.quality
+            quality: options.quality,
+            progressive: options.progressive,
+            trellisQuantisation: options.trellisQuantisation,
+            chromaSubsampling: options.chromaSubsampling,
+            overshootDeringing: options.overshootDeringing,
+            optimiseScans: options.optimiseScans,
+            optimizeScans: options.optimizeScans,
+            optimiseCoding: options.optimiseCoding,
+            optimizeCoding: options.optimizeCoding,
+            quantisationTable: options.quantisationTable,
+            quantizationTable: options.quantizationTable
+            
           });
         }
 
