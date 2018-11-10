@@ -73,6 +73,16 @@ module.exports = function loader(content: Buffer) {
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
   // JPEG compression
   const quality: number = parseInt(config.quality, 10) || 85;
+  const progressive: boolean = Boolean(config.progressive) || false;
+  const chromaSubsampling: string = String(config.chromaSubsampling) || '4:2:0';
+  const trellisQuantisation: boolean = Boolean(config.trellisQuantisation) || false;
+  const overshootDeringing: boolean = Boolean(config.overshootDeringing) || false;
+  const optimiseScans: boolean = Boolean(config.optimiseScans) || false;
+  const optimizeScans: boolean = Boolean(config.optimizeScans) || false;
+  const optimiseCoding: boolean = Boolean(config.optimiseCoding) || true;
+  const optimizeCoding: boolean = Boolean(config.optimizeCoding) || true;
+  const quantisationTable: number = parseInt(config.quantisationTable, 10) || 0;
+  const quantizationTable: number = parseInt(config.quantizationTable, 10) || 0;
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
   // Specify mimetype to convert to another format
@@ -100,6 +110,16 @@ module.exports = function loader(content: Buffer) {
   // The config that is passed to the adatpers
   const adapterOptions = Object.assign({}, config, {
     quality,
+    progressive,
+    trellisQuantisation,
+    chromaSubsampling,
+    overshootDeringing,
+    optimiseScans,
+    optimizeScans,
+    optimiseCoding,
+    optimizeCoding,
+    quantisationTable,
+    quantizationTable,
     background
   });
 
