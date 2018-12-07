@@ -12,7 +12,7 @@ module.exports = (imagePath: string) => {
       new Promise((resolve, reject) => {
         readImage.then(image => {
           image.clone()
-            .resize(width, jimp.AUTO)
+            .resize(width, jimp.AUTO, jimp.RESIZE_NEAREST_NEIGHBOR)
             .quality(options.quality)
             .background(parseInt(options.background, 16) || 0xFFFFFFFF)
             .getBuffer(mime, function(err, data) { // eslint-disable-line func-names
