@@ -103,12 +103,12 @@ module.exports = function loader(content: Buffer) {
     background
   });
 
-  const min: number | void = config.min !== undefined ? parseInt(config.min, 10) : undefined;
-  const max: number | void = config.max !== undefined ? parseInt(config.max, 10) : undefined;
   const steps: number = config.steps === undefined ? 4 : parseInt(config.steps, 10);
+  const max: number | void = config.max !== undefined ? parseInt(config.max, 10) : undefined;
+  const min: number = config.min !== undefined ? parseInt(config.min, 10) : Number(max) / steps;
 
   let generatedSizes;
-  if (typeof min === 'number' && max) {
+  if (!isNaN(min) && max) {
     generatedSizes = [];
 
     for (let step = 0; step < steps; step++) {
