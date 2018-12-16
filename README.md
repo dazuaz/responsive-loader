@@ -119,8 +119,8 @@ ReactDOM.render(
 | `context` | `string` | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context) |
 | `sizes` | `array` | *original size* | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`. |
 | `size` | `integer` | *original size* | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up) |
-| `min` | `integer` | | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you. |
-| `max` | `integer` | | See `min` above |
+| `max` | `integer` | | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you. |
+| `min` | `integer` | max / size | See `max` above |
 | `steps` | `integer` |`4` | Configure the number of images generated between `min` and `max` (inclusive) |
 | `quality` | `integer` | `85` | JPEG compression quality |
 | `format` | `string` | *original format* | Either `png` or `jpg`; use to convert to another format |

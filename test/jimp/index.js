@@ -59,6 +59,16 @@ test('png to jpeg with background color', () => {
   expect(output).toMatchSnapshot();
 });
 
+test('with max sizes', () => {
+  const output = require('../cat-1000.jpg?max=900&steps=3');
+  expect(output).toMatchSnapshot();
+});
+
+test('with max sizes, and default steps', () => {
+  const output = require('../cat-1000.jpg?max=800');
+  expect(output).toMatchSnapshot();
+});
+
 test('with min and max sizes', () => {
   const output = require('../cat-1000.jpg?min=600&max=800&steps=3');
   expect(output).toMatchSnapshot();
