@@ -13,8 +13,9 @@ module.exports = (imagePath: string) => {
           .resize(width, null);
 
         if (options.background) {
-          resized = resized.background(options.background)
-          .flatten();
+          resized = resized.flatten({
+            background: options.background
+          });
         }
 
         if (mime === 'image/jpeg') {
