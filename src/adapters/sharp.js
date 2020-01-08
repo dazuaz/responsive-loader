@@ -13,8 +13,9 @@ module.exports = (imagePath: string) => {
           .resize(width, null);
 
         if (options.background) {
-          resized = resized.background(options.background)
-          .flatten();
+          resized = resized.flatten({
+            background: options.background
+          })
         }
 
         if (mime === 'image/jpeg') {
@@ -31,6 +32,37 @@ module.exports = (imagePath: string) => {
               data,
               width,
               height
+            });
+          }
+        });
+      }),
+    webp: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}): Promise<{width: number, height: number, data: Buffer, isWebp: boolean}> =>
+      new Promise((resolve, reject) => {
+        let resized = image.clone()
+          .resize(width, null);
+
+        if (options.background) {
+          resized = resized.flatten({
+            background: options.background
+          })
+        }
+
+        if (mime === 'image/jpeg') {
+          resized = resized.jpeg({
+            quality: options.quality
+          });
+        }
+
+        resized.webp().toBuffer((err, data, {format, height}) => {
+          if (err) {
+            reject(err);
+          } else {
+            const isWebp = (format === 'webp')? true : false;
+            resolve({
+              data,
+              width,
+              height,
+              isWebp
             });
           }
         });

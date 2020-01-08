@@ -139,14 +139,14 @@ module.exports = function loader(content: Buffer) {
     return loaderCallback(null, 'module.exports = {srcSet:' + publicPath + ',images:[{path:' + publicPath + ',width:100,height:100}],src: ' + publicPath + ',toString:function(){return ' + publicPath + '}};');
   }
 
-  const createFile = ({data, width, height}) => {
+  const createFile = ({data, width, height, isWebp}) => {
     const fileName = loaderUtils.interpolateName(loaderContext, name, {
       context: outputContext,
       content: data
     })
     .replace(/\[width\]/ig, width)
-    .replace(/\[height\]/ig, height);
-
+    .replace(/\[height\]/ig, height)
+    .replace(/\.(jpg|png|jpeg)$/, (match) => (isWebp)? '.webp': match);
     const {outputPath, publicPath} = getOutputAndPublicPath(fileName, config);
 
     loaderContext.emitFile(outputPath, data);
@@ -181,6 +181,13 @@ module.exports = function loader(content: Buffer) {
             mime,
             options: adapterOptions
           }));
+          if('webp' in img) {
+            promises.push(img.webp({
+              width,
+              mime,
+              options: adapterOptions
+            }));
+          }
         }
       });
 
