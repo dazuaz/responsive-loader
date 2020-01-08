@@ -10,7 +10,7 @@
     "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
     "build": "babel src --out-dir lib",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "flow && yarn run build && yarn run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest",
+    "test": "flow && yarn run build && yarn run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest -u",
     "shipit": "scripts/publish"
   },
   "files": [
