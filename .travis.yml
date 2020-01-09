@@ -2,5 +2,7 @@ os: osx
 language: node_js
 cache: yarn
 node_js:
+  - '13'
+  - '12'
+  - '10'
   - '8'
-  - '6'
