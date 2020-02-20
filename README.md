@@ -122,8 +122,8 @@ ReactDOM.render(
 | `min` | `integer` | | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you. |
 | `max` | `integer` | | See `min` above |
 | `steps` | `integer` |`4` | Configure the number of images generated between `min` and `max` (inclusive) |
-| `quality` | `integer` | `85` | JPEG compression quality |
-| `format` | `string` | *original format* | Either `png` or `jpg`; use to convert to another format |
+| `quality` | `integer` | `85` | JPEG and WEBP compression quality |
+| `format` | `string` | *original format* | Either `png` or `jpg`; use to convert to another format. `webp` is also supported, but only by the sharp adapter |
 | `placeholder` | `boolean` | `false` | A true or false value to specify wether to output a placeholder image as a data URI |
 | `placeholderSize` | `integer` | `40` | A number value specifying the width of the placeholder image, if enabled with the option above |
 | `adapter` | `Adapter` | JIMP | Specify which adapter to use. Can only be specified in the loader options. |
@@ -138,6 +138,8 @@ ReactDOM.render(
 ##### sharp
 
 - `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF`
+
+- `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
 
 
 ### Examples
