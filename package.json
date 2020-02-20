@@ -4,7 +4,7 @@
   "description": "A webpack loader for responsive images",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=4"
+    "node": ">=10"
   },
   "scripts": {
     "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
@@ -50,7 +50,7 @@
     "flow-bin": "^0.85.0",
     "jest": "^20.0.4",
     "jimp": "^0.2.21",
-    "sharp": "^0.18.2",
+    "sharp": "^0.22.1",
     "webpack": "^3.1.0"
   },
   "jest": {
