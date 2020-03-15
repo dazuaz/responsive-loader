@@ -21,23 +21,23 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/796c6c77e78ac26b66092d44b13ffa86-500.webp",
+      "path": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/4c247abefc3dc5043f1fdc2fb82806fe-750.webp",
+      "path": "foobar/19a583b994d3541ea136ba3b22303970-750.webp",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/44d0fa043fec9770982b7c8c6fef6e60-1000.webp",
+      "path": "foobar/b2df84fb5c0602160f9419076f04e2c8-1000.webp",
       "width": 1000,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/796c6c77e78ac26b66092d44b13ffa86-500.webp",
-  "srcSet": "foobar/796c6c77e78ac26b66092d44b13ffa86-500.webp 500w,foobar/4c247abefc3dc5043f1fdc2fb82806fe-750.webp 750w,foobar/44d0fa043fec9770982b7c8c6fef6e60-1000.webp 1000w",
+  "src": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp",
+  "srcSet": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp 500w,foobar/19a583b994d3541ea136ba3b22303970-750.webp 750w,foobar/b2df84fb5c0602160f9419076f04e2c8-1000.webp 1000w",
   "toString": [Function],
   "width": 500,
 }
@@ -233,18 +233,18 @@ Object {
   "images": Array [
     Object {
       "height": 580,
-      "path": "foobar/d4aa90cbd7c0429641fbef9eb5b6025a-500.webp",
+      "path": "foobar/c270ec5e9e9911545aae89eb6d87c836-500.webp",
       "width": 500,
     },
     Object {
       "height": 595,
-      "path": "foobar/a6d8432e0a3d9d88d972481808061dfe-513.webp",
+      "path": "foobar/0b7833d83d7a580423f70a882f7a5f6a-513.webp",
       "width": 513,
     },
   ],
   "placeholder": undefined,
-  "src": "foobar/d4aa90cbd7c0429641fbef9eb5b6025a-500.webp",
-  "srcSet": "foobar/d4aa90cbd7c0429641fbef9eb5b6025a-500.webp 500w,foobar/a6d8432e0a3d9d88d972481808061dfe-513.webp 513w",
+  "src": "foobar/c270ec5e9e9911545aae89eb6d87c836-500.webp",
+  "srcSet": "foobar/c270ec5e9e9911545aae89eb6d87c836-500.webp 500w,foobar/0b7833d83d7a580423f70a882f7a5f6a-513.webp 513w",
   "toString": [Function],
   "width": 500,
 }
