@@ -1,0 +1,46 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "size": {
+      "type": ["string", "number"]
+    },
+    "sizes": {
+      "type": "array"
+    },
+    "min": {
+      "type": ["string", "number"]
+    },
+    "max": {
+      "type": ["string", "number"]
+    },
+    "steps": {
+      "type": ["string", "number"]
+    },
+    "name": {
+      "type": "string"
+    },
+    "outputPath": {
+      "anyOf": [{ "type": "string" }, { "instanceof": "Function" }]
+    },
+    "publicPath": {
+      "anyOf": [{ "type": "string" }, { "instanceof": "Function" }]
+    },
+    "context": { "type": "string" },
+    "placeholderSize": {
+      "type": ["string", "number"]
+    },
+    "quality": { "type": ["string", "number"] },
+    "background": { "type": ["string", "number"] },
+    "placeholder": { "type": ["string", "boolean"] },
+    "adapter": {
+      "instanceof": "Function"
+    },
+    "format": { "enum": ["png", "jpg", "jpeg", "webp"] },
+    "disable": { "type": "boolean" },
+    "esModule": {
+      "description": "By default, url-loader generates JS modules that use the ES modules syntax.",
+      "type": "boolean"
+    }
+  },
+  "type": "object"
+}

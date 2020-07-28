@@ -6,3 +6,4 @@ test/**/build/**/*.png
 test/**/build/**/*.jpg
 .node-version
 /lib
+.DS_Store

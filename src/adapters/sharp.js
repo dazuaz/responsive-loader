@@ -1,39 +1,56 @@
 // @flow
 
-const sharp = require('sharp');
+const sharp = require("sharp");
+
+type Options = { background?: number, quality: number };
+
+type Parameters = {
+  width: number,
+  mime: string,
+  options: Options,
+};
 
 module.exports = (imagePath: string) => {
   const image = sharp(imagePath);
 
   return {
     metadata: () => image.metadata(),
-    resize: ({width, mime, options}: {width: number, mime: string, options: {background?: number, quality: number}}): Promise<{width: number, height: number, data: Buffer}> =>
+    resize: ({
+      width,
+      mime,
+      options,
+    }: Parameters): Promise<{ width: number, height: number, data: Buffer }> =>
       new Promise((resolve, reject) => {
-        let resized = image.clone()
-          .resize(width, null);
+        let resized = image.clone().resize(width, null);
 
         if (options.background) {
-          resized = resized.background(options.background)
-          .flatten();
-        }
-
-        if (mime === 'image/jpeg') {
-          resized = resized.jpeg({
-            quality: options.quality
+          resized = resized.flatten({
+            background: options.background,
           });
         }
 
-        resized.toBuffer((err, data, {height}) => {
+        if (mime === "image/jpeg") {
+          resized = resized.jpeg({
+            quality: options.quality,
+          });
+        }
+        if (mime === "image/webp") {
+          resized = resized.webp({
+            quality: options.quality,
+          });
+        }
+
+        resized.toBuffer((err, data, { height }) => {
           if (err) {
             reject(err);
           } else {
             resolve({
               data,
               width,
-              height
+              height,
             });
           }
         });
-      })
+      }),
   };
 };

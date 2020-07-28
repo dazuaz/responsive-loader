@@ -1,226 +1,196 @@
 // @flow
+import path from "path";
 
-const path = require('path');
-const loaderUtils = require('loader-utils');
+import { parseQuery, getOptions, interpolateName } from "loader-utils";
+import validateOptions from "schema-utils";
 
-const MIMES = {
-  'jpg': 'image/jpeg',
-  'jpeg': 'image/jpeg',
-  'png': 'image/png'
+import {
+  parseConfig,
+  getOutputAndPublicPath,
+  createPlaceholder,
+} from "./utils";
+
+import type { Config, ParsedConfig } from "./types";
+import schema from "./options.json";
+
+const DEFAULTS = {
+  outputPlaceholder: false,
+  placeholderSize: 40,
+  quality: 85,
+  name: "[hash]-[width].[ext]",
+  steps: 4,
+  esModule: true,
 };
 
-const EXTS = {
-  'image/jpeg': 'jpg',
-  'image/png': 'png'
-};
-
-type Config = {
-  size: string | number | void,
-  sizes: [string | number] | void,
-  min: string | number | void,
-  max: string | number | void,
-  steps: string | number | void,
-  name: string | void,
-  outputPath: Function | string | void,
-  publicPath: Function | string | void,
-  context: string | void,
-  placeholderSize: string | number | void,
-  quality: string | number | void,
-  background: string | number | void,
-  placeholder: string | boolean | void,
-  adapter: ?Function,
-  format: 'png' | 'jpg' | 'jpeg',
-  disable: ?boolean,
-};
-
-const getOutputAndPublicPath = (fileName:string, {outputPath: configOutputPath, publicPath: configPublicPath}:Config) => {
-  let outputPath = fileName;
-
-  if (configOutputPath) {
-    if (typeof configOutputPath === 'function') {
-      outputPath = configOutputPath(fileName);
-    } else {
-      outputPath = path.posix.join(configOutputPath, fileName);
-    }
-  }
-
-  let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`;
-
-  if (configPublicPath) {
-    if (typeof configPublicPath === 'function') {
-      publicPath = configPublicPath(fileName);
-    } else if (configPublicPath.endsWith('/')) {
-      publicPath = configPublicPath + fileName;
-    } else {
-      publicPath = `${configPublicPath}/${fileName}`;
-    }
-
-    publicPath = JSON.stringify(publicPath);
-  }
-
-  return {
-    outputPath,
-    publicPath
-  };
-};
-
-module.exports = function loader(content: Buffer) {
+/**
+ * **Responsive Images Loader**
+ *
+ * Creates multiple images from one source image, and returns a srcset
+ * [Responsive Images Loader](https://github.com/dazuaz/responsive-images-loader)
+ *
+ * @method loader
+ *
+ * @param {Buffer} content Source
+ *
+ * @return {loaderCallback} loaderCallback Result
+ */
+export default function loader(content: Buffer) {
   const loaderCallback = this.async();
-  const parsedResourceQuery = this.resourceQuery ? loaderUtils.parseQuery(this.resourceQuery) : {};
-  const config: Config = Object.assign({}, loaderUtils.getOptions(this), parsedResourceQuery);
-  const outputContext: string = config.context || this.rootContext || this.options && this.options.context;
-  const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
-  const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
-  // JPEG compression
-  const quality: number = parseInt(config.quality, 10) || 85;
-  // Useful when converting from PNG to JPG
-  const background: string | number | void = config.background;
-  // Specify mimetype to convert to another format
-  let mime: string;
-  let ext: string;
-  if (config.format) {
-    if (!MIMES.hasOwnProperty(config.format)) {
-      return loaderCallback(new Error('Format "' + config.format + '" not supported'));
-    }
-    mime = MIMES[config.format];
-    ext = EXTS[mime];
-  } else {
-    ext = path.extname(this.resourcePath).replace(/\./, '');
-    mime = MIMES[ext];
-    if (!mime) {
-      return loaderCallback(new Error('No mime type for file with extension ' + ext + 'supported'));
-    }
-  }
+  const parsedResourceQuery = this.resourceQuery
+    ? parseQuery(this.resourceQuery)
+    : {};
 
-  const name = (config.name || '[hash]-[width].[ext]').replace(/\[ext\]/ig, ext);
+  // combine webpack options with query options
+  const config: Config = Object.assign(
+    {},
+    getOptions(this),
+    parsedResourceQuery
+  );
+  validateOptions(schema, config, "Responsive Images Loader");
 
-  const adapter: Function = config.adapter || require('./adapters/jimp');
-  const loaderContext: any = this;
-
-  // The config that is passed to the adatpers
-  const adapterOptions = Object.assign({}, config, {
+  // parses configs and set defaults options
+  const {
+    outputContext,
+    outputPlaceholder,
+    placeholderSize,
     quality,
-    background
-  });
+    background,
+    mime,
+    ext,
+    name,
+    generatedSizes,
+    esModule,
+  }: ParsedConfig = parseConfig(this, config, DEFAULTS);
 
-  const min: number | void = config.min !== undefined ? parseInt(config.min, 10) : undefined;
-  const max: number | void = config.max !== undefined ? parseInt(config.max, 10) : undefined;
-  const steps: number = config.steps === undefined ? 4 : parseInt(config.steps, 10);
-
-  let generatedSizes;
-  if (typeof min === 'number' && max) {
-    generatedSizes = [];
-
-    for (let step = 0; step < steps; step++) {
-      const size = min + (max - min) / (steps - 1) * step;
-      generatedSizes.push(Math.ceil(size));
-    }
-  }
-
-  const sizes = parsedResourceQuery.size || parsedResourceQuery.sizes || generatedSizes || config.size || config.sizes || [Number.MAX_SAFE_INTEGER];
+  const sizes = parsedResourceQuery.size ||
+    parsedResourceQuery.sizes ||
+    generatedSizes ||
+    config.size ||
+    config.sizes || [Number.MAX_SAFE_INTEGER];
 
   if (!sizes) {
+    // TODO this never reaches
     return loaderCallback(null, content);
   }
 
-  if (config.disable) {
-    // emit original content only
-    const fileName = loaderUtils.interpolateName(loaderContext, name, {
-      context: outputContext,
-      content: content
-    })
-      .replace(/\[width\]/ig, '100')
-      .replace(/\[height\]/ig, '100');
-
-    const {outputPath, publicPath} = getOutputAndPublicPath(fileName, config);
-
-    loaderContext.emitFile(outputPath, content);
-
-    return loaderCallback(null, 'module.exports = {srcSet:' + publicPath + ',images:[{path:' + publicPath + ',width:100,height:100}],src: ' + publicPath + ',toString:function(){return ' + publicPath + '}};');
+  if (!mime) {
+    return loaderCallback(
+      new Error("No mime type for file with extension " + ext + "supported")
+    );
   }
 
-  const createFile = ({data, width, height}) => {
-    const fileName = loaderUtils.interpolateName(loaderContext, name, {
+  const createFile = ({
+    data,
+    width,
+    height,
+  }: {
+    data: Buffer,
+    width: string | number,
+    height: string | number,
+  }) => {
+    const fileName = interpolateName(this, name, {
       context: outputContext,
-      content: data
+      content: data,
     })
-    .replace(/\[width\]/ig, width)
-    .replace(/\[height\]/ig, height);
+      .replace(/\[width\]/gi, width)
+      .replace(/\[height\]/gi, height);
 
-    const {outputPath, publicPath} = getOutputAndPublicPath(fileName, config);
+    const { outputPath, publicPath } = getOutputAndPublicPath(fileName, config);
 
-    loaderContext.emitFile(outputPath, data);
+    this.emitFile(outputPath, data);
 
     return {
       src: publicPath + `+${JSON.stringify(` ${width}w`)}`,
       path: publicPath,
       width: width,
-      height: height
+      height: height,
     };
   };
 
-  const createPlaceholder = ({data}: {data: Buffer}) => {
-    const placeholder = data.toString('base64');
-    return JSON.stringify('data:' + (mime ? mime + ';' : '') + 'base64,' + placeholder);
+  if (config.disable) {
+    const { path } = createFile({ data: content, width: "100", height: "100" });
+    return loaderCallback(
+      null,
+      `${esModule ? "export default" : "module.exports ="} {
+        srcSet:${path},
+        images:[{path:${path},width:100,height:100}],
+        src: ${path},
+        toString:function(){return ${path}}
+      };`
+    );
+  }
+
+  const adapter: Function = config.adapter || require("./adapters/jimp");
+  // The config that is passed to the adatpers
+  const adapterOptions = {
+    quality,
+    background,
   };
 
-  const img = adapter(loaderContext.resourcePath);
-  return img.metadata()
+  const img = adapter(this.resourcePath);
+
+  img
+    .metadata()
     .then((metadata) => {
       let promises = [];
       const widthsToGenerate = new Set();
 
       (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
         const width = Math.min(metadata.width, parseInt(size, 10));
-
         // Only resize images if they aren't an exact copy of one already being resized...
         if (!widthsToGenerate.has(width)) {
           widthsToGenerate.add(width);
-          promises.push(img.resize({
-            width,
-            mime,
-            options: adapterOptions
-          }));
+          promises.push(
+            img.resize({
+              width,
+              mime,
+              options: adapterOptions,
+            })
+          );
         }
       });
 
       if (outputPlaceholder) {
-        promises.push(img.resize({
-          width: placeholderSize,
-          options: adapterOptions,
-          mime
-        }));
+        promises.push(
+          img.resize({
+            width: placeholderSize,
+            options: adapterOptions,
+            mime,
+          })
+        );
       }
 
-      return Promise.all(promises)
-        .then(results => outputPlaceholder
+      return Promise.all(promises).then((results) =>
+        outputPlaceholder
           ? {
-            files: results.slice(0, -1).map(createFile),
-            placeholder: createPlaceholder(results[results.length - 1])
-          }
+              files: results.slice(0, -1).map(createFile),
+              placeholder: createPlaceholder(results[results.length - 1], mime),
+            }
           : {
-            files: results.map(createFile)
-          }
-         );
+              files: results.map(createFile),
+            }
+      );
     })
-    .then(({files, placeholder}) => {
-      const srcset = files.map(f => f.src).join('+","+');
-
-      const images = files.map(f => '{path:' + f.path + ',width:' + f.width + ',height:' + f.height + '}').join(',');
-
+    .then(({ files, placeholder }) => {
+      const srcset = files.map((f) => f.src).join('+","+');
+      const images = files
+        .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
+        .join(",");
       const firstImage = files[0];
 
-      loaderCallback(null, 'module.exports = {' +
-          'srcSet:' + srcset + ',' +
-          'images:[' + images + '],' +
-          'src:' + firstImage.path + ',' +
-          'toString:function(){return ' + firstImage.path + '},' +
-          'placeholder: ' + placeholder + ',' +
-          'width:' + firstImage.width + ',' +
-          'height:' + firstImage.height +
-      '};');
+      loaderCallback(
+        null,
+        `${esModule ? "export default" : "module.exports ="} {
+          srcSet: ${srcset},
+          images:[ ${images}],
+          src: ${firstImage.path},
+          toString:function(){return ${firstImage.path}},
+          placeholder: ${placeholder},
+          width: ${firstImage.width},
+          height: ${firstImage.height}
+      }`
+      );
     })
-    .catch(err => loaderCallback(err));
-};
-
-module.exports.raw = true; // get buffer stream instead of utf8 string
+    .catch((err) => loaderCallback(err));
+}
+export const raw = true;
