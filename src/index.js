@@ -6,12 +6,14 @@ const loaderUtils = require('loader-utils');
 const MIMES = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
-  'png': 'image/png'
+  'png': 'image/png',
+  'webp': 'image/webp'
 };
 
 const EXTS = {
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'image/webp': 'webp'
 };
 
 type Config = {
@@ -29,7 +31,7 @@ type Config = {
   background: string | number | void,
   placeholder: string | boolean | void,
   adapter: ?Function,
-  format: 'png' | 'jpg' | 'jpeg',
+  format: 'png' | 'jpg' | 'jpeg' | 'webp',
   disable: ?boolean,
 };
 
@@ -71,7 +73,7 @@ module.exports = function loader(content: Buffer) {
   const outputContext: string = config.context || this.rootContext || this.options && this.options.context;
   const outputPlaceholder: boolean = Boolean(config.placeholder) || false;
   const placeholderSize: number = parseInt(config.placeholderSize, 10) || 40;
-  // JPEG compression
+  // JPEG and WEBP compression
   const quality: number = parseInt(config.quality, 10) || 85;
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;

@@ -13,12 +13,19 @@ module.exports = (imagePath: string) => {
           .resize(width, null);
 
         if (options.background) {
-          resized = resized.background(options.background)
-          .flatten();
+          resized = resized
+          .flatten({
+            background: options.background
+          });
         }
 
         if (mime === 'image/jpeg') {
           resized = resized.jpeg({
+            quality: options.quality
+          });
+        }
+        if (mime === 'image/webp') {
+          resized = resized.webp({
             quality: options.quality
           });
         }

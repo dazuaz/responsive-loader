@@ -4,5 +4,6 @@ test/build
 test/**/build/*.js
 test/**/build/**/*.png
 test/**/build/**/*.jpg
+test/**/build/**/*.webp
 .node-version
 /lib
