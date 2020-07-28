@@ -47,34 +47,6 @@ Object {
 }
 `;
 
-exports[`jpg to webp 1`] = `
-Object {
-  "height": 450,
-  "images": Array [
-    Object {
-      "height": 450,
-      "path": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp",
-      "width": 500,
-    },
-    Object {
-      "height": 675,
-      "path": "foobar/19a583b994d3541ea136ba3b22303970-750.webp",
-      "width": 750,
-    },
-    Object {
-      "height": 900,
-      "path": "foobar/b2df84fb5c0602160f9419076f04e2c8-1000.webp",
-      "width": 1000,
-    },
-  ],
-  "placeholder": undefined,
-  "src": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp",
-  "srcSet": "foobar/2834d341ca548e5e4b3027b97a24aea4-500.webp 500w,foobar/19a583b994d3541ea136ba3b22303970-750.webp 750w,foobar/b2df84fb5c0602160f9419076f04e2c8-1000.webp 1000w",
-  "toString": [Function],
-  "width": 500,
-}
-`;
-
 exports[`multiple sizes 1`] = `
 Object {
   "default": Object {
