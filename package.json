@@ -7,7 +7,7 @@
     "node": ">= 10.13.0"
   },
   "scripts": {
-    "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/test.js",
+    "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/*.webp test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/**/*.webp test/**/build/test.js",
     "build": "babel src/ -d lib/ --copy-files",
     "lint": "eslint --ignore-path=.gitignore .",
     "test": "flow && npm run build && npm run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
@@ -52,7 +52,6 @@
     "babel-jest": "^26.1.0",
     "eslint": "^7.4.0",
     "eslint-plugin-flowtype": "^5.2.0",
-    "eslint-plugin-react": "^7.20.3",
     "flow-bin": "^0.129.0",
     "jest": "^26.1.0",
     "jimp": "^0.14.0",

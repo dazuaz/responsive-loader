@@ -19,7 +19,7 @@ const DEFAULTS = {
   quality: 85,
   name: "[hash]-[width].[ext]",
   steps: 4,
-  esModule: true,
+  esModule: false,
 };
 
 /**
@@ -69,7 +69,6 @@ export default function loader(content: Buffer) {
     config.sizes || [Number.MAX_SAFE_INTEGER];
 
   if (!sizes) {
-    // TODO this never reaches
     return loaderCallback(null, content);
   }
 
@@ -107,9 +106,10 @@ export default function loader(content: Buffer) {
     };
   };
 
+  // Disable processing of images by this loader (useful in development)
   if (config.disable) {
     const { path } = createFile({ data: content, width: "100", height: "100" });
-    return loaderCallback(
+    loaderCallback(
       null,
       `${esModule ? "export default" : "module.exports ="} {
         srcSet:${path},
@@ -118,15 +118,16 @@ export default function loader(content: Buffer) {
         toString:function(){return ${path}}
       };`
     );
+    return;
   }
 
   const adapter: Function = config.adapter || require("./adapters/jimp");
+
   // The config that is passed to the adatpers
-  const adapterOptions = {
+  const adapterOptions = Object.assign({}, config, {
     quality,
     background,
-  };
-
+  });
   const img = adapter(this.resourcePath);
 
   img

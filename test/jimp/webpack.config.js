@@ -13,6 +13,7 @@ module.exports = {
         options: {
           min: 100,
           max: 300,
+          esModule: true,
         },
       },
       {
@@ -20,6 +21,7 @@ module.exports = {
         loader: require.resolve("../../lib/index"),
         options: {
           sizes: [500, 750, 1000],
+          esModule: true,
         },
       },
     ],

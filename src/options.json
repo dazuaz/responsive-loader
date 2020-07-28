@@ -38,7 +38,7 @@
     "format": { "enum": ["png", "jpg", "jpeg", "webp"] },
     "disable": { "type": "boolean" },
     "esModule": {
-      "description": "By default, url-loader generates JS modules that use the ES modules syntax.",
+      "description": "By default, responsive-loader generates JS modules that use the ES modules syntax.",
       "type": "boolean"
     }
   },
