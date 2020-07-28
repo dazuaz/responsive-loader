@@ -1,4 +1,4 @@
-test("multiple sizes", async () => {
+test("multiple sizes", () => {
   const multi = require("../cat-1000.jpg?sizes[]=500&sizes[]=2000");
   expect(multi).toMatchSnapshot();
   expect(multi.default.toString()).toBe(multi.default.src);

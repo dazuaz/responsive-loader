@@ -39,6 +39,11 @@ module.exports = (imagePath: string) => {
             quality: options.quality,
           });
         }
+        if (mime === "image/webp") {
+          resized = resized.webp({
+            quality: options.quality,
+          });
+        }
 
         resized.toBuffer((err, data, { height }) => {
           if (err) {
