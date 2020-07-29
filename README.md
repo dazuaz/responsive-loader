@@ -129,13 +129,16 @@ ReactDOM.render(
   <div style={{
     height: responsiveImage.height,
     width: responsiveImage.width,
-    backgroundSize: 'cover',
+    backgroundSize: '100% 100%',
     backgroundImage: 'url("' + responsiveImage.placeholder + '")'
   }}>
     <img src={responsiveImage.src} srcSet={responsiveImage.srcSet} />
   </div>, el);
 ```
 
+**Tip:** The placeholder will have a slightly different height/width-ratio due to the reduced resolution. 
+Background size *'100% 100%'* will scale it to the height and width of the original image provided to the attributes `height` and `width` of the `div` element.
+The background size *'cover'* would show a slightly enlarged and cropped placeholder that would show a little bit more flicker once the original image is loaded by the `img` element.
 
 ### Options
 
