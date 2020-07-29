@@ -1,6 +1,10 @@
 # responsive-loader
 
-[![Build Status](https://travis-ci.org/dazuaz/responsive-loader.svg?branch=master)](https://travis-ci.org/dazuaz/responsive-loader)
+[![build][travis]][travis-url]
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![size][size]][size-url]
 
 A webpack loader for responsive images. Creates multiple images from one source image, and returns a `srcset`. For more information on how to use `srcset`, read [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images). Browser support is [pretty good](http://caniuse.com/#search=srcset).
 
@@ -56,12 +60,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png)$/i,
+        test: /\.(jpe?g|png|webp)$/i,
         use: [
           loader: 'responsive-loader',
           options: {
             // If you want to enable sharp support:
-            // adapter: require('responsive-loader/sharp')
+            adapter: require('responsive-loader/sharp'),
           }
         ]
       }
@@ -73,18 +77,38 @@ module.exports = {
 Then import images in your JavaScript files:
 
 ```js
-// Outputs three images with 100, 200, and 300px widths
-const responsiveImage = require('myImage.jpg?sizes[]=100,sizes[]=200,sizes[]=300');
+import responsiveImage from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048';
+import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048&format=webp';
+// or ... require('img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048')
 
-// responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg 100w,2fefae46cb857bc750fa5e5eed4a0cde-200.jpg 200w,2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w'
-// responsiveImage.images => [{height: 50, path: '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg', width: 100}, {height: 100, path: '2fefae46cb857bc750fa5e5eed4a0cde-200.jpg', width: 200}, {height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}]
-// responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
-// responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-100.jpg'
-ReactDOM.render(<img srcSet={responsiveImage.srcSet} src={responsiveImage.src} />, el);
-
-// Or you can just use it as props, `srcSet` and `src` will be set properly
-ReactDOM.render(<img {...responsiveImage} />, el);
+// Outputs 
+// responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w ...'
+// responsiveImage.images => [{height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}, {height: 300, path: '2fefae46cb857bc750fa5e5eed4a0cde-600.jpg', width: 600} ...]
+// responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
+// responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
+...
+<picture>
+  <source srcSet={responsiveImageWebp.srcSet} type='image/webp' />
+  <img
+    src={responsiveImage.src}
+    srcSet={responsiveImage.srcSet}
+    width={responsiveImage.width}
+    height={responsiveImage.height}
+    sizes='(min-width: 1024px) 1024px, 100vw'
+    loading="lazy"
+  />
+</picture>
 ```
+
+Notes:
+- `width` and `height` are intrinsic and are used to avoid layout shift, other techniques involve the use of aspect ratio and padding.
+- `sizes`, without sizes, the browser assumes the image is always 100vw for any viewport.
+  - A helpful tool to determine proper sizes https://ausi.github.io/respimagelint/
+- `loading` do not add loading lazy if the image is part of the initial rendering of the page or close to it.
+- `srcset` Modern browsers will choose the closest best image depending on the pixel density of your screen.
+  - in the example above is your pixel density is `>1x` for a screen `>1024px` it will display the 2048 image.
+
+
 
 Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
 
@@ -164,7 +188,7 @@ module.exports = {
             loader: "responsive-loader",
             options: {
               adapter: require('responsive-loader/sharp'),
-              sizes: [320, 640, 960, 1200, 2000],
+              sizes: [320, 640, 960, 1200, 1800, 2400],
               placeholder: true,
               placeholderSize: 20
             },
@@ -244,3 +268,14 @@ In your webpack config, require your adapter
 ## See also
 
 - Inspired by [resize-image-loader](https://github.com/Levelmoney/resize-image-loader), but simpler and without dependency on ImageMagick
+
+[npm]: https://img.shields.io/npm/v/responsive-loader.svg
+[npm-url]: https://npmjs.com/package/responsive-loader
+[node]: https://img.shields.io/node/v/responsive-loader.svg
+[node-url]: https://nodejs.org
+[deps]: https://david-dm.org/dazuaz/responsive-loader.svg
+[deps-url]: https://david-dm.org/dazuaz/responsive-loader
+[travis]: https://travis-ci.com/dazuaz/responsive-loader.svg?branch=master
+[travis-url]: https://travis-ci.com/dazuaz/responsive-loader
+[size]: https://packagephobia.now.sh/badge?p=responsive-loader
+[size-url]: https://packagephobia.now.sh/result?p=responsive-loader
