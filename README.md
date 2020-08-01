@@ -10,8 +10,6 @@ A webpack loader for responsive images. Creates multiple images from one source 
 
 ## Install
 
-> Note: starting with v1.0.0, responsive-loader is only compatible with webpack 2+. For webpack 1 support, use responsive-loader@0.7.0
-
 ### With jimp
 
 ```
@@ -79,7 +77,6 @@ Then import images in your JavaScript files:
 ```js
 import responsiveImage from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048';
 import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048&format=webp';
-// or ... require('img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048')
 
 // Outputs 
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w ...'
@@ -87,17 +84,18 @@ import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]
 // responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
 // responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
 ...
-<picture>
-  <source srcSet={responsiveImageWebp.srcSet} type='image/webp' />
-  <img
-    src={responsiveImage.src}
-    srcSet={responsiveImage.srcSet}
-    width={responsiveImage.width}
-    height={responsiveImage.height}
-    sizes='(min-width: 1024px) 1024px, 100vw'
-    loading="lazy"
-  />
-</picture>
+  <picture>
+    <source srcSet={responsiveImageWebp.srcSet} type='image/webp' />
+    <img
+      src={responsiveImage.src}
+      srcSet={responsiveImage.srcSet}
+      width={responsiveImage.width}
+      height={responsiveImage.height}
+      sizes='(min-width: 1024px) 1024px, 100vw'
+      loading="lazy"
+    />
+  </picture>
+...
 ```
 
 Notes:
@@ -136,14 +134,18 @@ ReactDOM.render(
   </div>, el);
 ```
 
+You can also use the following notation: 
+```
+<source srcSet={require("./image.jpg?{sizes:[50,100,200,300,400,500,600,700,800], format: 'webp'}").srcSet} type="image/webp"/>
+```
 
 ### Options
 
 | Option                      | Type                | Default                | Description                                                                                                                                                                                                                                                                           |
 | --------------------------- | ------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                      | `string`            | `[hash]-[width].[ext]` | Filename template for output files.                                                                                                                                                                                                                                                   |
-| `outputPath`                | `string | Function` | `undefined`            | Configure a custom output path for your file                                                                                                                                                                                                                                          |
-| `publicPath`                | `string | Function` | `undefined`            | Configure a custom public path for your file.                                                                                                                                                                                                                                         |
+| `outputPath`                | `string \| Function` | `undefined`            | Configure a custom output path for your file                                                                                                                                                                                                                                          |
+| `publicPath`                | `string \| Function` | `undefined`            | Configure a custom public path for your file.                                                                                                                                                                                                                                         |
 | `context`                   | `string`            | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context)                                                                                                                                                             |
 | `sizes`                     | `array`             | *original size*        | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.                                 |
 | `size`                      | `integer`           | *original size*        | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)                                                                                                                                 |
