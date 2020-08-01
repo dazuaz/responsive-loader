@@ -4,6 +4,11 @@ test("multiple sizes", () => {
   expect(multi.default.toString()).toBe(multi.default.src);
 });
 
+test("parses json notation", () => {
+  const multi = require("../cat-1000.jpg?{sizes:[50,100,200]}");
+  expect(multi).toMatchSnapshot();
+});
+
 test("single size", () => {
   const single = require("../cat-1000.jpg?size=500");
   expect(single).toMatchSnapshot();

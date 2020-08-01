@@ -197,6 +197,36 @@ Object {
 }
 `;
 
+exports[`parses json notation 1`] = `
+Object {
+  "default": Object {
+    "height": 45,
+    "images": Array [
+      Object {
+        "height": 45,
+        "path": "foobar/3980d68b1e5545406846ef85e2785741-50.webp",
+        "width": 50,
+      },
+      Object {
+        "height": 90,
+        "path": "foobar/ed5c8d3d55565cd64634dc5ab72eab55-100.webp",
+        "width": 100,
+      },
+      Object {
+        "height": 180,
+        "path": "foobar/40d3163ae75c85db87a1a8b8587dd12e-200.webp",
+        "width": 200,
+      },
+    ],
+    "placeholder": undefined,
+    "src": "foobar/3980d68b1e5545406846ef85e2785741-50.webp",
+    "srcSet": "foobar/3980d68b1e5545406846ef85e2785741-50.webp 50w,foobar/ed5c8d3d55565cd64634dc5ab72eab55-100.webp 100w,foobar/40d3163ae75c85db87a1a8b8587dd12e-200.webp 200w",
+    "toString": [Function],
+    "width": 50,
+  },
+}
+`;
+
 exports[`png 1`] = `
 Object {
   "default": Object {
