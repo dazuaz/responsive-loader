@@ -2,15 +2,15 @@
   "name": "responsive-loader",
   "version": "2.0.0",
   "description": "A webpack loader for responsive images",
-  "main": "lib/index.js",
+  "main": "lib/cjs.js",
   "engines": {
     "node": ">= 10.13.0"
   },
   "scripts": {
-    "clean-test": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/*.webp test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/**/*.webp test/**/build/test.js",
     "build": "babel src/ -d lib/ --copy-files",
     "lint": "eslint --ignore-path=.gitignore .",
-    "test": "flow && npm run build && npm run clean-test && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
+    "test:clean": "rm -f test/**/build/*.jpg test/**/build/*.png test/**/build/*.webp test/**/build/**/*.jpg test/**/build/**/*.png test/**/build/**/*.webp test/**/build/test.js",
+    "test": "flow && npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
   },
   "files": [
     "lib",

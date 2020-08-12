@@ -34,6 +34,7 @@ const DEFAULTS = {
  *
  * @return {loaderCallback} loaderCallback Result
  */
+// module.exports = function loader(content: Buffer) {
 export default function loader(content: Buffer) {
   const loaderCallback = this.async();
   const parsedResourceQuery = this.resourceQuery
