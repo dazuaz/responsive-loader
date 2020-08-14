@@ -17,6 +17,7 @@ type Config = {
   format: "png" | "jpg" | "jpeg" | "webp",
   disable: ?boolean,
   esModule?: boolean,
+  emitFile?: boolean,
 };
 type ParsedConfig = {
   outputContext: string,
@@ -29,5 +30,6 @@ type ParsedConfig = {
   ext: string,
   generatedSizes?: number[],
   esModule: boolean,
+  emitFile: boolean,
 };
 export type { Config, ParsedConfig };

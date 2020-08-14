@@ -88,3 +88,8 @@ test("override min and max with size", () => {
   const output = require("../cat-1000.jpg?minmax&size=100");
   expect(output).toMatchSnapshot();
 });
+
+test("doesn't emit file", () => {
+  const multi = require("../cat-1000.jpg?emitFile=false&sizes[]=250");
+  expect(multi).toMatchSnapshot();
+});

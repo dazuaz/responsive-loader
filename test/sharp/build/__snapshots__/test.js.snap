@@ -17,6 +17,26 @@ Object {
 }
 `;
 
+exports[`doesn't emit file 1`] = `
+Object {
+  "default": Object {
+    "height": 225,
+    "images": Array [
+      Object {
+        "height": 225,
+        "path": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg",
+        "width": 250,
+      },
+    ],
+    "placeholder": undefined,
+    "src": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg",
+    "srcSet": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg 250w",
+    "toString": [Function],
+    "width": 250,
+  },
+}
+`;
+
 exports[`jpg to webp 1`] = `
 Object {
   "default": Object {

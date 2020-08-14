@@ -11,6 +11,7 @@ import {
 } from "./utils";
 
 import type { Config, ParsedConfig } from "./types";
+
 import schema from "./options.json";
 
 const DEFAULTS = {
@@ -20,13 +21,14 @@ const DEFAULTS = {
   name: "[hash]-[width].[ext]",
   steps: 4,
   esModule: false,
+  emitFile: true,
 };
 
 /**
  * **Responsive Images Loader**
  *
  * Creates multiple images from one source image, and returns a srcset
- * [Responsive Images Loader](https://github.com/dazuaz/responsive-images-loader)
+ * [Responsive Images Loader](https://github.com/dazuaz/responsive-loader)
  *
  * @method loader
  *
@@ -61,6 +63,7 @@ export default function loader(content: Buffer) {
     name,
     generatedSizes,
     esModule,
+    emitFile,
   }: ParsedConfig = parseConfig(this, config, DEFAULTS);
 
   const sizes = parsedResourceQuery.size ||
@@ -97,7 +100,9 @@ export default function loader(content: Buffer) {
 
     const { outputPath, publicPath } = getOutputAndPublicPath(fileName, config);
 
-    this.emitFile(outputPath, data);
+    if (emitFile) {
+      this.emitFile(outputPath, data);
+    }
 
     return {
       src: publicPath + `+${JSON.stringify(` ${width}w`)}`,

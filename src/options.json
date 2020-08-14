@@ -40,6 +40,10 @@
     "esModule": {
       "description": "By default, responsive-loader generates JS modules that don't use the ES modules syntax.",
       "type": "boolean"
+    },
+    "emitFile": {
+      "description": "Enables/Disables emit files.",
+      "type": "boolean"
     }
   },
   "type": "object"

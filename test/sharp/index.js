@@ -93,3 +93,8 @@ test("png to webp with transparent background", () => {
   const output = require("../cat-transparent.png?format=webp");
   expect(output).toMatchSnapshot();
 });
+
+test("doesn't emit file", () => {
+  const multi = require("../cat-1000.jpg?emitFile=false&sizes[]=250");
+  expect(multi).toMatchSnapshot();
+});

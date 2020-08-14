@@ -8,20 +8,31 @@ const MIMES = {
   png: "image/png",
   webp: "image/webp",
 };
+
 const EXTS = {
   "image/jpeg": "jpg",
   "image/png": "png",
   "image/webp": "webp",
 };
+
 function parseConfig(loaderContext: any, config: Config, defaults: Object) {
   const outputContext: string =
-    config.context || loaderContext.rootContext || (loaderContext.options && loaderContext.options.context);
-  const outputPlaceholder: boolean = Boolean(config.placeholder) || defaults.outputPlaceholder;
-  const placeholderSize: number = parseInt(config.placeholderSize, 10) || defaults.placeholderSize;
+    config.context ||
+    loaderContext.rootContext ||
+    (loaderContext.options && loaderContext.options.context);
+
+  const outputPlaceholder: boolean =
+    Boolean(config.placeholder) || defaults.outputPlaceholder;
+
+  const placeholderSize: number =
+    parseInt(config.placeholderSize, 10) || defaults.placeholderSize;
+
   // JPEG and WEBP compression
   const quality: number = parseInt(config.quality, 10) || defaults.quality;
+
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
+
   let mime: string;
   let ext: string;
   if (config.format) {
@@ -31,10 +42,18 @@ function parseConfig(loaderContext: any, config: Config, defaults: Object) {
     ext = path.extname(loaderContext.resourcePath).replace(/\./, "");
     mime = MIMES[ext];
   }
+
   const name = (config.name || defaults.name).replace(/\[ext\]/gi, ext);
-  const min: number | void = config.min !== undefined ? parseInt(config.min, 10) : undefined;
-  const max: number | void = config.max !== undefined ? parseInt(config.max, 10) : undefined;
-  const steps: number = config.steps === undefined ? defaults.steps : parseInt(config.steps, 10);
+
+  const min: number | void =
+    config.min !== undefined ? parseInt(config.min, 10) : undefined;
+
+  const max: number | void =
+    config.max !== undefined ? parseInt(config.max, 10) : undefined;
+
+  const steps: number =
+    config.steps === undefined ? defaults.steps : parseInt(config.steps, 10);
+
   let generatedSizes;
   if (typeof min === "number" && max) {
     generatedSizes = [];
@@ -44,10 +63,28 @@ function parseConfig(loaderContext: any, config: Config, defaults: Object) {
       generatedSizes.push(Math.ceil(size));
     }
   }
-  const esModule: boolean = config.esModule !== undefined ? config.esModule : defaults.esModule;
 
-  return { outputContext, outputPlaceholder, placeholderSize, quality, background, ext, mime, name, generatedSizes, esModule };
+  const esModule: boolean =
+    config.esModule !== undefined ? config.esModule : defaults.esModule;
+
+  const emitFile: boolean =
+    config.emitFile !== undefined ? config.emitFile : defaults.emitFile;
+
+  return {
+    outputContext,
+    outputPlaceholder,
+    placeholderSize,
+    quality,
+    background,
+    ext,
+    mime,
+    name,
+    generatedSizes,
+    esModule,
+    emitFile,
+  };
 }
+
 const createPlaceholder = ({ data }: { data: Buffer }, mime: string) => {
   return `"data:${mime};base64,${data.toString("base64")}"`;
 };
@@ -65,7 +102,10 @@ const createPlaceholder = ({ data }: { data: Buffer }, mime: string) => {
  *
  * @return {Config} Paths Result
  */
-const getOutputAndPublicPath = (fileName: string, { outputPath: configOutputPath, publicPath: configPublicPath }: Config) => {
+const getOutputAndPublicPath = (
+  fileName: string,
+  { outputPath: configOutputPath, publicPath: configPublicPath }: Config
+) => {
   let outputPath = fileName;
 
   if (configOutputPath) {
