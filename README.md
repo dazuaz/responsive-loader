@@ -47,7 +47,6 @@ module.exports = {
 }
 ```
 
-
 ## Usage
 
 Add a rule for loading responsive images to your webpack config:
@@ -78,7 +77,7 @@ Then import images in your JavaScript files:
 import responsiveImage from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048';
 import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048&format=webp';
 
-// Outputs 
+// Outputs
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w ...'
 // responsiveImage.images => [{height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}, {height: 300, path: '2fefae46cb857bc750fa5e5eed4a0cde-600.jpg', width: 600} ...]
 // responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
@@ -99,6 +98,7 @@ import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]
 ```
 
 Notes:
+
 - `width` and `height` are intrinsic and are used to avoid layout shift, other techniques involve the use of aspect ratio and padding.
 - `sizes`, without sizes, the browser assumes the image is always 100vw for any viewport.
   - A helpful tool to determine proper sizes https://ausi.github.io/respimagelint/
@@ -106,60 +106,66 @@ Notes:
 - `srcset` Modern browsers will choose the closest best image depending on the pixel density of your screen.
   - in the example above is your pixel density is `>1x` for a screen `>1024px` it will display the 2048 image.
 
-
-
 Or use it in CSS (only the first resized image will be used, if you use multiple `sizes`):
 
 ```css
-.myImage { background: url('myImage.jpg?size=1140'); }
+.myImage {
+  background: url("myImage.jpg?size=1140");
+}
 
 @media (max-width: 480px) {
-  .myImage { background: url('myImage.jpg?size=480'); }
+  .myImage {
+    background: url("myImage.jpg?size=480");
+  }
 }
 ```
 
 ```js
 // Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
-const responsiveImage = require('myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300');
+const responsiveImage = require("myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300");
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
 ReactDOM.render(
-  <div style={{
-    height: responsiveImage.height,
-    width: responsiveImage.width,
-    backgroundSize: 'cover',
-    backgroundImage: 'url("' + responsiveImage.placeholder + '")'
-  }}>
+  <div
+    style={{
+      height: responsiveImage.height,
+      width: responsiveImage.width,
+      backgroundSize: "cover",
+      backgroundImage: 'url("' + responsiveImage.placeholder + '")',
+    }}>
     <img src={responsiveImage.src} srcSet={responsiveImage.srcSet} />
-  </div>, el);
+  </div>,
+  el
+);
 ```
 
-You can also use the following notation: 
+You can also use the following notation:
+
 ```
 <source srcSet={require("./image.jpg?{sizes:[50,100,200,300,400,500,600,700,800], format: 'webp'}").srcSet} type="image/webp"/>
 ```
 
 ### Options
 
-| Option                      | Type                | Default                | Description                                                                                                                                                                                                                                                                           |
-| --------------------------- | ------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`                      | `string`            | `[hash]-[width].[ext]` | Filename template for output files.                                                                                                                                                                                                                                                   |
-| `outputPath`                | `string | Function` | `undefined`            | Configure a custom output path for your file                                                                                                                                                                                                                                          |
-| `publicPath`                | `string | Function` | `undefined`            | Configure a custom public path for your file.                                                                                                                                                                                                                                         |
-| `context`                   | `string`            | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context)                                                                                                                                                             |
-| `sizes`                     | `array`             | *original size*        | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.                                 |
-| `size`                      | `integer`           | *original size*        | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)                                                                                                                                 |
-| `min`                       | `integer`           |                        | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you.                                                                                                                                                  |
-| `max`                       | `integer`           |                        | See `min` above                                                                                                                                                                                                                                                                       |
-| `steps`                     | `integer`           | `4`                    | Configure the number of images generated between `min` and `max` (inclusive)                                                                                                                                                                                                          |
-| `quality`                   | `integer`           | `85`                   | JPEG and WEBP compression quality                                                                                                                                                                                                                                                     |
-| `format`                    | `string`            | *original format*      | Either `png` or `jpg`; use to convert to another format. `webp` is also supported, but only by the sharp adapter                                                                                                                                                                      |
-| `placeholder`               | `boolean`           | `false`                | A true or false value to specify wether to output a placeholder image as a data URI                                                                                                                                                                                                   |
-| `placeholderSize`           | `integer`           | `40`                   | A number value specifying the width of the placeholder image, if enabled with the option above                                                                                                                                                                                        |
-| `adapter`                   | `Adapter`           | JIMP                   | Specify which adapter to use. Can only be specified in the loader options.                                                                                                                                                                                                            |
-| `disable`                   | `boolean`           | `false`                | Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions. |
-| **[`esModule`](#esmodule)** | `boolean`           | `false`                | Use ES modules syntax.                                                                                                                                                                                                                                                                |
-| `emitFile`                  | `boolean`           | `true`                 | If `true`, emits a file (writes a file to the filesystem). If `false`, the loader will still return a object with the public URI but will not emit the file. It is often useful to disable this option for server-side packages.                                                      |
+| Option                      | Type                 | Default                | Description                                                                                                                                                                                                                                                                           |
+| --------------------------- | -------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                      | `string`             | `[hash]-[width].[ext]` | Filename template for output files.                                                                                                                                                                                                                                                   |
+| `outputPath`                | `string \| Function` | `undefined`            | Configure a custom output path for your file                                                                                                                                                                                                                                          |
+| `publicPath`                | `string \| Function` | `undefined`            | Configure a custom public path for your file.                                                                                                                                                                                                                                         |
+| `context`                   | `string`             | `this.options.context` | Custom file context, defaults to webpack.config.js [context](https://webpack.js.org/configuration/entry-context/#context)                                                                                                                                                             |
+| `sizes`                     | `array`              | _original size_        | Specify all widths you want to use; if a specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up). You may also declare a default `sizes` array in the loader options in your `webpack.config.js`.                                 |
+| `size`                      | `integer`            | _original size_        | Specify one width you want to use; if the specified size exceeds the original image's width, the latter will be used (i.e. images won't be scaled up)                                                                                                                                 |
+| `min`                       | `integer`            |                        | As an alternative to manually specifying `sizes`, you can specify `min`, `max` and `steps`, and the sizes will be generated for you.                                                                                                                                                  |
+| `max`                       | `integer`            |                        | See `min` above                                                                                                                                                                                                                                                                       |
+| `steps`                     | `integer`            | `4`                    | Configure the number of images generated between `min` and `max` (inclusive)                                                                                                                                                                                                          |
+| `quality`                   | `integer`            | `85`                   | JPEG and WEBP compression quality                                                                                                                                                                                                                                                     |
+| `format`                    | `string`             | _original format_      | Either `png` or `jpg`; use to convert to another format. `webp` is also supported, but only by the sharp adapter                                                                                                                                                                      |
+| `placeholder`               | `boolean`            | `false`                | A true or false value to specify wether to output a placeholder image as a data URI                                                                                                                                                                                                   |
+| `placeholderSize`           | `integer`            | `40`                   | A number value specifying the width of the placeholder image, if enabled with the option above                                                                                                                                                                                        |
+| `adapter`                   | `Adapter`            | JIMP                   | Specify which adapter to use. Can only be specified in the loader options.                                                                                                                                                                                                            |
+| `disable`                   | `boolean`            | `false`                | Disable processing of images by this loader (useful in development). `srcSet` and other attributes will still be generated but only for the original size. Note that the `width` and `height` attributes will both be set to `100` but the image will retain its original dimensions. |
+| **[`esModule`](#esmodule)** | `boolean`            | `false`                | Use ES modules syntax.                                                                                                                                                                                                                                                                |
+| `emitFile`                  | `boolean`            | `true`                 | If `true`, emits a file (writes a file to the filesystem). If `false`, the loader will still return a object with the public URI but will not emit the file. It is often useful to disable this option for server-side packages.                                                      |
 
 #### Adapter-specific options
 
@@ -172,7 +178,6 @@ You can also use the following notation:
 - `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF`
 
 - `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
-
 
 ### Examples
 
@@ -202,8 +207,6 @@ module.exports = {
   },
 }
 ```
-
-
 
 ### `esModule`
 
@@ -236,7 +239,6 @@ module.exports = {
   },
 };
 ```
-
 
 ### Writing Your Own Adapter
 
