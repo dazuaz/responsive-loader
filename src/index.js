@@ -78,7 +78,7 @@ export default function loader(content: Buffer) {
 
   if (!mime) {
     return loaderCallback(
-      new Error("No mime type for file with extension " + ext + "supported")
+      new Error("No mime type for file with extension " + ext + " supported")
     );
   }
 
