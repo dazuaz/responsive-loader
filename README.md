@@ -179,6 +179,8 @@ You can also use the following notation:
 
 - `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
 
+- `progressive: boolean` - Use progressive (interlace) scan for `image/jpeg` format.
+
 ### Examples
 
 Set a default `sizes` array, so you don't have to declare them with each `require`.

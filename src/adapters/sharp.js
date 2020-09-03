@@ -2,7 +2,7 @@
 
 const sharp = require("sharp");
 
-type Options = { background?: number, quality: number };
+type Options = { background?: number, quality: number, progressive?: boolean };
 
 type Parameters = {
   width: number,
@@ -32,6 +32,7 @@ module.exports = (imagePath: string) => {
         if (mime === "image/jpeg") {
           resized = resized.jpeg({
             quality: options.quality,
+            progressive: options.progressive,
           });
         }
         if (mime === "image/webp") {

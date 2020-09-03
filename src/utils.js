@@ -33,6 +33,9 @@ function parseConfig(loaderContext: any, config: Config, defaults: Object) {
   // Useful when converting from PNG to JPG
   const background: string | number | void = config.background;
 
+  // Progressive JPEG scan
+  const progressive: boolean | void = config.progressive;
+
   let mime: string;
   let ext: string;
   if (config.format) {
@@ -76,6 +79,7 @@ function parseConfig(loaderContext: any, config: Config, defaults: Object) {
     placeholderSize,
     quality,
     background,
+    progressive,
     ext,
     mime,
     name,
