@@ -58,6 +58,7 @@ export default function loader(content: Buffer) {
     placeholderSize,
     quality,
     background,
+    progressive,
     mime,
     ext,
     name,
@@ -133,6 +134,7 @@ export default function loader(content: Buffer) {
   const adapterOptions = Object.assign({}, config, {
     quality,
     background,
+    progressive,
   });
   const img = adapter(this.resourcePath);
 

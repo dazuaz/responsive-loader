@@ -322,6 +322,31 @@ Object {
 }
 `;
 
+exports[`progressive image 1`] = `
+Object {
+  "default": Object {
+    "height": 684,
+    "images": Array [
+      Object {
+        "height": 684,
+        "path": "foobar/b3fdb69948fa5859f854bcfc932cc49a-760.jpg",
+        "width": 760,
+      },
+      Object {
+        "height": 864,
+        "path": "foobar/8273e88d2951e2524334dfd80851f2e3-960.jpg",
+        "width": 960,
+      },
+    ],
+    "placeholder": undefined,
+    "src": "foobar/b3fdb69948fa5859f854bcfc932cc49a-760.jpg",
+    "srcSet": "foobar/b3fdb69948fa5859f854bcfc932cc49a-760.jpg 760w,foobar/8273e88d2951e2524334dfd80851f2e3-960.jpg 960w",
+    "toString": [Function],
+    "width": 760,
+  },
+}
+`;
+
 exports[`public path should replace global publicPath 1`] = `
 Object {
   "default": Object {

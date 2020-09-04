@@ -1,3 +1,8 @@
+test("progressive image", () => {
+  const multi = require("../cat-1000.jpg?sizes[]=760&sizes[]=960&progressive=true");
+  expect(multi).toMatchSnapshot();
+});
+
 test("multiple sizes", () => {
   const multi = require("../cat-1000.jpg?sizes[]=500&sizes[]=2000");
   expect(multi).toMatchSnapshot();
