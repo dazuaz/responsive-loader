@@ -94,7 +94,7 @@ const createPlaceholder = ({ data }: { data: Buffer }, mime: string) => {
 };
 
 /**
- * **Responsive Images Loader Paths**
+ * **Responsive Loader Paths**
  *
  * Returs the output and public path
  *

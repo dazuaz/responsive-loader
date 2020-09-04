@@ -25,7 +25,7 @@ const DEFAULTS = {
 };
 
 /**
- * **Responsive Images Loader**
+ * **Responsive Loader**
  *
  * Creates multiple images from one source image, and returns a srcset
  * [Responsive Images Loader](https://github.com/dazuaz/responsive-loader)
