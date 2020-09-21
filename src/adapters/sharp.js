@@ -41,6 +41,9 @@ module.exports = (imagePath: string) => {
           });
         }
 
+        // .toBuffer() strips EXIF data, including orientation (eg, portrait)
+        resized = resized.rotate();
+
         resized.toBuffer((err, data, { height }) => {
           if (err) {
             reject(err);
