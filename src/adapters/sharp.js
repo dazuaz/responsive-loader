@@ -41,7 +41,9 @@ module.exports = (imagePath: string) => {
           });
         }
 
-        // .toBuffer() strips EXIF data, including orientation (eg, portrait)
+        // .toBuffer() strips EXIF metadata like orientation, so portrait
+        // images will become landscape. This updates the image to reflect 
+        // the EXIF metadata (if an EXIF orientation is set; otherwise unchanged).
         resized = resized.rotate();
 
         resized.toBuffer((err, data, { height }) => {
