@@ -1,57 +1,70 @@
 // @flow
+const sharp = require("sharp")
 
-const sharp = require("sharp");
+import type { AdapterParameters } from "../types"
 
-type Options = { background?: number, quality: number, progressive?: boolean };
+class SharpAdapter {
+  image: any
+  constructor(imagePath: string | Buffer) {
+    this.image = sharp(imagePath)
+  }
+  metadata(): Promise<any> {
+    return this.image.metadata()
+  }
+  resize({
+    width,
+    mime,
+    options,
+  }: AdapterParameters): Promise<{
+    data: any,
+    height: number,
+    width: number,
+  }> {
+    return new Promise((resolve, reject) => {
+      let resized = this.image.clone().resize(width, null)
+      if (!options.rotate) {
+        // .toBuffer() strips EXIF metadata like orientation, so portrait
+        // images will become landscape. This updates the image to reflect
+        // the EXIF metadata (if an EXIF orientation is set; otherwise unchanged).
+        resized.rotate()
+      }
+      if (options.background) {
+        resized = resized.flatten({
+          background: options.background,
+        })
+      }
 
-type Parameters = {
-  width: number,
-  mime: string,
-  options: Options,
-};
+      if (mime === "image/jpeg") {
+        resized = resized.jpeg({
+          quality: options.quality,
+          progressive: options.progressive,
+        })
+      }
+      if (mime === "image/webp") {
+        resized = resized.webp({
+          quality: options.quality,
+        })
+      }
 
-module.exports = (imagePath: string) => {
-  const image = sharp(imagePath);
+      // rotate
+      if (options.rotate && options.rotate !== 0) {
+        resized = resized.rotate(options.rotate)
+      }
 
-  return {
-    metadata: () => image.metadata(),
-    resize: ({
-      width,
-      mime,
-      options,
-    }: Parameters): Promise<{ width: number, height: number, data: Buffer }> =>
-      new Promise((resolve, reject) => {
-        let resized = image.clone().resize(width, null);
-
-        if (options.background) {
-          resized = resized.flatten({
-            background: options.background,
-          });
+      resized.toBuffer((err, data, { height }) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve({
+            data,
+            width,
+            height,
+          })
         }
-
-        if (mime === "image/jpeg") {
-          resized = resized.jpeg({
-            quality: options.quality,
-            progressive: options.progressive,
-          });
-        }
-        if (mime === "image/webp") {
-          resized = resized.webp({
-            quality: options.quality,
-          });
-        }
-
-        resized.toBuffer((err, data, { height }) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve({
-              data,
-              width,
-              height,
-            });
-          }
-        });
-      }),
-  };
-};
+      })
+    })
+  }
+}
+module.exports = (imagePath: string | Buffer): SharpAdapter => {
+  return new SharpAdapter(imagePath)
+}

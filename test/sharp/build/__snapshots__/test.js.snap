@@ -322,6 +322,26 @@ Object {
 }
 `;
 
+exports[`preserves rotation 1`] = `
+Object {
+  "default": Object {
+    "height": 554,
+    "images": Array [
+      Object {
+        "height": 554,
+        "path": "foobar/28c7f2b5760ef7deb282f3413c18902c-499.jpg",
+        "width": 499,
+      },
+    ],
+    "placeholder": undefined,
+    "src": "foobar/28c7f2b5760ef7deb282f3413c18902c-499.jpg",
+    "srcSet": "foobar/28c7f2b5760ef7deb282f3413c18902c-499.jpg 499w",
+    "toString": [Function],
+    "width": 499,
+  },
+}
+`;
+
 exports[`progressive image 1`] = `
 Object {
   "default": Object {
@@ -373,6 +393,26 @@ Object {
     "srcSet": "public/5f436e215a7c7c83eaee4788fad3c3f3-500.jpg 500w,public/3d23eaf671472cc14e6ba00e6b98e2b7-750.jpg 750w,public/1e07c81d23028bb7eeed24cbdfb20f5c-1000.jpg 1000w",
     "toString": [Function],
     "width": 500,
+  },
+}
+`;
+
+exports[`rotates 90 1`] = `
+Object {
+  "default": Object {
+    "height": 666,
+    "images": Array [
+      Object {
+        "height": 666,
+        "path": "foobar/f9ac8fe5738b3f623c74b17eda61e150-599.jpg",
+        "width": 599,
+      },
+    ],
+    "placeholder": undefined,
+    "src": "foobar/f9ac8fe5738b3f623c74b17eda61e150-599.jpg",
+    "srcSet": "foobar/f9ac8fe5738b3f623c74b17eda61e150-599.jpg 599w",
+    "toString": [Function],
+    "width": 599,
   },
 }
 `;

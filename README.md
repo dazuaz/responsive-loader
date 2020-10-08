@@ -5,7 +5,6 @@
 [![node][node]][node-url]
 [![deps][deps]][deps-url]
 
-
 A webpack loader for responsive images. Creates multiple images from one source image, and returns a `srcset`. For more information on how to use `srcset`, read [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images). Browser support is [pretty good](http://caniuse.com/#search=srcset).
 
 ## Install
@@ -122,7 +121,7 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 
 ```js
 // Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
-const responsiveImage = require("myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300");
+const responsiveImage = require("myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300")
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
 ReactDOM.render(
@@ -132,11 +131,12 @@ ReactDOM.render(
       width: responsiveImage.width,
       backgroundSize: "cover",
       backgroundImage: 'url("' + responsiveImage.placeholder + '")',
-    }}>
+    }}
+  >
     <img src={responsiveImage.src} srcSet={responsiveImage.srcSet} />
   </div>,
   el
-);
+)
 ```
 
 You can also use the following notation:
@@ -144,6 +144,8 @@ You can also use the following notation:
 ```
 <source srcSet={require("./image.jpg?{sizes:[50,100,200,300,400,500,600,700,800], format: 'webp'}").srcSet} type="image/webp"/>
 ```
+
+More here https://github.com/webpack/loader-utils#parsequery
 
 ### Options
 
@@ -180,6 +182,7 @@ You can also use the following notation:
 - `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
 
 - `progressive: boolean` - Use progressive (interlace) scan for `image/jpeg` format.
+- `rotate: number` - Rotates image [more here](https://sharp.pixelplumbing.com/api-operation#rotate)
 
 ### Examples
 
@@ -192,7 +195,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png)$/i,
+        test: /\.(jpe?g|png|webp)$/i,
          use: [
           {
             loader: "responsive-loader",
@@ -239,7 +242,7 @@ module.exports = {
       },
     ],
   },
-};
+}
 ```
 
 ### Writing Your Own Adapter

@@ -1,18 +1,18 @@
 // @flow
-import path from "path";
+import path from "path"
 
-import { parseQuery, getOptions, interpolateName } from "loader-utils";
-import validateOptions from "schema-utils";
+import { parseQuery, getOptions, interpolateName } from "loader-utils"
+import { validate } from "schema-utils"
 
 import {
-  parseConfig,
+  parseOptions,
   getOutputAndPublicPath,
   createPlaceholder,
-} from "./utils";
+} from "./utils"
 
-import type { Config, ParsedConfig } from "./types";
+import type { Options, ParsedOptions } from "./types"
 
-import schema from "./options.json";
+import schema from "./schema.json"
 
 const DEFAULTS = {
   outputPlaceholder: false,
@@ -22,7 +22,8 @@ const DEFAULTS = {
   steps: 4,
   esModule: false,
   emitFile: true,
-};
+  rotate: 0,
+}
 
 /**
  * **Responsive Loader**
@@ -37,27 +38,28 @@ const DEFAULTS = {
  * @return {loaderCallback} loaderCallback Result
  */
 // module.exports = function loader(content: Buffer) {
-export default function loader(content: Buffer) {
-  const loaderCallback = this.async();
+export default function loader(content: Buffer): void {
+  const loaderCallback = this.async()
   const parsedResourceQuery = this.resourceQuery
     ? parseQuery(this.resourceQuery)
-    : {};
+    : {}
 
   // combine webpack options with query options
-  const config: Config = Object.assign(
+  const options: Options = Object.assign(
     {},
     getOptions(this),
     parsedResourceQuery
-  );
-  validateOptions(schema, config, "Responsive Images Loader");
+  )
+  validate(schema, options, "Responsive Loader")
 
-  // parses configs and set defaults options
+  // parses options and set defaults options
   const {
     outputContext,
     outputPlaceholder,
     placeholderSize,
     quality,
     background,
+    rotate,
     progressive,
     mime,
     ext,
@@ -65,22 +67,22 @@ export default function loader(content: Buffer) {
     generatedSizes,
     esModule,
     emitFile,
-  }: ParsedConfig = parseConfig(this, config, DEFAULTS);
+  }: ParsedOptions = parseOptions(this, options, DEFAULTS)
 
   const sizes = parsedResourceQuery.size ||
     parsedResourceQuery.sizes ||
     generatedSizes ||
-    config.size ||
-    config.sizes || [Number.MAX_SAFE_INTEGER];
+    options.size ||
+    options.sizes || [Number.MAX_SAFE_INTEGER]
 
   if (!sizes) {
-    return loaderCallback(null, content);
+    return loaderCallback(null, content)
   }
 
   if (!mime) {
     return loaderCallback(
       new Error("No mime type for file with extension " + ext + " supported")
-    );
+    )
   }
 
   const createFile = ({
@@ -97,12 +99,12 @@ export default function loader(content: Buffer) {
       content: data,
     })
       .replace(/\[width\]/gi, width)
-      .replace(/\[height\]/gi, height);
+      .replace(/\[height\]/gi, height)
 
-    const { outputPath, publicPath } = getOutputAndPublicPath(fileName, config);
+    const { outputPath, publicPath } = getOutputAndPublicPath(fileName, options)
 
     if (emitFile) {
-      this.emitFile(outputPath, data);
+      this.emitFile(outputPath, data)
     }
 
     return {
@@ -110,12 +112,12 @@ export default function loader(content: Buffer) {
       path: publicPath,
       width: width,
       height: height,
-    };
-  };
+    }
+  }
 
   // Disable processing of images by this loader (useful in development)
-  if (config.disable) {
-    const { path } = createFile({ data: content, width: "100", height: "100" });
+  if (options.disable) {
+    const { path } = createFile({ data: content, width: "100", height: "100" })
     loaderCallback(
       null,
       `${esModule ? "export default" : "module.exports ="} {
@@ -124,40 +126,41 @@ export default function loader(content: Buffer) {
         src: ${path},
         toString:function(){return ${path}}
       };`
-    );
-    return;
+    )
+    return
   }
 
-  const adapter: Function = config.adapter || require("./adapters/jimp");
+  const adapter: Function = options.adapter || require("./adapters/jimp")
 
-  // The config that is passed to the adatpers
-  const adapterOptions = Object.assign({}, config, {
+  // The config that is passed to the adapters
+  const adapterOptions = Object.assign({}, options, {
     quality,
     background,
+    rotate,
     progressive,
-  });
-  const img = adapter(this.resourcePath);
+  })
+  const img = adapter(this.resourcePath)
 
   img
     .metadata()
     .then((metadata) => {
-      let promises = [];
-      const widthsToGenerate = new Set();
+      let promises = []
+      const widthsToGenerate = new Set()
 
-      (Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
-        const width = Math.min(metadata.width, parseInt(size, 10));
+      ;(Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
+        const width = Math.min(metadata.width, parseInt(size, 10))
         // Only resize images if they aren't an exact copy of one already being resized...
         if (!widthsToGenerate.has(width)) {
-          widthsToGenerate.add(width);
+          widthsToGenerate.add(width)
           promises.push(
             img.resize({
               width,
               mime,
               options: adapterOptions,
             })
-          );
+          )
         }
-      });
+      })
 
       if (outputPlaceholder) {
         promises.push(
@@ -166,7 +169,7 @@ export default function loader(content: Buffer) {
             options: adapterOptions,
             mime,
           })
-        );
+        )
       }
 
       return Promise.all(promises).then((results) =>
@@ -178,14 +181,14 @@ export default function loader(content: Buffer) {
           : {
               files: results.map(createFile),
             }
-      );
+      )
     })
     .then(({ files, placeholder }) => {
-      const srcset = files.map((f) => f.src).join('+","+');
+      const srcset = files.map((f) => f.src).join('+","+')
       const images = files
         .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
-        .join(",");
-      const firstImage = files[0];
+        .join(",")
+      const firstImage = files[0]
 
       loaderCallback(
         null,
@@ -198,8 +201,8 @@ export default function loader(content: Buffer) {
           width: ${firstImage.width},
           height: ${firstImage.height}
       }`
-      );
+      )
     })
-    .catch((err) => loaderCallback(err));
+    .catch((err) => loaderCallback(err))
 }
-export const raw = true;
+export const raw = true

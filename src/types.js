@@ -1,5 +1,5 @@
 // @flow
-type Config = {
+type Options = {
   size: string | number | void,
   sizes: [string | number] | void,
   min: string | number | void,
@@ -14,24 +14,38 @@ type Config = {
   quality: string | number | void,
   background: string | number | void,
   progressive: boolean | void,
+  rotate: number | void,
   adapter: ?Function,
   format: "png" | "jpg" | "jpeg" | "webp",
   disable: ?boolean,
   esModule?: boolean,
   emitFile?: boolean,
-};
-type ParsedConfig = {
+}
+type ParsedOptions = {
   outputContext: string,
   outputPlaceholder: boolean,
   placeholderSize: number,
   quality: number,
   background?: string | number,
-  progressive?: string | boolean,
+  progressive?: boolean,
+  rotate?: number,
   name: string,
   mime: string,
   ext: string,
   generatedSizes?: number[],
   esModule: boolean,
   emitFile: boolean,
-};
-export type { Config, ParsedConfig };
+}
+type AdapterOptions = {
+  background?: number,
+  rotate: number,
+  quality: number,
+  progressive?: boolean,
+}
+declare type AdapterParameters = {
+  width: number,
+  mime: string,
+  options: AdapterOptions,
+}
+
+export type { Options, ParsedOptions, AdapterParameters }

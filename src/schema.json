@@ -31,7 +31,10 @@
     },
     "quality": { "type": ["string", "number"] },
     "background": { "type": ["string", "number"] },
-    "progressive": { "type": ["boolean"] },
+    "rotate": {
+      "type": ["string", "number"]
+    },
+    "progressive": { "type": "boolean" },
     "placeholder": { "type": ["string", "boolean"] },
     "adapter": {
       "instanceof": "Function"
