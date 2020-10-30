@@ -37,7 +37,6 @@ const DEFAULTS = {
  *
  * @return {loaderCallback} loaderCallback Result
  */
-// module.exports = function loader(content: Buffer) {
 export default function loader(content: Buffer): void {
   const loaderCallback = this.async()
   const parsedResourceQuery = this.resourceQuery
@@ -69,13 +68,16 @@ export default function loader(content: Buffer): void {
     emitFile,
   }: ParsedOptions = parseOptions(this, options, DEFAULTS)
 
-  const sizes = parsedResourceQuery.size ||
+  let sizes = parsedResourceQuery.size ||
     parsedResourceQuery.sizes ||
     generatedSizes ||
     options.size ||
     options.sizes || [Number.MAX_SAFE_INTEGER]
 
-  if (!sizes) {
+  // ensure is an array
+  sizes = [].concat(sizes)
+
+  if (!sizes.length) {
     return loaderCallback(null, content)
   }
 
@@ -141,49 +143,25 @@ export default function loader(content: Buffer): void {
   })
   const img = adapter(this.resourcePath)
 
-  img
-    .metadata()
-    .then((metadata) => {
-      let promises = []
-      const widthsToGenerate = new Set()
-
-      ;(Array.isArray(sizes) ? sizes : [sizes]).forEach((size) => {
-        const width = Math.min(metadata.width, parseInt(size, 10))
-        // Only resize images if they aren't an exact copy of one already being resized...
-        if (!widthsToGenerate.has(width)) {
-          widthsToGenerate.add(width)
-          promises.push(
-            img.resize({
-              width,
-              mime,
-              options: adapterOptions,
-            })
-          )
-        }
-      })
+  transformations({
+    img,
+    sizes,
+    mime,
+    outputPlaceholder,
+    placeholderSize,
+    adapterOptions,
+  })
+    .then((results) => {
+      let placeholder
+      let files = new Map()
 
       if (outputPlaceholder) {
-        promises.push(
-          img.resize({
-            width: placeholderSize,
-            options: adapterOptions,
-            mime,
-          })
-        )
+        files = results.slice(0, -1).map(createFile)
+        placeholder = createPlaceholder(results[results.length - 1], mime)
+      } else {
+        files = results.map(createFile)
       }
 
-      return Promise.all(promises).then((results) =>
-        outputPlaceholder
-          ? {
-              files: results.slice(0, -1).map(createFile),
-              placeholder: createPlaceholder(results[results.length - 1], mime),
-            }
-          : {
-              files: results.map(createFile),
-            }
-      )
-    })
-    .then(({ files, placeholder }) => {
       const srcset = files.map((f) => f.src).join('+","+')
       const images = files
         .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
@@ -197,12 +175,61 @@ export default function loader(content: Buffer): void {
           images:[ ${images}],
           src: ${firstImage.path},
           toString:function(){return ${firstImage.path}},
-          placeholder: ${placeholder},
+          ${placeholder ? "placeholder: " + placeholder + "," : ""}
           width: ${firstImage.width},
           height: ${firstImage.height}
-      }`
+        }`
       )
     })
     .catch((err) => loaderCallback(err))
+}
+
+/**
+ * **Run Transformations**
+ *
+ * For each size defined in the parameters, resize an image via the adapter
+ *
+ * @method transformations
+ *
+ * @return {Map} Results
+ */
+
+const transformations = async ({
+  img,
+  sizes,
+  mime,
+  outputPlaceholder,
+  placeholderSize,
+  adapterOptions,
+}) => {
+  const metadata = await img.metadata()
+  let promises = []
+  const widthsToGenerate = new Set()
+
+  sizes.forEach((size) => {
+    const width = Math.min(metadata.width, parseInt(size, 10))
+    // Only resize images if they aren't an exact copy of one already being resized...
+    if (!widthsToGenerate.has(width)) {
+      widthsToGenerate.add(width)
+      promises.push(
+        img.resize({
+          width,
+          mime,
+          options: adapterOptions,
+        })
+      )
+    }
+  })
+
+  if (outputPlaceholder) {
+    promises.push(
+      img.resize({
+        width: placeholderSize,
+        options: adapterOptions,
+        mime,
+      })
+    )
+  }
+  return await Promise.all(promises)
 }
 export const raw = true

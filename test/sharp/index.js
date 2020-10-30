@@ -69,7 +69,7 @@ test("png", () => {
 })
 
 test("png to jpeg with background color", () => {
-  const output = require("../cat-transparent.png?background=#FF0000&format=jpg")
+  const output = require("../cat-transparent.png?background=%23FF0000&format=jpg")
   expect(output).toMatchSnapshot()
 })
 
