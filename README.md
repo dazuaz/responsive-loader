@@ -177,7 +177,7 @@ More here https://github.com/webpack/loader-utils#parsequery
 
 ##### sharp
 
-- `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF`
+- `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF` or `%23FFFFFF` for webpack > 5
 
 - `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
 
