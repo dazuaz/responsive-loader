@@ -1,6 +1,6 @@
 {
   "name": "responsive-loader",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A webpack loader for responsive images",
   "main": "lib/cjs.js",
   "engines": {
