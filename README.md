@@ -22,7 +22,7 @@ Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp)
 npm install responsive-loader sharp --save-dev
 ```
 
-For [super-charged performance](http://sharp.dimens.io/en/stable/performance/), responsive-loader also works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform, and/or need to generate webp images.
+For [super-charged performance](http://sharp.dimens.io/en/stable/performance/), responsive-loader also works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform, and/or need to generate webp/avif images.
 
 If you want to use sharp, you need to configure responsive-loader to use its adapter:
 
@@ -57,14 +57,14 @@ module.exports = {
       {
         test: /\.(jpe?g|png|webp)$/i,
         use: {
-          loader: 'responsive-loader',
+          loader: "responsive-loader",
           options: {
             // If you want to enable sharp support:
-            adapter: require('responsive-loader/sharp'),
-          }
-        }
-      }
-    ]
+            adapter: require("responsive-loader/sharp"),
+          },
+        },
+      },
+    ],
   },
 }
 ```
@@ -160,7 +160,7 @@ More here https://github.com/webpack/loader-utils#parsequery
 | `max`                       | `integer`            |                        | See `min` above                                                                                                                                                                                                                                                                       |
 | `steps`                     | `integer`            | `4`                    | Configure the number of images generated between `min` and `max` (inclusive)                                                                                                                                                                                                          |
 | `quality`                   | `integer`            | `85`                   | JPEG and WEBP compression quality                                                                                                                                                                                                                                                     |
-| `format`                    | `string`             | _original format_      | Either `png` or `jpg`; use to convert to another format. `webp` is also supported, but only by the sharp adapter                                                                                                                                                                      |
+| `format`                    | `string`             | _original format_      | Either `png` or `jpg`; use to convert to another format. `webp` and `avif` is also supported, but only by the sharp adapter                                                                                                                                                           |
 | `placeholder`               | `boolean`            | `false`                | A true or false value to specify wether to output a placeholder image as a data URI                                                                                                                                                                                                   |
 | `placeholderSize`           | `integer`            | `40`                   | A number value specifying the width of the placeholder image, if enabled with the option above                                                                                                                                                                                        |
 | `adapter`                   | `Adapter`            | JIMP                   | Specify which adapter to use. Can only be specified in the loader options.                                                                                                                                                                                                            |
@@ -179,6 +179,7 @@ More here https://github.com/webpack/loader-utils#parsequery
 - `background: string` — Background fill when converting transparent to opaque images. E.g. `#FFFFFF` or `%23FFFFFF` for webpack > 5
 
 - `format: webp` — Conversion to the `image/webp` format. Recognizes the `quality` option.
+- `format: avif` — Conversion to the `image/avif` format. Recognizes the `quality` option.
 
 - `progressive: boolean` - Use progressive (interlace) scan for `image/jpeg` format.
 - `rotate: number` - Rotates image [more here](https://sharp.pixelplumbing.com/api-operation#rotate)

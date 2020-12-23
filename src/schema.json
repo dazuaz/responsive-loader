@@ -39,7 +39,7 @@
     "adapter": {
       "instanceof": "Function"
     },
-    "format": { "enum": ["png", "jpg", "jpeg", "webp"] },
+    "format": { "enum": ["png", "jpg", "jpeg", "webp", "avif"] },
     "disable": { "type": "boolean" },
     "esModule": {
       "description": "By default, responsive-loader generates JS modules that don't use the ES modules syntax.",

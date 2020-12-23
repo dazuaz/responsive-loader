@@ -4,11 +4,7 @@ import path from "path"
 import { parseQuery, getOptions, interpolateName } from "loader-utils"
 import { validate } from "schema-utils"
 
-import {
-  parseOptions,
-  getOutputAndPublicPath,
-  createPlaceholder,
-} from "./utils"
+import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
 
 import type { Options, ParsedOptions } from "./types"
 
@@ -39,16 +35,10 @@ const DEFAULTS = {
  */
 export default function loader(content: Buffer): void {
   const loaderCallback = this.async()
-  const parsedResourceQuery = this.resourceQuery
-    ? parseQuery(this.resourceQuery)
-    : {}
+  const parsedResourceQuery = this.resourceQuery ? parseQuery(this.resourceQuery) : {}
 
   // combine webpack options with query options
-  const options: Options = Object.assign(
-    {},
-    getOptions(this),
-    parsedResourceQuery
-  )
+  const options: Options = Object.assign({}, getOptions(this), parsedResourceQuery)
   validate(schema, options, "Responsive Loader")
 
   // parses options and set defaults options
@@ -82,20 +72,10 @@ export default function loader(content: Buffer): void {
   }
 
   if (!mime) {
-    return loaderCallback(
-      new Error("No mime type for file with extension " + ext + " supported")
-    )
+    return loaderCallback(new Error("No mime type for file with extension " + ext + " supported"))
   }
 
-  const createFile = ({
-    data,
-    width,
-    height,
-  }: {
-    data: Buffer,
-    width: string | number,
-    height: string | number,
-  }) => {
+  const createFile = ({ data, width, height }: { data: Buffer, width: string | number, height: string | number }) => {
     const fileName = interpolateName(this, name, {
       context: outputContext,
       content: data,
@@ -163,9 +143,7 @@ export default function loader(content: Buffer): void {
       }
 
       const srcset = files.map((f) => f.src).join('+","+')
-      const images = files
-        .map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`)
-        .join(",")
+      const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(",")
       const firstImage = files[0]
 
       loaderCallback(
@@ -194,14 +172,7 @@ export default function loader(content: Buffer): void {
  * @return {Map} Results
  */
 
-const transformations = async ({
-  img,
-  sizes,
-  mime,
-  outputPlaceholder,
-  placeholderSize,
-  adapterOptions,
-}) => {
+const transformations = async ({ img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions }) => {
   const metadata = await img.metadata()
   let promises = []
   const widthsToGenerate = new Set()

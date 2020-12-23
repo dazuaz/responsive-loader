@@ -16,7 +16,7 @@ type Options = {
   progressive: boolean | void,
   rotate: number | void,
   adapter: ?Function,
-  format: "png" | "jpg" | "jpeg" | "webp",
+  format: "png" | "jpg" | "jpeg" | "webp" | "avif",
   disable: ?boolean,
   esModule?: boolean,
   emitFile?: boolean,

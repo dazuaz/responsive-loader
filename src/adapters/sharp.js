@@ -1,8 +1,6 @@
 // @flow
-const sharp = require("sharp")
-
+import sharp from "sharp"
 import type { AdapterParameters } from "../types"
-
 class SharpAdapter {
   image: any
   constructor(imagePath: string | Buffer) {
@@ -42,6 +40,11 @@ class SharpAdapter {
       }
       if (mime === "image/webp") {
         resized = resized.webp({
+          quality: options.quality,
+        })
+      }
+      if (mime === "image/avif") {
+        resized = resized.avif({
           quality: options.quality,
         })
       }

@@ -7,29 +7,23 @@ const MIMES = {
   jpeg: "image/jpeg",
   png: "image/png",
   webp: "image/webp",
+  avif: "image/avif",
 }
 
 const EXTS = {
   "image/jpeg": "jpg",
   "image/png": "png",
   "image/webp": "webp",
+  "image/avif": "avif",
 }
 
-function parseOptions(
-  loaderContext: any,
-  options: Options,
-  defaults: Object
-): ParsedOptions {
+function parseOptions(loaderContext: any, options: Options, defaults: Object): ParsedOptions {
   const outputContext: string =
-    options.context ||
-    loaderContext.rootContext ||
-    (loaderContext.options && loaderContext.options.context)
+    options.context || loaderContext.rootContext || (loaderContext.options && loaderContext.options.context)
 
-  const outputPlaceholder: boolean =
-    Boolean(options.placeholder) || defaults.outputPlaceholder
+  const outputPlaceholder: boolean = Boolean(options.placeholder) || defaults.outputPlaceholder
 
-  const placeholderSize: number =
-    parseInt(options.placeholderSize, 10) || defaults.placeholderSize
+  const placeholderSize: number = parseInt(options.placeholderSize, 10) || defaults.placeholderSize
 
   // JPEG and WEBP compression
   const quality: number = parseInt(options.quality, 10) || defaults.quality
@@ -54,14 +48,11 @@ function parseOptions(
 
   const name = (options.name || defaults.name).replace(/\[ext\]/gi, ext)
 
-  const min: number | void =
-    options.min !== undefined ? parseInt(options.min, 10) : undefined
+  const min: number | void = options.min !== undefined ? parseInt(options.min, 10) : undefined
 
-  const max: number | void =
-    options.max !== undefined ? parseInt(options.max, 10) : undefined
+  const max: number | void = options.max !== undefined ? parseInt(options.max, 10) : undefined
 
-  const steps: number =
-    options.steps === undefined ? defaults.steps : parseInt(options.steps, 10)
+  const steps: number = options.steps === undefined ? defaults.steps : parseInt(options.steps, 10)
 
   let generatedSizes
   if (typeof min === "number" && max) {
@@ -73,11 +64,9 @@ function parseOptions(
     }
   }
 
-  const esModule: boolean =
-    options.esModule !== undefined ? options.esModule : defaults.esModule
+  const esModule: boolean = options.esModule !== undefined ? options.esModule : defaults.esModule
 
-  const emitFile: boolean =
-    options.emitFile !== undefined ? options.emitFile : defaults.emitFile
+  const emitFile: boolean = options.emitFile !== undefined ? options.emitFile : defaults.emitFile
 
   return {
     outputContext,
@@ -96,10 +85,7 @@ function parseOptions(
   }
 }
 
-const createPlaceholder = (
-  { data }: { data: Buffer },
-  mime: string
-): string => {
+const createPlaceholder = ({ data }: { data: Buffer }, mime: string): string => {
   return `"data:${mime};base64,${data.toString("base64")}"`
 }
 

@@ -1,3 +1,11 @@
+test("jpg to avif", () => {
+  const output = require("../cat-1000.jpg?format=avif&size=777")
+  expect(output).toMatchSnapshot()
+})
+test("png to avif", () => {
+  const output = require("../cat-transparent.png?format=avif")
+  expect(output).toMatchSnapshot()
+})
 test("preserves rotation", () => {
   const single = require("../cat-rotated-1000.jpg?size=499")
   expect(single).toMatchSnapshot()
