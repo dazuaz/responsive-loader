@@ -1,14 +1,22 @@
-// @flow
-const jimp = require("jimp")
+import jimp from "jimp"
 
-import type { AdapterParameters } from "../types"
+type ResizeProps = {
+  width: number
+  mime: "image/jpeg" | "image/png" | "image/webp" | "image/avif"
+  options: {
+    background?: string
+    rotate: number
+    quality: number
+    progressive?: boolean
+  }
+}
 
 class JimpAdapter {
-  readImage: Promise<Object>
+  readImage: Promise<jimp>
   constructor(imagePath: string) {
     this.readImage = jimp.read(imagePath)
   }
-  metadata(): Promise<{ height: any, width: any, ... }> {
+  metadata(): Promise<{ height: number; width: number }> {
     return this.readImage.then((image) => ({
       width: image.bitmap.width,
       height: image.bitmap.height,
@@ -18,10 +26,10 @@ class JimpAdapter {
     width,
     mime,
     options,
-  }: AdapterParameters): Promise<{
-    width: number,
-    height: number,
-    data: Buffer,
+  }: ResizeProps): Promise<{
+    width: number
+    height: number
+    data: Buffer
   }> {
     return new Promise((resolve, reject) => {
       this.readImage.then((image) => {
@@ -29,7 +37,7 @@ class JimpAdapter {
           .clone()
           .resize(width, jimp.AUTO)
           .quality(options.quality)
-          .background(parseInt(options.background, 16) || 0xffffffff)
+          .background(parseInt(options.background + "", 16) || 0xffffffff)
           .getBuffer(mime, function (err, data) {
             // eslint-disable-line func-names
             if (err) {

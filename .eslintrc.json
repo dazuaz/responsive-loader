@@ -1,8 +1,0 @@
-{
-  "parser": "babel-eslint",
-  "plugins": ["flowtype"],
-  "globals": {
-    "expect": true,
-    "test": true
-  }
-}

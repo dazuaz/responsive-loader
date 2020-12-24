@@ -1,20 +1,32 @@
 {
-  "additionalProperties": true,
+  "title": "Responsive Loader options",
+  "type": "object",
   "properties": {
     "size": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
     "sizes": {
-      "type": "array"
+      "type": "array",
+      "items": {
+        "description": "Array of strings or numbers",
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
     },
     "min": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
     "max": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
     "steps": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
     "name": {
       "type": "string"
@@ -27,19 +39,19 @@
     },
     "context": { "type": "string" },
     "placeholderSize": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
-    "quality": { "type": ["string", "number"] },
-    "background": { "type": ["string", "number"] },
+    "quality": { "anyOf": [{ "type": "string" }, { "type": "number" }] },
+    "background": { "anyOf": [{ "type": "string" }, { "type": "number" }] },
     "rotate": {
-      "type": ["string", "number"]
+      "anyOf": [{ "type": "string" }, { "type": "number" }]
     },
     "progressive": { "type": "boolean" },
     "placeholder": { "type": ["string", "boolean"] },
     "adapter": {
       "instanceof": "Function"
     },
-    "format": { "enum": ["png", "jpg", "jpeg", "webp", "avif"] },
+    "format": { "type": "string", "enum": ["png", "jpg", "jpeg", "webp", "avif"] },
     "disable": { "type": "boolean" },
     "esModule": {
       "description": "By default, responsive-loader generates JS modules that don't use the ES modules syntax.",
@@ -50,5 +62,5 @@
       "type": "boolean"
     }
   },
-  "type": "object"
+  "additionalProperties": true
 }

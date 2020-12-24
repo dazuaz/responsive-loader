@@ -1,26 +1,30 @@
-// @flow
-import path from "path"
-
 import { parseQuery, getOptions, interpolateName } from "loader-utils"
 import { validate } from "schema-utils"
 
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
 
-import type { Options, ParsedOptions } from "./types"
+import type {
+  Adapter,
+  Options,
+  ParsedOptions,
+  LoaderContext,
+  AdapterClass,
+  MimeType,
+  AdapterResizeResults,
+} from "./types"
 
 import schema from "./schema.json"
 
 const DEFAULTS = {
-  outputPlaceholder: false,
-  placeholderSize: 40,
   quality: 85,
+  placeholder: false,
+  placeholderSize: 40,
   name: "[hash]-[width].[ext]",
   steps: 4,
   esModule: false,
   emitFile: true,
   rotate: 0,
 }
-
 /**
  * **Responsive Loader**
  *
@@ -33,13 +37,14 @@ const DEFAULTS = {
  *
  * @return {loaderCallback} loaderCallback Result
  */
-export default function loader(content: Buffer): void {
+export default function loader(this: LoaderContext, content: Buffer): void {
   const loaderCallback = this.async()
   const parsedResourceQuery = this.resourceQuery ? parseQuery(this.resourceQuery) : {}
+  // combine webpack options with query options, later sources' properties overwrite earlier ones.
+  const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
 
-  // combine webpack options with query options
-  const options: Options = Object.assign({}, getOptions(this), parsedResourceQuery)
-  validate(schema, options, "Responsive Loader")
+  // @ts-ignore
+  validate(schema, options, { name: "Responsive Loader" })
 
   // parses options and set defaults options
   const {
@@ -53,40 +58,41 @@ export default function loader(content: Buffer): void {
     mime,
     ext,
     name,
-    generatedSizes,
-    esModule,
-    emitFile,
-  }: ParsedOptions = parseOptions(this, options, DEFAULTS)
+    sizes,
+  }: ParsedOptions = parseOptions(this, options)
 
-  let sizes = parsedResourceQuery.size ||
-    parsedResourceQuery.sizes ||
-    generatedSizes ||
-    options.size ||
-    options.sizes || [Number.MAX_SAFE_INTEGER]
-
-  // ensure is an array
-  sizes = [].concat(sizes)
+  // Not undefined
+  if (typeof loaderCallback == "undefined") {
+    new Error("Responsive loader callback error")
+    return
+  }
 
   if (!sizes.length) {
-    return loaderCallback(null, content)
+    // pass
+    loaderCallback(null, content)
+    return
   }
 
   if (!mime) {
-    return loaderCallback(new Error("No mime type for file with extension " + ext + " supported"))
+    loaderCallback(new Error("No mime type for file with extension " + ext + " supported"))
+    return
   }
 
-  const createFile = ({ data, width, height }: { data: Buffer, width: string | number, height: string | number }) => {
+  const createFile = ({ data, width, height }: AdapterResizeResults) => {
     const fileName = interpolateName(this, name, {
       context: outputContext,
       content: data,
     })
-      .replace(/\[width\]/gi, width)
-      .replace(/\[height\]/gi, height)
+      .replace(/\[width\]/gi, width + "")
+      .replace(/\[height\]/gi, height + "")
 
-    const { outputPath, publicPath } = getOutputAndPublicPath(fileName, options)
+    const { outputPath, publicPath } = getOutputAndPublicPath(fileName, {
+      outputPath: options.outputPath,
+      publicPath: options.publicPath,
+    })
 
-    if (emitFile) {
-      this.emitFile(outputPath, data)
+    if (options.emitFile) {
+      this.emitFile(outputPath, data, null)
     }
 
     return {
@@ -99,10 +105,10 @@ export default function loader(content: Buffer): void {
 
   // Disable processing of images by this loader (useful in development)
   if (options.disable) {
-    const { path } = createFile({ data: content, width: "100", height: "100" })
+    const { path } = createFile({ data: content, width: 100, height: 100 })
     loaderCallback(
       null,
-      `${esModule ? "export default" : "module.exports ="} {
+      `${options.esModule ? "export default" : "module.exports ="} {
         srcSet:${path},
         images:[{path:${path},width:100,height:100}],
         src: ${path},
@@ -112,9 +118,9 @@ export default function loader(content: Buffer): void {
     return
   }
 
-  const adapter: Function = options.adapter || require("./adapters/jimp")
+  const adapter: Adapter = options.adapter || require("./adapters/jimp")
 
-  // The config that is passed to the adapters
+  // The full config is passed to the adapter, later sources' properties overwrite earlier ones.
   const adapterOptions = Object.assign({}, options, {
     quality,
     background,
@@ -123,17 +129,10 @@ export default function loader(content: Buffer): void {
   })
   const img = adapter(this.resourcePath)
 
-  transformations({
-    img,
-    sizes,
-    mime,
-    outputPlaceholder,
-    placeholderSize,
-    adapterOptions,
-  })
+  transformations(img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions)
     .then((results) => {
       let placeholder
-      let files = new Map()
+      let files
 
       if (outputPlaceholder) {
         files = results.slice(0, -1).map(createFile)
@@ -148,7 +147,7 @@ export default function loader(content: Buffer): void {
 
       loaderCallback(
         null,
-        `${esModule ? "export default" : "module.exports ="} {
+        `${options.esModule ? "export default" : "module.exports ="} {
           srcSet: ${srcset},
           images:[ ${images}],
           src: ${firstImage.path},
@@ -161,7 +160,6 @@ export default function loader(content: Buffer): void {
     })
     .catch((err) => loaderCallback(err))
 }
-
 /**
  * **Run Transformations**
  *
@@ -172,13 +170,20 @@ export default function loader(content: Buffer): void {
  * @return {Map} Results
  */
 
-const transformations = async ({ img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions }) => {
+async function transformations(
+  img: AdapterClass,
+  sizes: number[],
+  mime: MimeType,
+  outputPlaceholder: boolean,
+  placeholderSize: number,
+  adapterOptions: Options
+): Promise<AdapterResizeResults[]> {
   const metadata = await img.metadata()
-  let promises = []
+  const promises = []
   const widthsToGenerate = new Set()
 
   sizes.forEach((size) => {
-    const width = Math.min(metadata.width, parseInt(size, 10))
+    const width = Math.min(metadata.width, size)
     // Only resize images if they aren't an exact copy of one already being resized...
     if (!widthsToGenerate.has(width)) {
       widthsToGenerate.add(width)

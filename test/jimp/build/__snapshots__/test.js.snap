@@ -240,17 +240,17 @@ Object {
     "images": Array [
       Object {
         "height": 580,
-        "path": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg",
+        "path": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg",
         "width": 500,
       },
       Object {
         "height": 595,
-        "path": "foobar/2cd0b486a7f86621fbccf976cbf3f7f8-513.jpg",
+        "path": "foobar/728bc35dcc746dec792bd1b9736c16ac-513.jpg",
         "width": 513,
       },
     ],
-    "src": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg",
-    "srcSet": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg 500w,foobar/2cd0b486a7f86621fbccf976cbf3f7f8-513.jpg 513w",
+    "src": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg",
+    "srcSet": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg 500w,foobar/728bc35dcc746dec792bd1b9736c16ac-513.jpg 513w",
     "toString": [Function],
     "width": 500,
   },
@@ -264,17 +264,17 @@ Object {
     "images": Array [
       Object {
         "height": 580,
-        "path": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg",
+        "path": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg",
         "width": 500,
       },
       Object {
         "height": 595,
-        "path": "foobar/2cd0b486a7f86621fbccf976cbf3f7f8-513.jpg",
+        "path": "foobar/728bc35dcc746dec792bd1b9736c16ac-513.jpg",
         "width": 513,
       },
     ],
-    "src": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg",
-    "srcSet": "foobar/19cbc927ca48ea604519cecffc258910-500.jpg 500w,foobar/2cd0b486a7f86621fbccf976cbf3f7f8-513.jpg 513w",
+    "src": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg",
+    "srcSet": "foobar/6ca903b32ba44fa45a7ac33b0f2c2470-500.jpg 500w,foobar/728bc35dcc746dec792bd1b9736c16ac-513.jpg 513w",
     "toString": [Function],
     "width": 500,
   },
@@ -332,28 +332,28 @@ Object {
 exports[`with min and max sizes 1`] = `
 Object {
   "default": Object {
-    "height": 540,
+    "height": 450,
     "images": Array [
       Object {
-        "height": 540,
-        "path": "foobar/f0784d948f0729cf9d0b1c5123324cfb-600.jpg",
-        "width": 600,
+        "height": 450,
+        "path": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg",
+        "width": 500,
       },
       Object {
-        "height": 630,
-        "path": "foobar/2c580c0241c79b453cb22a028f87724e-700.jpg",
-        "width": 700,
+        "height": 675,
+        "path": "foobar/e0adf4e554aa6d83e73d51aec7f8018a-750.jpg",
+        "width": 750,
       },
       Object {
-        "height": 720,
-        "path": "foobar/bbb4217a57bf88e2f63f5568a32a099c-800.jpg",
-        "width": 800,
+        "height": 900,
+        "path": "foobar/ad4b6c4d9af1cfd8e7b6baaf15a948dc-1000.jpg",
+        "width": 1000,
       },
     ],
-    "src": "foobar/f0784d948f0729cf9d0b1c5123324cfb-600.jpg",
-    "srcSet": "foobar/f0784d948f0729cf9d0b1c5123324cfb-600.jpg 600w,foobar/2c580c0241c79b453cb22a028f87724e-700.jpg 700w,foobar/bbb4217a57bf88e2f63f5568a32a099c-800.jpg 800w",
+    "src": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg",
+    "srcSet": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg 500w,foobar/e0adf4e554aa6d83e73d51aec7f8018a-750.jpg 750w,foobar/ad4b6c4d9af1cfd8e7b6baaf15a948dc-1000.jpg 1000w",
     "toString": [Function],
-    "width": 600,
+    "width": 500,
   },
 }
 `;
@@ -403,14 +403,9 @@ Object {
         "width": 500,
       },
       Object {
-        "height": 600,
-        "path": "foobar/13f4f087fadeeea363a45fa2f6a4cd79-667.jpg",
-        "width": 667,
-      },
-      Object {
-        "height": 751,
-        "path": "foobar/394eeb3b30156050e5d7d7984bdcfaf3-834.jpg",
-        "width": 834,
+        "height": 675,
+        "path": "foobar/e0adf4e554aa6d83e73d51aec7f8018a-750.jpg",
+        "width": 750,
       },
       Object {
         "height": 900,
@@ -419,7 +414,7 @@ Object {
       },
     ],
     "src": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg",
-    "srcSet": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg 500w,foobar/13f4f087fadeeea363a45fa2f6a4cd79-667.jpg 667w,foobar/394eeb3b30156050e5d7d7984bdcfaf3-834.jpg 834w,foobar/ad4b6c4d9af1cfd8e7b6baaf15a948dc-1000.jpg 1000w",
+    "srcSet": "foobar/9fca3403f028d41cd3046dd49330161a-500.jpg 500w,foobar/e0adf4e554aa6d83e73d51aec7f8018a-750.jpg 750w,foobar/ad4b6c4d9af1cfd8e7b6baaf15a948dc-1000.jpg 1000w",
     "toString": [Function],
     "width": 500,
   },
