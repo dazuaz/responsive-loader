@@ -36,25 +36,6 @@ Object {
 }
 `;
 
-exports[`jpg to avif 1`] = `
-Object {
-  "default": Object {
-    "height": 699,
-    "images": Array [
-      Object {
-        "height": 699,
-        "path": "foobar/efa5d854dddd643ff86e78ea919a3c5e-777.avif",
-        "width": 777,
-      },
-    ],
-    "src": "foobar/efa5d854dddd643ff86e78ea919a3c5e-777.avif",
-    "srcSet": "foobar/efa5d854dddd643ff86e78ea919a3c5e-777.avif 777w",
-    "toString": [Function],
-    "width": 777,
-  },
-}
-`;
-
 exports[`jpg to webp 1`] = `
 Object {
   "default": Object {
@@ -284,21 +265,45 @@ Object {
 exports[`png to avif 1`] = `
 Object {
   "default": Object {
-    "height": 580,
+    "height": 595,
     "images": Array [
-      Object {
-        "height": 580,
-        "path": "foobar/426873cddcfae03f71fa5ff4de43cc25-500.avif",
-        "width": 500,
-      },
       Object {
         "height": 595,
         "path": "foobar/2dd56762ba549a1d513c236b0a3435a6-513.avif",
         "width": 513,
       },
     ],
-    "src": "foobar/426873cddcfae03f71fa5ff4de43cc25-500.avif",
-    "srcSet": "foobar/426873cddcfae03f71fa5ff4de43cc25-500.avif 500w,foobar/2dd56762ba549a1d513c236b0a3435a6-513.avif 513w",
+    "src": "foobar/2dd56762ba549a1d513c236b0a3435a6-513.avif",
+    "srcSet": "foobar/2dd56762ba549a1d513c236b0a3435a6-513.avif 513w",
+    "toString": [Function],
+    "width": 513,
+  },
+}
+`;
+
+exports[`png to avif 2`] = `
+Object {
+  "default": Object {
+    "height": 450,
+    "images": Array [
+      Object {
+        "height": 450,
+        "path": "foobar/38a6d99027dbc677773a00929d989048-500.avif",
+        "width": 500,
+      },
+      Object {
+        "height": 675,
+        "path": "foobar/5c529246a1a1bf2de0a188d3c36697c6-750.avif",
+        "width": 750,
+      },
+      Object {
+        "height": 900,
+        "path": "foobar/0dd6b3f08687c424d0c4706f386f62b7-1000.avif",
+        "width": 1000,
+      },
+    ],
+    "src": "foobar/38a6d99027dbc677773a00929d989048-500.avif",
+    "srcSet": "foobar/38a6d99027dbc677773a00929d989048-500.avif 500w,foobar/5c529246a1a1bf2de0a188d3c36697c6-750.avif 750w,foobar/0dd6b3f08687c424d0c4706f386f62b7-1000.avif 1000w",
     "toString": [Function],
     "width": 500,
   },

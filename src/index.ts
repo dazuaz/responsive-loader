@@ -8,9 +8,9 @@ import type {
   Options,
   ParsedOptions,
   LoaderContext,
-  AdapterClass,
+  AdapterImplementation,
   MimeType,
-  AdapterResizeResults,
+  AdapterResizeResponse,
 } from "./types"
 
 import schema from "./schema.json"
@@ -29,7 +29,7 @@ const DEFAULTS = {
  * **Responsive Loader**
  *
  * Creates multiple images from one source image, and returns a srcset
- * [Responsive Images Loader](https://github.com/dazuaz/responsive-loader)
+ * [Responsive Loader](https://github.com/dazuaz/responsive-loader)
  *
  * @method loader
  *
@@ -46,7 +46,9 @@ export default function loader(this: LoaderContext, content: Buffer): void {
   // @ts-ignore
   validate(schema, options, { name: "Responsive Loader" })
 
-  // parses options and set defaults options
+  /**
+   * Parses options and set defaults options
+   */
   const {
     outputContext,
     outputPlaceholder,
@@ -61,14 +63,12 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     sizes,
   }: ParsedOptions = parseOptions(this, options)
 
-  // Not undefined
   if (typeof loaderCallback == "undefined") {
     new Error("Responsive loader callback error")
     return
   }
 
   if (!sizes.length) {
-    // pass
     loaderCallback(null, content)
     return
   }
@@ -78,7 +78,7 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     return
   }
 
-  const createFile = ({ data, width, height }: AdapterResizeResults) => {
+  const createFile = ({ data, width, height }: AdapterResizeResponse) => {
     const fileName = interpolateName(this, name, {
       context: outputContext,
       content: data,
@@ -103,16 +103,18 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     }
   }
 
-  // Disable processing of images by this loader (useful in development)
+  /**
+   * Disable processing of images by this loader (useful in development)
+   */
   if (options.disable) {
     const { path } = createFile({ data: content, width: 100, height: 100 })
     loaderCallback(
       null,
       `${options.esModule ? "export default" : "module.exports ="} {
-        srcSet:${path},
-        images:[{path:${path},width:100,height:100}],
+        srcSet: ${path},
+        images: [{path:${path},width:100,height:100}],
         src: ${path},
-        toString:function(){return ${path}}
+        toString: function(){return ${path}}
       };`
     )
     return
@@ -120,7 +122,9 @@ export default function loader(this: LoaderContext, content: Buffer): void {
 
   const adapter: Adapter = options.adapter || require("./adapters/jimp")
 
-  // The full config is passed to the adapter, later sources' properties overwrite earlier ones.
+  /**
+   * The full config is passed to the adapter, later sources' properties overwrite earlier ones.
+   */
   const adapterOptions = Object.assign({}, options, {
     quality,
     background,
@@ -149,9 +153,9 @@ export default function loader(this: LoaderContext, content: Buffer): void {
         null,
         `${options.esModule ? "export default" : "module.exports ="} {
           srcSet: ${srcset},
-          images:[ ${images}],
+          images: [${images}],
           src: ${firstImage.path},
-          toString:function(){return ${firstImage.path}},
+          toString: function(){return ${firstImage.path}},
           ${placeholder ? "placeholder: " + placeholder + "," : ""}
           width: ${firstImage.width},
           height: ${firstImage.height}
@@ -171,13 +175,13 @@ export default function loader(this: LoaderContext, content: Buffer): void {
  */
 
 async function transformations(
-  img: AdapterClass,
+  img: AdapterImplementation,
   sizes: number[],
   mime: MimeType,
   outputPlaceholder: boolean,
   placeholderSize: number,
   adapterOptions: Options
-): Promise<AdapterResizeResults[]> {
+): Promise<AdapterResizeResponse[]> {
   const metadata = await img.metadata()
   const promises = []
   const widthsToGenerate = new Set()

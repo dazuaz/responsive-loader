@@ -42,13 +42,13 @@ export type ParsedOptions = {
   sizes: number[]
 }
 
-export type Adapter = (imagePath: string) => AdapterClass
+export type Adapter = (imagePath: string) => AdapterImplementation
 
-export interface AdapterClass {
+export interface AdapterImplementation {
   metadata: () => Promise<{ width: number; height: number }>
-  resize: (config: { width: number; mime: string; options: Options }) => Promise<AdapterResizeResults>
+  resize: (config: { width: number; mime: string; options: Options }) => Promise<AdapterResizeResponse>
 }
-export type AdapterResizeResults = { data: Buffer; width: number; height: number }
+export type AdapterResizeResponse = { data: Buffer; width: number; height: number }
 export type CreateFile = {
   loaderContext: LoaderContext
   data: Buffer
