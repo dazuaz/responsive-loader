@@ -1,5 +1,7 @@
 import { parseQuery, getOptions, interpolateName } from "loader-utils"
+
 import { validate } from "schema-utils"
+import * as schema from "./schema.json"
 
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
 
@@ -12,8 +14,6 @@ import type {
   MimeType,
   AdapterResizeResponse,
 } from "./types"
-
-import schema from "./schema.json"
 
 const DEFAULTS = {
   quality: 85,
@@ -43,7 +43,6 @@ export default function loader(this: LoaderContext, content: Buffer): void {
   // combine webpack options with query options, later sources' properties overwrite earlier ones.
   const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
 
-  // @ts-ignore
   validate(schema, options, { name: "Responsive Loader" })
 
   /**

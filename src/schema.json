@@ -31,6 +31,7 @@
     "name": {
       "type": "string"
     },
+
     "outputPath": {
       "anyOf": [{ "type": "string" }, { "instanceof": "Function" }]
     },
