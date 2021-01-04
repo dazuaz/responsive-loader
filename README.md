@@ -33,12 +33,12 @@ module.exports = {
     rules: [
       {
         test: /\.(jpe?g|png|webp)$/i,
-        use: [
+        use: {
           loader: 'responsive-loader',
           options: {
 +           adapter: require('responsive-loader/sharp')
           }
-        ]
+        }
       }
     ]
   },
