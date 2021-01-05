@@ -1,8 +1,6 @@
 import { parseQuery, getOptions, interpolateName } from "loader-utils"
-
 import { validate } from "schema-utils"
 import * as schema from "./schema.json"
-
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
 
 import type {
@@ -25,6 +23,7 @@ const DEFAULTS = {
   emitFile: true,
   rotate: 0,
 }
+
 /**
  * **Responsive Loader**
  *
@@ -43,6 +42,7 @@ export default function loader(this: LoaderContext, content: Buffer): void {
   // combine webpack options with query options, later sources' properties overwrite earlier ones.
   const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
 
+  // @ts-ignore
   validate(schema, options, { name: "Responsive Loader" })
 
   /**
@@ -163,16 +163,13 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     })
     .catch((err) => loaderCallback(err))
 }
+
 /**
  * **Run Transformations**
  *
  * For each size defined in the parameters, resize an image via the adapter
  *
- * @method transformations
- *
- * @return {Map} Results
  */
-
 async function transformations(
   img: AdapterImplementation,
   sizes: number[],

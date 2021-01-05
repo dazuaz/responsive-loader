@@ -1,4 +1,4 @@
-import jimp from "jimp"
+import * as jimp from "jimp"
 
 type ResizeProps = {
   width: number

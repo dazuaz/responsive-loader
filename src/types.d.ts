@@ -1,5 +1,4 @@
-// @ts-ignore
-import type * as webpack from "@types/webpack"
+import type * as webpack from "webpack"
 
 export type LoaderContext = webpack.loader.LoaderContext
 export type Options = {

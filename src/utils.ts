@@ -1,4 +1,4 @@
-import path from "path"
+import * as path from "path"
 import type { Options, ParsedOptions, LoaderContext } from "./types"
 
 enum MIMES {
