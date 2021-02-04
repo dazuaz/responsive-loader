@@ -8,3 +8,4 @@ test/**/build/**/*.webp
 .node-version
 lib
 .DS_Store
+.vscode
