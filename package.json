@@ -3,6 +3,7 @@
   "version": "2.3.0",
   "description": "A webpack loader for responsive images",
   "main": "lib/cjs.js",
+  "types": "lib/index.d.ts",
   "engines": {
     "node": ">= 10.13.0"
   },

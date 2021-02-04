@@ -9,6 +9,8 @@
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,
     "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     /* Additional Checks */
     "resolveJsonModule": true
   },
