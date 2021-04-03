@@ -61,7 +61,10 @@
     "emitFile": {
       "description": "Enables/Disables emit files.",
       "type": "boolean"
-    }
+    },
+    "cacheDirectory": { "anyOf": [{ "type": "string" }, { "type": "boolean" }] },
+    "cacheIdentifier": { "type": "string" },
+    "cacheCompression": { "type": "boolean" }
   },
   "additionalProperties": true
 }

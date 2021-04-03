@@ -17,25 +17,6 @@ Object {
 }
 `;
 
-exports[`doesn't emit file 1`] = `
-Object {
-  "default": Object {
-    "height": 225,
-    "images": Array [
-      Object {
-        "height": 225,
-        "path": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg",
-        "width": 250,
-      },
-    ],
-    "src": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg",
-    "srcSet": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg 250w",
-    "toString": [Function],
-    "width": 250,
-  },
-}
-`;
-
 exports[`jpg to webp 1`] = `
 Object {
   "default": Object {
@@ -500,33 +481,28 @@ Object {
 exports[`with min and max sizes options 1`] = `
 Object {
   "default": Object {
-    "height": 90,
+    "height": 450,
     "images": Array [
       Object {
-        "height": 90,
-        "path": "foobar/92b36e2ee9488a2fd3f155a63713d5aa-100.jpg",
-        "width": 100,
+        "height": 450,
+        "path": "foobar/5f436e215a7c7c83eaee4788fad3c3f3-500.jpg",
+        "width": 500,
       },
       Object {
-        "height": 150,
-        "path": "foobar/b8969dec5bbd09a08eaba8eb90c650bc-167.jpg",
-        "width": 167,
+        "height": 675,
+        "path": "foobar/71c27f2d922cdf179a4982c4143d23f0-750.jpg",
+        "width": 750,
       },
       Object {
-        "height": 211,
-        "path": "foobar/6af6fff1596a5d1dc97c58eb5124422a-234.jpg",
-        "width": 234,
-      },
-      Object {
-        "height": 270,
-        "path": "foobar/097f1bc13f44598ef4086924781db557-300.jpg",
-        "width": 300,
+        "height": 900,
+        "path": "foobar/1e07c81d23028bb7eeed24cbdfb20f5c-1000.jpg",
+        "width": 1000,
       },
     ],
-    "src": "foobar/92b36e2ee9488a2fd3f155a63713d5aa-100.jpg",
-    "srcSet": "foobar/92b36e2ee9488a2fd3f155a63713d5aa-100.jpg 100w,foobar/b8969dec5bbd09a08eaba8eb90c650bc-167.jpg 167w,foobar/6af6fff1596a5d1dc97c58eb5124422a-234.jpg 234w,foobar/097f1bc13f44598ef4086924781db557-300.jpg 300w",
+    "src": "foobar/5f436e215a7c7c83eaee4788fad3c3f3-500.jpg",
+    "srcSet": "foobar/5f436e215a7c7c83eaee4788fad3c3f3-500.jpg 500w,foobar/71c27f2d922cdf179a4982c4143d23f0-750.jpg 750w,foobar/1e07c81d23028bb7eeed24cbdfb20f5c-1000.jpg 1000w",
     "toString": [Function],
-    "width": 100,
+    "width": 500,
   },
 }
 `;

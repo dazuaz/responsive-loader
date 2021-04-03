@@ -2,15 +2,17 @@ import { parseQuery, getOptions, interpolateName } from "loader-utils"
 import { validate } from "schema-utils"
 import * as schema from "./schema.json"
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
+import { cache } from "./cache"
 
 import type {
   Adapter,
   Options,
-  ParsedOptions,
+  CacheOptions,
   LoaderContext,
   AdapterImplementation,
   MimeType,
   AdapterResizeResponse,
+  TransformParams,
 } from "./types"
 
 const DEFAULTS = {
@@ -22,6 +24,9 @@ const DEFAULTS = {
   esModule: false,
   emitFile: true,
   rotate: 0,
+  cacheDirectory: false,
+  cacheCompression: true,
+  cacheIdentifier: "",
 }
 
 /**
@@ -29,8 +34,6 @@ const DEFAULTS = {
  *
  * Creates multiple images from one source image, and returns a srcset
  * [Responsive Loader](https://github.com/dazuaz/responsive-loader)
- *
- * @method loader
  *
  * @param {Buffer} content Source
  *
@@ -50,17 +53,15 @@ export default function loader(this: LoaderContext, content: Buffer): void {
    */
   const {
     outputContext,
-    outputPlaceholder,
-    placeholderSize,
-    quality,
-    background,
-    rotate,
-    progressive,
     mime,
     ext,
     name,
     sizes,
-  }: ParsedOptions = parseOptions(this, options)
+    outputPlaceholder,
+    placeholderSize,
+    imageOptions,
+    cacheOptions,
+  } = parseOptions(this, options)
 
   if (typeof loaderCallback == "undefined") {
     new Error("Responsive loader callback error")
@@ -118,66 +119,107 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     )
     return
   }
-
-  const adapter: Adapter = options.adapter || require("./adapters/jimp")
-
   /**
    * The full config is passed to the adapter, later sources' properties overwrite earlier ones.
    */
-  const adapterOptions = Object.assign({}, options, {
-    quality,
-    background,
-    rotate,
-    progressive,
-  })
-  const img = adapter(this.resourcePath)
+  const adapterOptions = Object.assign({}, options, imageOptions)
 
-  transformations(img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions)
-    .then((results) => {
-      let placeholder
-      let files
-
-      if (outputPlaceholder) {
-        files = results.slice(0, -1).map(createFile)
-        placeholder = createPlaceholder(results[results.length - 1], mime)
-      } else {
-        files = results.map(createFile)
-      }
-
-      const srcset = files.map((f) => f.src).join('+","+')
-      const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(",")
-      const firstImage = files[0]
-
-      loaderCallback(
-        null,
-        `${options.esModule ? "export default" : "module.exports ="} {
-          srcSet: ${srcset},
-          images: [${images}],
-          src: ${firstImage.path},
-          toString: function(){return ${firstImage.path}},
-          ${placeholder ? "placeholder: " + placeholder + "," : ""}
-          width: ${firstImage.width},
-          height: ${firstImage.height}
-        }`
-      )
-    })
+  const transformParams: TransformParams = {
+    adapterModule: options.adapter,
+    resourcePath: this.resourcePath,
+    adapterOptions,
+    createFile,
+    outputPlaceholder,
+    placeholderSize,
+    mime,
+    sizes,
+    esModule: options.esModule,
+  }
+  orchestrate({ cacheOptions, transformParams })
+    .then((result) => loaderCallback(null, result))
     .catch((err) => loaderCallback(err))
 }
+interface OrchestrateParams {
+  cacheOptions: CacheOptions
+  transformParams: TransformParams
+}
+async function orchestrate(params: OrchestrateParams) {
+  // use cached, or create new image.
+  let result
+  const { transformParams, cacheOptions } = params
 
+  if (cacheOptions.cacheDirectory) {
+    result = await cache(cacheOptions, transformParams)
+  } else {
+    result = await transform(transformParams)
+  }
+
+  return result
+}
+
+// Transform based on the parameters
+export async function transform({
+  adapterModule,
+  createFile,
+  resourcePath,
+  sizes,
+  mime,
+  outputPlaceholder,
+  placeholderSize,
+  adapterOptions,
+  esModule,
+}: TransformParams): Promise<string> {
+  const adapter: Adapter = adapterModule || require("./adapters/jimp")
+  const img = adapter(resourcePath)
+  const results = await transformations({ img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions })
+
+  let placeholder
+  let files
+
+  if (outputPlaceholder) {
+    files = results.slice(0, -1).map(createFile)
+    placeholder = createPlaceholder(results[results.length - 1], mime)
+  } else {
+    files = results.map(createFile)
+  }
+
+  const srcset = files.map((f) => f.src).join('+","+')
+  const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(",")
+  const firstImage = files[0]
+
+  return `${esModule ? "export default" : "module.exports ="} {
+        srcSet: ${srcset},
+        images: [${images}],
+        src: ${firstImage.path},
+        toString: function(){return ${firstImage.path}},
+        ${placeholder ? "placeholder: " + placeholder + "," : ""}
+        width: ${firstImage.width},
+        height: ${firstImage.height}
+      }`
+}
+
+interface TransformationParams {
+  img: AdapterImplementation
+  sizes: number[]
+  mime: MimeType
+  outputPlaceholder: boolean
+  placeholderSize: number
+  adapterOptions: Options
+}
 /**
  * **Run Transformations**
  *
  * For each size defined in the parameters, resize an image via the adapter
  *
  */
-async function transformations(
-  img: AdapterImplementation,
-  sizes: number[],
-  mime: MimeType,
-  outputPlaceholder: boolean,
-  placeholderSize: number,
-  adapterOptions: Options
-): Promise<AdapterResizeResponse[]> {
+async function transformations({
+  img,
+  sizes,
+  mime,
+  outputPlaceholder,
+  placeholderSize,
+  adapterOptions,
+}: TransformationParams): Promise<AdapterResizeResponse[]> {
   const metadata = await img.metadata()
   const promises = []
   const widthsToGenerate = new Set()
@@ -206,6 +248,6 @@ async function transformations(
       })
     )
   }
-  return await Promise.all(promises)
+  return Promise.all(promises)
 }
 export const raw = true

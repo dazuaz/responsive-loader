@@ -1,6 +1,6 @@
 import * as path from "path"
-import type { Options, ParsedOptions, LoaderContext } from "./types"
-
+import type { Options, MimeType, LoaderContext, ImageOptions, CacheOptions } from "./types"
+const version = "3"
 enum MIMES {
   jpg = "image/jpeg",
   jpeg = "image/jpeg",
@@ -16,14 +16,31 @@ enum EXTS {
   "image/avif" = "avif",
 }
 
+type ParsedOptions = {
+  outputContext: string
+  outputPlaceholder: boolean
+  placeholderSize: number
+  name: string
+  mime: MimeType | undefined
+  ext: string
+  sizes: number[]
+  imageOptions: ImageOptions
+  cacheOptions: CacheOptions
+}
+
 function parseOptions(loaderContext: LoaderContext, options: Options): ParsedOptions {
   const outputContext: string = options.context || loaderContext.rootContext
   const outputPlaceholder = Boolean(options.placeholder)
   const placeholderSize: number = parseInt(options.placeholderSize + "", 10)
 
   // Adapter compression options
-  const quality: number = parseInt(options.quality + "", 10)
-  const rotate: number = parseInt(options.rotate + "", 10)
+  const imageOptions: ImageOptions = {
+    quality: parseInt(options.quality + "", 10),
+    rotate: parseInt(options.rotate + "", 10),
+    background: options.background,
+    progressive: Boolean(options.progressive),
+  }
+
   // let mime: MimeType | undefined
   // let ext: FileExt | string
   let mime
@@ -64,16 +81,26 @@ function parseOptions(loaderContext: LoaderContext, options: Options): ParsedOpt
   const sizes = size
     ? [size]
     : options.sizes?.map((size) => parseInt(size + "", 10)) || generatedSizes || [Number.MAX_SAFE_INTEGER]
+
+  // Cache options
+  const cacheOptions: CacheOptions = {
+    cacheDirectory: options.cacheDirectory,
+    cacheIdentifier: JSON.stringify({
+      options,
+      "responsive-loader": version,
+    }),
+    cacheCompression: Boolean(options.cacheCompression),
+  }
   return {
     outputContext,
-    outputPlaceholder,
-    placeholderSize,
-    quality,
-    rotate,
     ext,
     mime,
     name,
     sizes,
+    outputPlaceholder,
+    placeholderSize,
+    cacheOptions,
+    imageOptions,
   }
 }
 
