@@ -41,11 +41,6 @@ test("with size defined in webpack.config.js", () => {
   expect(multi).toMatchSnapshot()
 })
 
-test("disable", () => {
-  const multi = require("../cat-1000.jpg?disable")
-  expect(multi).toMatchSnapshot()
-})
-
 test("output should be relative to context", () => {
   const multi = require("../cat-1000.jpg?name=[path][hash]-[width]x[height].[ext]&context=./")
   expect(multi).toMatchSnapshot()

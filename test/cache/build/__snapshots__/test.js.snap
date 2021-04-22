@@ -1,22 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`disable 1`] = `
-Object {
-  "default": Object {
-    "images": Array [
-      Object {
-        "height": 100,
-        "path": "foobar/d65e7eabf402c163ee9e87493c5b07af-100.jpg",
-        "width": 100,
-      },
-    ],
-    "src": "foobar/d65e7eabf402c163ee9e87493c5b07af-100.jpg",
-    "srcSet": "foobar/d65e7eabf402c163ee9e87493c5b07af-100.jpg",
-    "toString": [Function],
-  },
-}
-`;
-
 exports[`jpg to webp 1`] = `
 Object {
   "default": Object {

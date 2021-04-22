@@ -36,6 +36,25 @@ Object {
 }
 `;
 
+exports[`jpeg extension 1`] = `
+Object {
+  "default": Object {
+    "height": 395,
+    "images": Array [
+      Object {
+        "height": 395,
+        "path": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
+        "width": 439,
+      },
+    ],
+    "src": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
+    "srcSet": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg 439w",
+    "toString": [Function],
+    "width": 439,
+  },
+}
+`;
+
 exports[`jpg to webp 1`] = `
 Object {
   "default": Object {

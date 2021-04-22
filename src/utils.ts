@@ -1,6 +1,7 @@
 import * as path from "path"
 import type { Options, MimeType, LoaderContext, ImageOptions, CacheOptions } from "./types"
 const version = "3"
+
 enum MIMES {
   jpg = "image/jpeg",
   jpeg = "image/jpeg",
@@ -52,6 +53,7 @@ function parseOptions(loaderContext: LoaderContext, options: Options): ParsedOpt
     ext = path.extname(loaderContext.resourcePath).replace(/\./, "")
     switch (ext) {
       case "jpg":
+      case "jpeg":
       case "png":
       case "webp":
       case "avif":

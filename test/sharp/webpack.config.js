@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("path")
 
 module.exports = {
   mode: "development",
@@ -18,7 +18,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpe?g)$/,
         loader: require.resolve("../../lib/index"),
         options: {
           sizes: [500, 750, 1000],
@@ -34,4 +34,4 @@ module.exports = {
     filename: "test.js",
   },
   target: "node",
-};
+}

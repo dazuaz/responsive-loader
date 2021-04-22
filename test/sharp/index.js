@@ -1,3 +1,8 @@
+test("jpeg extension", () => {
+  const output = require("../cat-1000copy.jpeg?size=439")
+  expect(output).toMatchSnapshot()
+})
+
 test("png to avif", () => {
   const output = require("../cat-transparent.png?format=avif&size=777")
   expect(output).toMatchSnapshot()
