@@ -14,5 +14,6 @@
     /* Additional Checks */
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["examples/*"]
 }
