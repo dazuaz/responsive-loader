@@ -1,8 +1,8 @@
-import { parseQuery, getOptions, interpolateName } from "loader-utils"
-import { validate } from "schema-utils"
-import * as schema from "./schema.json"
-import { parseOptions, getOutputAndPublicPath, createPlaceholder } from "./utils"
-import { cache } from "./cache"
+import { parseQuery, getOptions, interpolateName } from 'loader-utils'
+import { validate } from 'schema-utils'
+import * as schema from './schema.json'
+import { parseOptions, getOutputAndPublicPath, createPlaceholder } from './utils'
+import { cache } from './cache'
 
 import type {
   Adapter,
@@ -13,20 +13,20 @@ import type {
   MimeType,
   AdapterResizeResponse,
   TransformParams,
-} from "./types"
+} from './types'
 
 const DEFAULTS = {
   quality: 85,
   placeholder: false,
   placeholderSize: 40,
-  name: "[hash]-[width].[ext]",
+  name: '[hash]-[width].[ext]',
   steps: 4,
   esModule: false,
   emitFile: true,
   rotate: 0,
   cacheDirectory: false,
   cacheCompression: true,
-  cacheIdentifier: "",
+  cacheIdentifier: '',
 }
 
 /**
@@ -41,12 +41,20 @@ const DEFAULTS = {
  */
 export default function loader(this: LoaderContext, content: Buffer): void {
   const loaderCallback = this.async()
+  if (typeof loaderCallback == 'undefined') {
+    new Error('Responsive loader callback error')
+    return
+  }
+
+  // Object representation of the query string
   const parsedResourceQuery = this.resourceQuery ? parseQuery(this.resourceQuery) : {}
-  // combine webpack options with query options, later sources' properties overwrite earlier ones.
+
+  // Combines defaults, webpack options and query options,
+  // later sources' properties overwrite earlier ones.
   const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
 
   // @ts-ignore
-  validate(schema, options, { name: "Responsive Loader" })
+  validate(schema, options, { name: 'Responsive Loader' })
 
   /**
    * Parses options and set defaults options
@@ -63,18 +71,8 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     cacheOptions,
   } = parseOptions(this, options)
 
-  if (typeof loaderCallback == "undefined") {
-    new Error("Responsive loader callback error")
-    return
-  }
-
-  if (!sizes.length) {
-    loaderCallback(null, content)
-    return
-  }
-
   if (!mime) {
-    loaderCallback(new Error("No mime type for file with extension " + ext + " supported"))
+    loaderCallback(new Error('No mime type for file with extension ' + ext + ' supported'))
     return
   }
 
@@ -83,8 +81,8 @@ export default function loader(this: LoaderContext, content: Buffer): void {
       context: outputContext,
       content: data,
     })
-      .replace(/\[width\]/gi, width + "")
-      .replace(/\[height\]/gi, height + "")
+      .replace(/\[width\]/gi, width + '')
+      .replace(/\[height\]/gi, height + '')
 
     const { outputPath, publicPath } = getOutputAndPublicPath(fileName, {
       outputPath: options.outputPath,
@@ -110,7 +108,7 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     const { path } = createFile({ data: content, width: 100, height: 100 })
     loaderCallback(
       null,
-      `${options.esModule ? "export default" : "module.exports ="} {
+      `${options.esModule ? 'export default' : 'module.exports ='} {
         srcSet: ${path},
         images: [{path:${path},width:100,height:100}],
         src: ${path},
@@ -169,7 +167,7 @@ export async function transform({
   adapterOptions,
   esModule,
 }: TransformParams): Promise<string> {
-  const adapter: Adapter = adapterModule || require("./adapters/jimp")
+  const adapter: Adapter = adapterModule || require('./adapters/jimp')
   const img = adapter(resourcePath)
   const results = await transformations({ img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions })
 
@@ -184,15 +182,15 @@ export async function transform({
   }
 
   const srcset = files.map((f) => f.src).join('+","+')
-  const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(",")
+  const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(',')
   const firstImage = files[0]
 
-  return `${esModule ? "export default" : "module.exports ="} {
+  return `${esModule ? 'export default' : 'module.exports ='} {
         srcSet: ${srcset},
         images: [${images}],
         src: ${firstImage.path},
         toString: function(){return ${firstImage.path}},
-        ${placeholder ? "placeholder: " + placeholder + "," : ""}
+        ${placeholder ? 'placeholder: ' + placeholder + ',' : ''}
         width: ${firstImage.width},
         height: ${firstImage.height}
       }`
