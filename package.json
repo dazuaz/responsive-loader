@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc && cp ./src/cjs.js ./lib",
     "lint": "eslint",
-    "test:clean": "find -E test/**/build/ -regex '.*/*.(avif|jpg|webp|png|js)' -delete",
+    "test:clean": "find -E test/**/build/ -regex '.*/*.(avif|jpg|jpeg|webp|png|js)' -delete",
     "test": "npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && webpack --config=./test/cache/webpack.config.js && jest"
   },
   "files": [
@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/dazuaz/responsive-loader",
   "peerDependencies": {
-    "webpack": "^4.0.0 || ^5.0.0"
+    "webpack": "^5.37.0"
   },
   "peerDependenciesMeta": {
     "jimp": {
@@ -49,7 +49,7 @@
   },
   "dependencies": {
     "find-cache-dir": "^3.3.1",
-    "loader-utils": "^2.0.0",
+    "json5": "^2.2.0",
     "schema-utils": "^3.0.0"
   },
   "devDependencies": {
@@ -57,10 +57,9 @@
     "@babel/preset-env": "^7.12.11",
     "@types/find-cache-dir": "^3.2.0",
     "@types/json-schema": "^7.0.6",
-    "@types/loader-utils": "^2.0.1",
     "@types/node": "^14.14.20",
-    "@types/sharp": "^0.27.0",
-    "@types/webpack": "^4.41.25",
+    "@types/sharp": "^0.28.1",
+    "@types/webpack": "^5.28.0",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
     "@typescript-eslint/parser": "^4.12.0",
     "babel-jest": "^26.6.3",
@@ -69,10 +68,10 @@
     "jimp": "^0.16.1",
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
-    "sharp": "^0.27.0",
+    "sharp": "^0.28.2",
     "typescript": "^4.1.3",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^4.3.1"
+    "webpack": "5.37.0",
+    "webpack-cli": "^4.7.0"
   },
   "jest": {
     "testEnvironment": "node"

@@ -1,19 +1,22 @@
-import { parseQuery, getOptions, interpolateName } from 'loader-utils'
 import { validate } from 'schema-utils'
 import * as schema from './schema.json'
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from './utils'
 import { cache } from './cache'
+import type { LoaderContext } from 'webpack'
+
+import { interpolateName } from './interpolateName'
+import { parseQuery } from './parseQuery'
 
 import type {
   Adapter,
   Options,
   CacheOptions,
-  LoaderContext,
   AdapterImplementation,
   MimeType,
   AdapterResizeResponse,
   TransformParams,
 } from './types'
+import { JSONSchema7 } from 'schema-utils/declarations/ValidationError'
 
 const DEFAULTS = {
   quality: 85,
@@ -39,37 +42,30 @@ const DEFAULTS = {
  *
  * @return {loaderCallback} loaderCallback Result
  */
-export default function loader(this: LoaderContext, content: Buffer): void {
+export default function loader(this: LoaderContext<any>, content: string): void {
   const loaderCallback = this.async()
   if (typeof loaderCallback == 'undefined') {
     new Error('Responsive loader callback error')
     return
   }
 
-  // Object representation of the query string
   const parsedResourceQuery = this.resourceQuery ? parseQuery(this.resourceQuery) : {}
-
   // Combines defaults, webpack options and query options,
   // later sources' properties overwrite earlier ones.
-  const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
+  const options: Options = Object.assign({}, DEFAULTS, this.getOptions(), parsedResourceQuery)
+  // // Object representation of the query string
 
-  // @ts-ignore
-  validate(schema, options, { name: 'Responsive Loader' })
+  // // Combines defaults, webpack options and query options,
+  // // later sources' properties overwrite earlier ones.
+  // const options: Options = Object.assign({}, DEFAULTS, getOptions(this), parsedResourceQuery)
+
+  validate(schema as JSONSchema7, options, { name: 'Responsive Loader' })
 
   /**
    * Parses options and set defaults options
    */
-  const {
-    outputContext,
-    mime,
-    ext,
-    name,
-    sizes,
-    outputPlaceholder,
-    placeholderSize,
-    imageOptions,
-    cacheOptions,
-  } = parseOptions(this, options)
+  const { outputContext, mime, ext, name, sizes, outputPlaceholder, placeholderSize, imageOptions, cacheOptions } =
+    parseOptions(this, options)
 
   if (!mime) {
     loaderCallback(new Error('No mime type for file with extension ' + ext + ' supported'))
@@ -90,7 +86,7 @@ export default function loader(this: LoaderContext, content: Buffer): void {
     })
 
     if (options.emitFile) {
-      this.emitFile(outputPath, data, null)
+      this.emitFile(outputPath, data)
     }
 
     return {
