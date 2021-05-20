@@ -82,7 +82,7 @@ import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]
 // responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
 ...
   <picture>
-    <source srcSet={responsiveImageWebp.srcSet} type='image/webp' />
+    <source srcSet={responsiveImageWebp.srcSet} type='image/webp' sizes='(min-width: 1024px) 1024px, 100vw'/>
     <img
       src={responsiveImage.src}
       srcSet={responsiveImage.srcSet}
