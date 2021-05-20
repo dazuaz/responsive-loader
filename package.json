@@ -9,8 +9,8 @@
   "scripts": {
     "build": "tsc && cp ./src/cjs.js ./lib",
     "lint": "eslint",
-    "test:clean": "find -E test/**/build/ -regex '.*/*.(avif|jpg|jpeg|webp|png|js)' -delete",
-    "test": "npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && webpack --config=./test/cache/webpack.config.js && jest"
+    "test:clean": "find -E test/**/build/ -regex '.*/*.(avif|jpe?g|webp|png|js)' -delete",
+    "test": "npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
   },
   "files": [
     "lib",

@@ -1,5 +1,7 @@
-import { validate } from 'schema-utils'
 import * as schema from './schema.json'
+import { validate } from 'schema-utils'
+import { JSONSchema7 } from 'schema-utils/declarations/ValidationError'
+
 import { parseOptions, getOutputAndPublicPath, createPlaceholder } from './utils'
 import { cache } from './cache'
 import type { LoaderContext } from 'webpack'
@@ -16,7 +18,6 @@ import type {
   AdapterResizeResponse,
   TransformParams,
 } from './types'
-import { JSONSchema7 } from 'schema-utils/declarations/ValidationError'
 
 const DEFAULTS = {
   quality: 85,

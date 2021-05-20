@@ -33,6 +33,8 @@ type ParsedOptions = {
 
 function parseOptions(loaderContext: LoaderContext<any>, options: Options): ParsedOptions {
   const outputContext: string = options.context || loaderContext.rootContext
+  // <path>/<to>/<folder>/responsive-loader
+
   const outputPlaceholder = Boolean(options.placeholder)
   const placeholderSize: number = parseInt(options.placeholderSize + '', 10)
 

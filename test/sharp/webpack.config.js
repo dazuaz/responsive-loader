@@ -7,24 +7,32 @@ module.exports = {
     rules: [
       // This rule will be matched when the resourceQuery contains `minmax`, e.g. `cat-1000.jpg?minmax`
       {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpe?g)$/,
         resourceQuery: /minmax/,
-        loader: require.resolve('../../lib/index'),
-        options: {
-          min: 100,
-          max: 300,
-          esModule: true,
-          adapter: require('../../sharp'),
-        },
+        use: [
+          {
+            loader: require.resolve('../../lib/index'),
+            options: {
+              min: 100,
+              max: 300,
+              adapter: require('../../sharp'),
+            },
+          },
+        ],
+        type: 'javascript/auto',
       },
       {
         test: /\.(png|jpe?g)$/,
-        loader: require.resolve('../../lib/index'),
-        options: {
-          sizes: [500, 750, 1000],
-          esModule: true,
-          adapter: require('../../sharp'),
-        },
+        use: [
+          {
+            loader: require.resolve('../../lib/index'),
+            options: {
+              sizes: [500, 750, 1000],
+              adapter: require('../../sharp'),
+            },
+          },
+        ],
+        type: 'javascript/auto',
       },
     ],
   },
