@@ -1,4 +1,11 @@
-test('jpeg extension', () => {
+test('Works with the cache', () => {
+  const output = require('../cat-1000.jpg?size=501,cacheDirectory')
+  expect(output).toMatchSnapshot()
+  console.log(output.src)
+  // expect(output.src)
+})
+
+test('creates jpeg extension', () => {
   const output = require('../cat-1000copy.jpeg?size=439')
   expect(output).toMatchSnapshot()
 })

@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Works with the cache 1`] = `
+Object {
+  "height": 451,
+  "images": Array [
+    Object {
+      "height": 451,
+      "path": "foobar/56199fbdd5b73890ad12fc036f5328b4-501.jpg",
+      "width": 501,
+    },
+  ],
+  "src": "foobar/56199fbdd5b73890ad12fc036f5328b4-501.jpg",
+  "srcSet": "foobar/56199fbdd5b73890ad12fc036f5328b4-501.jpg 501w",
+  "toString": [Function],
+  "width": 501,
+}
+`;
+
+exports[`creates jpeg extension 1`] = `
+Object {
+  "height": 395,
+  "images": Array [
+    Object {
+      "height": 395,
+      "path": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
+      "width": 439,
+    },
+  ],
+  "src": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
+  "srcSet": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg 439w",
+  "toString": [Function],
+  "width": 439,
+}
+`;
+
 exports[`disable 1`] = `
 Object {
   "images": Array [
@@ -29,23 +63,6 @@ Object {
   "srcSet": "foobar/67ae90e5ceacec74bab20ac659767e66-250.jpg 250w",
   "toString": [Function],
   "width": 250,
-}
-`;
-
-exports[`jpeg extension 1`] = `
-Object {
-  "height": 395,
-  "images": Array [
-    Object {
-      "height": 395,
-      "path": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
-      "width": 439,
-    },
-  ],
-  "src": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg",
-  "srcSet": "foobar/f32ecdef2ffef2786a6499ee57bfe2d1-439.jpeg 439w",
-  "toString": [Function],
-  "width": 439,
 }
 `;
 
