@@ -4,7 +4,7 @@
   "description": "A webpack loader for responsive images",
   "main": "lib/cjs.js",
   "engines": {
-    "node": ">= 10.13.0"
+    "node": ">= 12.22.1"
   },
   "scripts": {
     "build": "tsc && cp ./src/cjs.js ./lib",

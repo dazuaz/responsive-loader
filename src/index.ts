@@ -110,7 +110,7 @@ export default function loader(this: LoaderContext<any>, content: string): void 
         images: [{path:${path},width:100,height:100}],
         src: ${path},
         toString: function(){return ${path}}
-      };`
+      }`
     )
     return
   }
