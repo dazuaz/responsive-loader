@@ -1,5 +1,5 @@
 'use strict'
-import type { LoaderContext } from 'webpack'
+
 import { util } from 'webpack'
 import * as path from 'path'
 
@@ -8,7 +8,12 @@ type Options = {
   content: string
 }
 
-function interpolateName(loaderContext: LoaderContext<any>, name: string, options: Options): string {
+export default function interpolateName(
+  loaderResourcePath: string,
+  loaderResourceQuery: string,
+  name: string,
+  options: Options
+): string {
   const filename = name || '[hash].[ext]'
 
   const context = options.context
@@ -20,9 +25,9 @@ function interpolateName(loaderContext: LoaderContext<any>, name: string, option
   let folder = ''
   let query = ''
 
-  if (loaderContext.resourcePath) {
-    const parsed = path.parse(loaderContext.resourcePath)
-    let resourcePath = loaderContext.resourcePath
+  if (loaderResourcePath) {
+    const parsed = path.parse(loaderResourcePath)
+    let resourcePath = loaderResourcePath
 
     if (parsed.ext) {
       ext = parsed.ext.substr(1)
@@ -50,8 +55,8 @@ function interpolateName(loaderContext: LoaderContext<any>, name: string, option
     }
   }
 
-  if (loaderContext.resourceQuery && loaderContext.resourceQuery.length > 1) {
-    query = loaderContext.resourceQuery
+  if (loaderResourceQuery && loaderResourceQuery.length > 1) {
+    query = loaderResourceQuery
 
     const hashIdx = query.indexOf('#')
 
@@ -79,14 +84,5 @@ function interpolateName(loaderContext: LoaderContext<any>, name: string, option
     .replace(/\[folder\]/gi, () => folder)
     .replace(/\[query\]/gi, () => query)
 
-  // if (
-  //   typeof loaderContext.getOptions() === 'object' &&
-  //   typeof loaderContext.getOptions().customInterpolateName === 'function'
-  // ) {
-  //   url = loaderContext.getOptions().customInterpolateName.call(loaderContext, url, name, options)
-  // }
-
   return url
 }
-
-export { interpolateName }

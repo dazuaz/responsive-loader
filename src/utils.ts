@@ -1,6 +1,5 @@
 import * as path from 'path'
 import type { Options, MimeType, ImageOptions, CacheOptions } from './types'
-import type { LoaderContext } from 'webpack'
 
 const version = '3'
 
@@ -20,7 +19,6 @@ enum EXTS {
 }
 
 type ParsedOptions = {
-  outputContext: string
   outputPlaceholder: boolean
   placeholderSize: number
   name: string
@@ -31,10 +29,7 @@ type ParsedOptions = {
   cacheOptions: CacheOptions
 }
 
-function parseOptions(loaderContext: LoaderContext<any>, options: Options): ParsedOptions {
-  const outputContext: string = options.context || loaderContext.rootContext
-  // <path>/<to>/<folder>/responsive-loader
-
+function parseOptions(resourcePath: string, options: Options): ParsedOptions {
   const outputPlaceholder = Boolean(options.placeholder)
   const placeholderSize: number = parseInt(options.placeholderSize + '', 10)
 
@@ -54,7 +49,7 @@ function parseOptions(loaderContext: LoaderContext<any>, options: Options): Pars
     mime = MIMES[options.format]
     ext = EXTS[mime]
   } else {
-    ext = path.extname(loaderContext.resourcePath).replace(/\./, '')
+    ext = path.extname(resourcePath).replace(/\./, '')
     switch (ext) {
       case 'jpg':
       case 'jpeg':
@@ -98,7 +93,6 @@ function parseOptions(loaderContext: LoaderContext<any>, options: Options): Pars
     cacheCompression: Boolean(options.cacheCompression),
   }
   return {
-    outputContext,
     ext,
     mime,
     name,

@@ -1,4 +1,4 @@
-declare type Options = {
+export type Options = {
   size?: string | number
   sizes?: [string | number]
   min?: string | number
@@ -44,17 +44,17 @@ export interface AdapterImplementation {
   metadata: () => Promise<{ width: number; height: number }>
   resize: (config: { width: number; mime: string; options: Options }) => Promise<AdapterResizeResponse>
 }
-export type AdapterResizeResponse = { data: string; width: number; height: number }
+export type AdapterResizeResponse = { data: string | Buffer; width: number; height: number }
 
 export interface TransformParams {
   adapterModule: Adapter | undefined
+  resourcePath: string
   createFile: ({ data, width, height }: AdapterResizeResponse) => {
     src: string
     path: string
     width: number
     height: number
   }
-  resourcePath: string
   outputPlaceholder: boolean
   placeholderSize: number
   mime: MimeType
