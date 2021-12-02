@@ -9,7 +9,7 @@
   "scripts": {
     "build": "tsc && cp ./src/cjs.js ./lib",
     "lint": "eslint",
-    "test:clean": "find -E test/**/build/ -regex '.*/*.(avif|jpg|webp|png|js)' -delete",
+    "test:clean": "find test/**/build/ -name '*.jpg' -o -name '*.png' -o -name '*.avif' -o -name '*.webp' -o -name '*.js' | xargs rm -f",
     "test": "npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && webpack --config=./test/cache/webpack.config.js && jest"
   },
   "files": [
