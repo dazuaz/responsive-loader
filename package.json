@@ -48,31 +48,31 @@
     }
   },
   "dependencies": {
-    "find-cache-dir": "^3.3.1",
+    "@types/node": "^14.17.34",
+    "find-cache-dir": "^3.3.2",
     "json5": "^2.2.0",
-    "schema-utils": "^3.0.0"
+    "schema-utils": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.4",
-    "@types/find-cache-dir": "^3.2.0",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@types/find-cache-dir": "^3.2.1",
     "@types/jest": "^27.0.3",
-    "@types/json-schema": "^7.0.7",
-    "@types/node": "^14.17.0",
-    "@types/sharp": "^0.28.3",
+    "@types/json-schema": "^7.0.9",
+    "@types/sharp": "^0.29.4",
     "@types/webpack": "^5.28.0",
-    "@typescript-eslint/eslint-plugin": "^4.26.0",
-    "@typescript-eslint/parser": "^4.26.0",
-    "babel-jest": "^27.0.2",
-    "eslint": "^7.27.0",
-    "jest": "^27.0.4",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "babel-jest": "^27.4.2",
+    "eslint": "^8.3.0",
+    "jest": "^27.4.3",
     "jimp": "^0.16.1",
-    "prettier": "^2.3.0",
-    "prettier-eslint": "^12.0.0",
-    "sharp": "^0.28.3",
-    "typescript": "^4.3.2",
-    "webpack": "^5.37.0",
-    "webpack-cli": "^4.7.0"
+    "prettier": "^2.5.0",
+    "prettier-eslint": "^13.0.0",
+    "sharp": "^0.29.3",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
   },
   "jest": {
     "testEnvironment": "node"

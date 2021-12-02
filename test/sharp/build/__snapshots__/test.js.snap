@@ -280,12 +280,12 @@ Object {
   "images": Array [
     Object {
       "height": 595,
-      "path": "foobar/5a36f8476717b2c46a1f23874299d6a0-513.avif",
+      "path": "foobar/e815822ca872fefc6215e5c829d90c00-513.avif",
       "width": 513,
     },
   ],
-  "src": "foobar/5a36f8476717b2c46a1f23874299d6a0-513.avif",
-  "srcSet": "foobar/5a36f8476717b2c46a1f23874299d6a0-513.avif 513w",
+  "src": "foobar/e815822ca872fefc6215e5c829d90c00-513.avif",
+  "srcSet": "foobar/e815822ca872fefc6215e5c829d90c00-513.avif 513w",
   "toString": [Function],
   "width": 513,
 }
@@ -297,22 +297,22 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/a3114f960be94671b134640079dfa763-500.avif",
+      "path": "foobar/fc2e0dfc0ca431fc86c4f4ecd77d583c-500.avif",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/b102682dd39a4d79ea5e1cf597bbd9d6-750.avif",
+      "path": "foobar/107b772e5504e2211f869a13d9c47267-750.avif",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/710766ccd533446899bf1f40a5d467c1-1000.avif",
+      "path": "foobar/a8bd3f7d12cc3b38dd1270df2e005aa7-1000.avif",
       "width": 1000,
     },
   ],
-  "src": "foobar/710766ccd533446899bf1f40a5d467c1-1000.avif",
-  "srcSet": "foobar/a3114f960be94671b134640079dfa763-500.avif 500w,foobar/b102682dd39a4d79ea5e1cf597bbd9d6-750.avif 750w,foobar/710766ccd533446899bf1f40a5d467c1-1000.avif 1000w",
+  "src": "foobar/a8bd3f7d12cc3b38dd1270df2e005aa7-1000.avif",
+  "srcSet": "foobar/fc2e0dfc0ca431fc86c4f4ecd77d583c-500.avif 500w,foobar/107b772e5504e2211f869a13d9c47267-750.avif 750w,foobar/a8bd3f7d12cc3b38dd1270df2e005aa7-1000.avif 1000w",
   "toString": [Function],
   "width": 1000,
 }
