@@ -1,8 +1,4 @@
-import type * as webpack from "webpack"
-
-export type LoaderContext = webpack.loader.LoaderContext
-
-declare type Options = {
+export type Options = {
   size?: string | number
   sizes?: [string | number]
   min?: string | number
@@ -27,9 +23,9 @@ declare type Options = {
   cacheIdentifier: string
   cacheCompression: boolean
 }
-export type Format = "png" | "jpg" | "jpeg" | "webp" | "avif"
-export type FileExt = "jpg" | "png" | "webp" | "avif"
-export type MimeType = "image/jpeg" | "image/png" | "image/webp" | "image/avif"
+export type Format = 'png' | 'jpg' | 'jpeg' | 'webp' | 'avif'
+export type FileExt = 'jpg' | 'png' | 'webp' | 'avif'
+export type MimeType = 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif'
 
 export interface CacheOptions {
   cacheDirectory: string | boolean
@@ -48,29 +44,17 @@ export interface AdapterImplementation {
   metadata: () => Promise<{ width: number; height: number }>
   resize: (config: { width: number; mime: string; options: Options }) => Promise<AdapterResizeResponse>
 }
-export type AdapterResizeResponse = { data: Buffer; width: number; height: number }
-export type CreateFile = {
-  loaderContext: LoaderContext
-  data: Buffer
-  width: string
-  height: string
-  outputPath?: ((...args: Array<unknown>) => string) | string
-  inputPath?: ((...args: Array<unknown>) => string) | string
-}
+export type AdapterResizeResponse = { data: string | Buffer; width: number; height: number }
 
 export interface TransformParams {
   adapterModule: Adapter | undefined
-  createFile: ({
-    data,
-    width,
-    height,
-  }: AdapterResizeResponse) => {
+  resourcePath: string
+  createFile: ({ data, width, height }: AdapterResizeResponse) => {
     src: string
     path: string
     width: number
     height: number
   }
-  resourcePath: string
   outputPlaceholder: boolean
   placeholderSize: number
   mime: MimeType

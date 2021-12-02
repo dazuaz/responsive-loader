@@ -1,8 +1,8 @@
-import src from "../lib"
-import cjs from "../lib/cjs"
+import src from '../lib'
+import cjs from '../lib/cjs'
 
-describe("CJS", () => {
-  it("should export loader", () => {
+describe('CJS', () => {
+  it('should export loader', () => {
     expect(cjs).toEqual(src)
   })
 

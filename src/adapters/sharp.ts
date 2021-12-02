@@ -1,8 +1,8 @@
-import * as sharp from "sharp"
+import * as sharp from 'sharp'
 
 type ResizeProps = {
   width: number
-  mime: "image/jpeg" | "image/png" | "image/webp" | "image/avif"
+  mime: 'image/jpeg' | 'image/png' | 'image/webp' | 'image/avif'
   options: {
     background?: string
     rotate: number
@@ -13,7 +13,7 @@ type ResizeProps = {
 
 class SharpAdapter {
   image: sharp.Sharp
-  constructor(imagePath: string | Buffer) {
+  constructor(imagePath: string) {
     this.image = sharp(imagePath)
   }
   metadata(): Promise<sharp.Metadata> {
@@ -34,18 +34,18 @@ class SharpAdapter {
         })
       }
 
-      if (mime === "image/jpeg") {
+      if (mime === 'image/jpeg') {
         resized = resized.jpeg({
           quality: options.quality,
           progressive: options.progressive,
         })
       }
-      if (mime === "image/webp") {
+      if (mime === 'image/webp') {
         resized = resized.webp({
           quality: options.quality,
         })
       }
-      if (mime === "image/avif") {
+      if (mime === 'image/avif') {
         // @ts-ignore
         resized = resized.avif({
           quality: options.quality,
@@ -55,7 +55,6 @@ class SharpAdapter {
       if (options.rotate && options.rotate !== 0) {
         resized = resized.rotate(options.rotate)
       }
-
       resized.toBuffer((err, data, { height }) => {
         if (err) {
           reject(err)
@@ -71,6 +70,6 @@ class SharpAdapter {
   }
 }
 // export default SharpAdapter
-module.exports = (imagePath: string | Buffer): SharpAdapter => {
+module.exports = (imagePath: string): SharpAdapter => {
   return new SharpAdapter(imagePath)
 }
