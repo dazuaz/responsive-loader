@@ -4,7 +4,8 @@ test/build
 test/**/build/*.js
 test/**/build/**/*.png
 test/**/build/**/*.jpg
-test/**/build/**/*.webp
+test/**/build/**/*.avif
+test/**/build/**/*.jpeg
 examples
 .node-version
 lib
