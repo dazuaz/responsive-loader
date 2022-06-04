@@ -1,20 +1,11 @@
 # responsive-loader
 
 [![build][travis]][travis-url]
-[![npm][npm]][npm-url]
 [![node][node]][node-url]
 
 A webpack loader for responsive images. Creates multiple images from one source image, and returns a `srcset`. For more information on how to use `srcset`, read [Responsive Images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images). Browser support is [pretty good](http://caniuse.com/#search=srcset).
 
 ## Install
-
-### With jimp
-
-```
-npm install responsive-loader jimp --save-dev
-```
-
-Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow.
 
 ### With sharp
 
@@ -22,9 +13,39 @@ Per default, responsive-loader uses [jimp](https://github.com/oliver-moran/jimp)
 npm install responsive-loader sharp --save-dev
 ```
 
-For [super-charged performance](http://sharp.dimens.io/en/stable/performance/), responsive-loader also works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform, and/or need to generate webp/avif images.
+For [super-charged performance](http://sharp.dimens.io/en/stable/performance/) and webp and avif formats support, responsive-loader works with [sharp](https://github.com/lovell/sharp). It's recommended to use sharp if you have lots of images to transform.
 
-If you want to use sharp, you need to configure responsive-loader to use its adapter:
+```js
+module.exports = {
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g)$/,
+        use: [
+          {
+            loader: 'responsive-loader',
+            options: {
+              // Set options for all transforms
+            },
+          },
+        ],
+        type: 'javascript/auto',
+      },
+    ],
+  },
+}
+```
+
+### With jimp
+
+```
+npm install responsive-loader jimp --save-dev
+```
+
+Responsive-loader can be use with [jimp](https://github.com/oliver-moran/jimp) to transform images. which needs to be installed alongside responsive-loader. Because jimp is written entirely in JavaScript and doesn't have any native dependencies it will work anywhere. The main drawback is that it's pretty slow.
+
+If you want to use jimp, you need to configure responsive-loader to use its adapter:
 
 ```diff
 module.exports = {
@@ -32,13 +53,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jpe?g|png|webp)$/i,
-        use: {
-          loader: 'responsive-loader',
-          options: {
-+           adapter: require('responsive-loader/sharp')
-          }
-        }
+        test: /\.(png|jpe?g)$/,
+        use: [
+          {
+            loader: 'responsive-loader',
+            options: {
++               adapter: require('responsive-loader/jimp')
+            },
+          },
+        ],
+        type: 'javascript/auto',
       }
     ]
   },
@@ -57,10 +81,10 @@ module.exports = {
       {
         test: /\.(jpe?g|png|webp)$/i,
         use: {
-          loader: "responsive-loader",
+          loader: 'responsive-loader',
           options: {
             // If you want to enable sharp support:
-            adapter: require("responsive-loader/sharp"),
+            adapter: require('responsive-loader/sharp'),
           },
         },
       },
@@ -108,19 +132,19 @@ Or use it in CSS (only the first resized image will be used, if you use multiple
 
 ```css
 .myImage {
-  background: url("myImage.jpg?size=1140");
+  background: url('myImage.jpg?size=1140');
 }
 
 @media (max-width: 480px) {
   .myImage {
-    background: url("myImage.jpg?size=480");
+    background: url('myImage.jpg?size=480');
   }
 }
 ```
 
 ```js
 // Outputs placeholder image as a data URI, and three images with 100, 200, and 300px widths
-const responsiveImage = require("myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300")
+const responsiveImage = require('myImage.jpg?placeholder=true&sizes[]=100,sizes[]=200,sizes[]=300')
 
 // responsiveImage.placeholder => 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAIBAQE…'
 ReactDOM.render(
@@ -128,10 +152,9 @@ ReactDOM.render(
     style={{
       height: responsiveImage.height,
       width: responsiveImage.width,
-      backgroundSize: "cover",
+      backgroundSize: 'cover',
       backgroundImage: 'url("' + responsiveImage.placeholder + '")',
-    }}
-  >
+    }}>
     <img src={responsiveImage.src} srcSet={responsiveImage.srcSet} />
   </div>,
   el
@@ -233,7 +256,7 @@ module.exports = {
         test: /\.(jpe?g|png)$/i,
         use: [
           {
-            loader: "responsive-loader",
+            loader: 'responsive-loader',
             options: {
               esModule: true,
             },
@@ -279,13 +302,7 @@ In your webpack config, require your adapter
 
 - Inspired by [resize-image-loader](https://github.com/Levelmoney/resize-image-loader), but simpler and without dependency on ImageMagick
 
-[npm]: https://img.shields.io/npm/v/responsive-loader.svg
-[npm-url]: https://npmjs.com/package/responsive-loader
 [node]: https://img.shields.io/node/v/responsive-loader.svg
 [node-url]: https://nodejs.org
-[deps]: https://david-dm.org/dazuaz/responsive-loader.svg
-[deps-url]: https://david-dm.org/dazuaz/responsive-loader
 [travis]: https://travis-ci.com/dazuaz/responsive-loader.svg?branch=master
 [travis-url]: https://travis-ci.com/dazuaz/responsive-loader
-[size]: https://packagephobia.now.sh/badge?p=responsive-loader
-[size-url]: https://packagephobia.now.sh/result?p=responsive-loader

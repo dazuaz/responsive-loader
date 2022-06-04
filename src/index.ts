@@ -158,7 +158,7 @@ export async function transform({
   adapterOptions,
   esModule,
 }: TransformParams): Promise<string> {
-  const adapter: Adapter = adapterModule || require('./adapters/jimp')
+  const adapter: Adapter = adapterModule || require('./adapters/sharp')
   const img = adapter(resourcePath)
   const results = await transformations({ img, sizes, mime, outputPlaceholder, placeholderSize, adapterOptions })
 

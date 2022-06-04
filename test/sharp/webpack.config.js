@@ -15,7 +15,6 @@ module.exports = {
             options: {
               min: 100,
               max: 300,
-              adapter: require('../../sharp'),
             },
           },
         ],
@@ -28,7 +27,6 @@ module.exports = {
             loader: require.resolve('../../lib/index'),
             options: {
               sizes: [500, 750, 1000],
-              adapter: require('../../sharp'),
             },
           },
         ],

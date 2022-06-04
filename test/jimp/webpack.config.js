@@ -14,6 +14,7 @@ module.exports = {
           min: 100,
           max: 300,
           esModule: true,
+          adapter: require('../../jimp'),
         },
         type: 'javascript/auto',
       },
@@ -23,6 +24,7 @@ module.exports = {
         options: {
           sizes: [500, 750, 1000],
           esModule: true,
+          adapter: require('../../jimp'),
         },
         type: 'javascript/auto',
       },
