@@ -20,28 +20,18 @@ Object {
 exports[`doesn't emit file 1`] = `
 Object {
   "default": Object {
-    "height": 900,
+    "height": 225,
     "images": Array [
       Object {
-        "height": 450,
-        "path": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg",
-        "width": 500,
-      },
-      Object {
-        "height": 675,
-        "path": "foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg",
-        "width": 750,
-      },
-      Object {
-        "height": 900,
-        "path": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
-        "width": 1000,
+        "height": 225,
+        "path": "foobar/8869f9dd68c1b99a89c642f1b8ade3ad-250.jpg",
+        "width": 250,
       },
     ],
-    "src": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
-    "srcSet": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg 500w,foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg 750w,foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg 1000w",
+    "src": "foobar/8869f9dd68c1b99a89c642f1b8ade3ad-250.jpg",
+    "srcSet": "foobar/8869f9dd68c1b99a89c642f1b8ade3ad-250.jpg 250w",
     "toString": [Function],
-    "width": 1000,
+    "width": 250,
   },
 }
 `;
@@ -57,18 +47,13 @@ Object {
         "width": 500,
       },
       Object {
-        "height": 675,
-        "path": "foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg",
-        "width": 750,
-      },
-      Object {
         "height": 900,
         "path": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
         "width": 1000,
       },
     ],
     "src": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
-    "srcSet": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg 500w,foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg 750w,foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg 1000w",
+    "srcSet": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg 500w,foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg 1000w",
     "toString": [Function],
     "width": 1000,
   },
@@ -174,7 +159,7 @@ Object {
 exports[`override min and max with sizes 1`] = `
 Object {
   "default": Object {
-    "height": 270,
+    "height": 180,
     "images": Array [
       Object {
         "height": 90,
@@ -182,25 +167,15 @@ Object {
         "width": 100,
       },
       Object {
-        "height": 150,
-        "path": "foobar/734736ef066c39120760fd69e8d2eaa7-167.jpg",
-        "width": 167,
-      },
-      Object {
-        "height": 211,
-        "path": "foobar/192a0bafe1555e25e65afd6390e58a84-234.jpg",
-        "width": 234,
-      },
-      Object {
-        "height": 270,
-        "path": "foobar/9ce71322d2da0a01ef90cfc44e592171-300.jpg",
-        "width": 300,
+        "height": 180,
+        "path": "foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg",
+        "width": 200,
       },
     ],
-    "src": "foobar/9ce71322d2da0a01ef90cfc44e592171-300.jpg",
-    "srcSet": "foobar/32708317aa6a3e07c17ed98fc519f791-100.jpg 100w,foobar/734736ef066c39120760fd69e8d2eaa7-167.jpg 167w,foobar/192a0bafe1555e25e65afd6390e58a84-234.jpg 234w,foobar/9ce71322d2da0a01ef90cfc44e592171-300.jpg 300w",
+    "src": "foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg",
+    "srcSet": "foobar/32708317aa6a3e07c17ed98fc519f791-100.jpg 100w,foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg 200w",
     "toString": [Function],
-    "width": 300,
+    "width": 200,
   },
 }
 `;
@@ -208,28 +183,28 @@ Object {
 exports[`parses json notation 1`] = `
 Object {
   "default": Object {
-    "height": 900,
+    "height": 180,
     "images": Array [
       Object {
-        "height": 450,
-        "path": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg",
-        "width": 500,
+        "height": 45,
+        "path": "foobar/8df7f84b5cc05ee5c20f57f31376f4fb-50.jpg",
+        "width": 50,
       },
       Object {
-        "height": 675,
-        "path": "foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg",
-        "width": 750,
+        "height": 90,
+        "path": "foobar/32708317aa6a3e07c17ed98fc519f791-100.jpg",
+        "width": 100,
       },
       Object {
-        "height": 900,
-        "path": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
-        "width": 1000,
+        "height": 180,
+        "path": "foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg",
+        "width": 200,
       },
     ],
-    "src": "foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg",
-    "srcSet": "foobar/2756dba88775137f3a131197fee4ba11-500.jpg 500w,foobar/5b62cc7550ffe13de26a9abe0965803b-750.jpg 750w,foobar/ce1f7cab922695ef86906a04192b055d-1000.jpg 1000w",
+    "src": "foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg",
+    "srcSet": "foobar/8df7f84b5cc05ee5c20f57f31376f4fb-50.jpg 50w,foobar/32708317aa6a3e07c17ed98fc519f791-100.jpg 100w,foobar/d1632154d15da263ba52fe0a6de45cdd-200.jpg 200w",
     "toString": [Function],
-    "width": 1000,
+    "width": 200,
   },
 }
 `;

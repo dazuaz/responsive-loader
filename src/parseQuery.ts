@@ -11,17 +11,17 @@ const specialValues: LooseObject = {
 }
 
 function parseQuery(query: string): LooseObject {
-  if (query.substring(0, 1) !== '?') {
+  if (query.substr(0, 1) !== '?') {
     throw new Error("A valid query string passed to parseQuery should begin with '?'")
   }
 
-  query = query.substring(1)
+  query = query.substr(1)
 
   if (!query) {
     return {}
   }
 
-  if (query.substring(0, 1) === '{' && query.substring(-1) === '}') {
+  if (query.substr(0, 1) === '{' && query.substr(-1) === '}') {
     return JSON5.parse(query)
   }
 
@@ -40,8 +40,8 @@ function parseQuery(query: string): LooseObject {
       if (specialValues.hasOwnProperty(value)) {
         value = specialValues[value]
       }
-      if (name.substring(-2) === '[]') {
-        name = decodeURIComponent(name.substring(0, name.length - 2))
+      if (name.substr(-2) === '[]') {
+        name = decodeURIComponent(name.substr(0, name.length - 2))
 
         if (!Array.isArray(result[name])) {
           result[name] = []
@@ -53,10 +53,10 @@ function parseQuery(query: string): LooseObject {
         result[name] = value
       }
     } else {
-      if (arg.substring(0, 1) === '-') {
-        result[decodeURIComponent(arg.substring(1))] = false
-      } else if (arg.substring(0, 1) === '+') {
-        result[decodeURIComponent(arg.substring(1))] = true
+      if (arg.substr(0, 1) === '-') {
+        result[decodeURIComponent(arg.substr(1))] = false
+      } else if (arg.substr(0, 1) === '+') {
+        result[decodeURIComponent(arg.substr(1))] = true
       } else {
         result[decodeURIComponent(arg)] = true
       }
