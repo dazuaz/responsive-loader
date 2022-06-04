@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/dazuaz/responsive-loader",
   "peerDependencies": {
-    "webpack": "^5.38.1"
+    "webpack": "^5.73.0"
   },
   "peerDependenciesMeta": {
     "jimp": {
@@ -48,31 +48,31 @@
     }
   },
   "dependencies": {
-    "@types/node": "^14.17.34",
+    "@types/node": "^17.0.39",
     "find-cache-dir": "^3.3.2",
-    "json5": "^2.2.0",
+    "json5": "^2.2.1",
     "schema-utils": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "@types/find-cache-dir": "^3.2.1",
-    "@types/jest": "^27.0.3",
-    "@types/json-schema": "^7.0.9",
-    "@types/sharp": "^0.29.4",
+    "@types/jest": "^28.1.0",
+    "@types/json-schema": "^7.0.11",
+    "@types/sharp": "^0.30.2",
     "@types/webpack": "^5.28.0",
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^5.5.0",
-    "babel-jest": "^27.4.2",
-    "eslint": "^8.3.0",
-    "jest": "^27.4.3",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "babel-jest": "^28.1.0",
+    "eslint": "^8.17.0",
+    "jest": "^28.1.0",
     "jimp": "^0.16.1",
-    "prettier": "^2.5.0",
-    "prettier-eslint": "^13.0.0",
-    "sharp": "^0.29.3",
-    "typescript": "^4.5.2",
+    "prettier": "^2.6.2",
+    "prettier-eslint": "^15.0.1",
+    "sharp": "^0.30.6",
+    "typescript": "^4.7.3",
     "webpack": "^5.64.4",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.2"
   },
   "jest": {
     "testEnvironment": "node"
