@@ -12,6 +12,10 @@
     "test:clean": "find test/**/build/ -name '*.jpg' -o -name '*.png' -o -name '*.avif' -o -name '*.wep' -o -name '*.js' | xargs rm -f",
     "test": "npm run build && npm run test:clean && webpack --config=./test/jimp/webpack.config.js && webpack --config=./test/sharp/webpack.config.js && jest"
   },
+  "np": {
+    "yarn": false,
+    "contents": "lib"
+  },
   "files": [
     "lib",
     "jimp.js",

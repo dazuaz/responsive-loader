@@ -1,5 +1,3 @@
-'use strict'
-
 import { util } from 'webpack'
 import * as path from 'path'
 
