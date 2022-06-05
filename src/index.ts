@@ -174,7 +174,8 @@ export async function transform({
 
   const srcset = files.map((f) => f.src).join('+","+')
   const images = files.map((f) => `{path: ${f.path},width: ${f.width},height: ${f.height}}`).join(',')
-  const defaultImage = outputPlaceholder ? files[files.length - 2] : files[files.length - 1]
+  // default to the biggest image
+  const defaultImage = files[files.length - 1]
 
   return `${esModule ? 'export default' : 'module.exports ='} {
         srcSet: ${srcset},

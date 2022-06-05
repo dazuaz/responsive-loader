@@ -75,6 +75,10 @@ test('with placeholder image', () => {
   const output = require('../cat-1000.jpg?placeholder=true')
   expect(output).toMatchSnapshot()
 })
+test('with placeholder image on image with size', () => {
+  const output = require('../cat-1000.jpg?size=400&placeholder=true')
+  expect(output).toMatchSnapshot()
+})
 
 test('output first resized image height & width', () => {
   const output = require('../cat-1000.jpg?size=500')
