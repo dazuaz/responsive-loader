@@ -12,14 +12,17 @@ test('png to avif', () => {
   const output = require('../cat-transparent.png?format=avif&size=777')
   expect(output).toMatchSnapshot()
 })
+
 test('png to avif', () => {
   const output = require('../cat-1000.jpg?format=avif')
   expect(output).toMatchSnapshot()
 })
+
 test('preserves rotation', () => {
   const single = require('../cat-rotated-1000.jpg?size=499')
   expect(single).toMatchSnapshot()
 })
+
 test('rotates 90', () => {
   const single = require('../cat-1000.jpg?size=599&rotate=90')
   expect(single).toMatchSnapshot()
@@ -38,6 +41,11 @@ test('multiple sizes', () => {
 
 test('parses json notation', () => {
   const multi = require("../cat-1000.jpg?{sizes:[50,100,200], format: 'webp'}")
+  expect(multi).toMatchSnapshot()
+})
+
+test('parses json notation with singleQuotes', () => {
+  const multi = require('../cat-1000.jpg?{sizes:[52,102], format: "webp"}')
   expect(multi).toMatchSnapshot()
 })
 
