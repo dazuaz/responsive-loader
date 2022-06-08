@@ -22,6 +22,7 @@ function parseQuery(query: string): LooseObject {
   }
 
   if (query.slice(0, 1) === '{' && query.slice(-1) === '}') {
+    query = decodeURIComponent(query)
     return JSON5.parse(query)
   }
 

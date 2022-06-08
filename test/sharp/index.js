@@ -40,12 +40,7 @@ test('multiple sizes', () => {
 })
 
 test('parses json notation', () => {
-  const multi = require("../cat-1000.jpg?{sizes:[50,100,200], format: 'webp'}")
-  expect(multi).toMatchSnapshot()
-})
-
-test('parses json notation with singleQuotes', () => {
-  const multi = require('../cat-1000.jpg?{sizes:[52,102], format: "webp"}')
+  const multi = require('../cat-1000.jpg?{sizes:[50,100,200], format: "webp"}')
   expect(multi).toMatchSnapshot()
 })
 

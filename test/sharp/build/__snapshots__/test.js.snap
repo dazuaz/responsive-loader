@@ -252,28 +252,6 @@ Object {
 }
 `;
 
-exports[`parses json notation with singleQuotes 1`] = `
-Object {
-  "height": 91,
-  "images": Array [
-    Object {
-      "height": 47,
-      "path": "foobar/064e7e9c9d1af8543b88b2331becb082-52.webp",
-      "width": 52,
-    },
-    Object {
-      "height": 91,
-      "path": "foobar/8f3bb7e057d40b23a28b1eeed1232feb-102.webp",
-      "width": 102,
-    },
-  ],
-  "src": "foobar/8f3bb7e057d40b23a28b1eeed1232feb-102.webp",
-  "srcSet": "foobar/064e7e9c9d1af8543b88b2331becb082-52.webp 52w,foobar/8f3bb7e057d40b23a28b1eeed1232feb-102.webp 102w",
-  "toString": [Function],
-  "width": 102,
-}
-`;
-
 exports[`png 1`] = `
 Object {
   "height": 595,
