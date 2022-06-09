@@ -154,12 +154,9 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
   if (configPublicPath) {
     if (typeof configPublicPath === 'function') {
       publicPath = configPublicPath(fileName)
-    } else if (configPublicPath.endsWith('/')) {
-      publicPath = configPublicPath + fileName
     } else {
-      publicPath = `${configPublicPath}/${fileName}`
+      publicPath = path.posix.join(configPublicPath, fileName)
     }
-
     publicPath = JSON.stringify(publicPath)
   }
 
