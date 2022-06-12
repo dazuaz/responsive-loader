@@ -240,7 +240,7 @@ Default: `false`
 
 Experimental: If `true`, this will cache the result object but not the image files. The images are only produced once, when they are not found in the results object cache, or when the options change (cache key). For Development you can set query parameter to individual images by using `?cacheDirectory=false`.
 
-Default cache directory might be ```.node_modules/.cache/responsive-loader```
+Default cache directory might be `.node_modules/.cache/responsive-loader`
 
 ```js
 module.exports = {
@@ -254,8 +254,8 @@ module.exports = {
             options: {
               esModule: true,
               cacheDirectory: true,
-              publicPath: "/_next",
-              name: "static/media/[name]-[hash:7]-[width].[ext]",
+              publicPath: '/_next',
+              name: 'static/media/[name]-[hash:7]-[width].[ext]',
             },
           },
         ],
@@ -327,9 +327,17 @@ In your webpack config, require your adapter
 
 - Doesn't support `1x`, `2x` sizes, but you probably don't need it.
 
-## See also
+## Usage Examples
 
-- Inspired by [resize-image-loader](https://github.com/Levelmoney/resize-image-loader), but simpler and without dependency on ImageMagick
+### NextJS
+
+- https://github.com/dazuaz/responsive-loader-example
+
+### Pug
+
+- [How to use responsive-loader with Pug](https://webdiscus.github.io/pug-plugin/responsive-image/). Thanks to the awesome [pug-loader](https://webdiscus.github.io/pug-plugin/hello-world/).
+
+Please submit your own example to add here
 
 [node]: https://img.shields.io/node/v/responsive-loader.svg
 [node-url]: https://nodejs.org
