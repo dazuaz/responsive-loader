@@ -329,7 +329,7 @@ In your webpack config, require your adapter
 
 ## Usage Examples
 
-### NextJS
+### Next.js
 
 - https://github.com/dazuaz/responsive-loader-example
 
