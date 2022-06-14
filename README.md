@@ -102,8 +102,8 @@ import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]
 // Outputs
 // responsiveImage.srcSet => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg 300w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w,2fefae46cb857bc750fa5e5eed4a0cde-600.jpg 600w ...'
 // responsiveImage.images => [{height: 150, path: '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg', width: 300}, {height: 300, path: '2fefae46cb857bc750fa5e5eed4a0cde-600.jpg', width: 600} ...]
-// responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
-// responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-300.jpg'
+// responsiveImage.src => '2fefae46cb857bc750fa5e5eed4a0cde-2048.jpg'
+// responsiveImage.toString() => '2fefae46cb857bc750fa5e5eed4a0cde-2048.jpg'
 ...
   <picture>
     <source srcSet={responsiveImageWebp.srcSet} type='image/webp' sizes='(min-width: 1024px) 1024px, 100vw'/>
