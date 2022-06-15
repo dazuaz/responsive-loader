@@ -93,6 +93,36 @@ module.exports = {
 }
 ```
 
+### Typescript
+
+
+
+```typescript
+//declare a module to your type definitions files *.d.ts 
+interface ResponsiveImageOutput {
+  src: string
+  srcSet: string
+  placeholder: string | undefined
+  images: { path: string; width: number; height: number }[]
+  width: number
+  height: number
+  toString: () => string
+}
+
+declare module '*!rl' {
+  const src: ResponsiveImageOutput
+  export default src
+}
+```
+
+```
+import responsiveImage from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048!rl';
+import responsiveImageWebp from 'img/myImage.jpg?sizes[]=300,sizes[]=600,sizes[]=1024,sizes[]=2048&format=webp!rl';
+...
+```
+
+---
+
 Then import images in your JavaScript files:
 
 ```js
@@ -161,7 +191,7 @@ ReactDOM.render(
 )
 ```
 
-You can also use JSON5 notation:
+You can also use [JSON5](https://json5.org/) notation:
 
 ```
 <source srcSet={require('./image.jpg?{sizes:[50,100,200,300,400,500,600,700,800], format: "webp"}').srcSet} type='image/webp'/>
