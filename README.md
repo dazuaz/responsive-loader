@@ -69,33 +69,7 @@ module.exports = {
 }
 ```
 
-## Usage
-
-Add a rule for loading responsive images to your webpack config:
-
-```js
-module.exports = {
-  // ...
-  module: {
-    rules: [
-      {
-        test: /\.(jpe?g|png|webp)$/i,
-        use: {
-          loader: 'responsive-loader',
-          options: {
-            // If you want to enable sharp support:
-            adapter: require('responsive-loader/sharp'),
-          },
-        },
-      },
-    ],
-  },
-}
-```
-
 ### Typescript
-
-
 
 ```typescript
 //declare a module to your type definitions files *.d.ts 
