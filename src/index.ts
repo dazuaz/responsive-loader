@@ -6,7 +6,7 @@ import { parseOptions, getOutputAndPublicPath, createPlaceholder } from './utils
 import { cache } from './cache'
 import type { LoaderContext } from 'webpack'
 
-import interpolateName from './interpolateName'
+import { interpolateName } from 'loader-utils'
 import { parseQuery } from './parseQuery'
 
 import type {
@@ -70,7 +70,7 @@ export default function loader(this: LoaderContext<Options>, content: string): v
   }
 
   const createFile = ({ data, width, height }: AdapterResizeResponse) => {
-    const fileName = interpolateName(this.resourcePath, this.resourceQuery, name, {
+    const fileName = interpolateName(this, name, {
       context: outputContext,
       content: data.toString(),
     })

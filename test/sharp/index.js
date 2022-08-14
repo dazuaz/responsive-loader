@@ -64,6 +64,11 @@ test('output should be relative to context', () => {
   expect(multi).toMatchSnapshot()
 })
 
+test('hash lenght output should be relative to context', () => {
+  const multi = require('../cat-1000.jpg?name=[path][contenthash:8]-[width].[ext]&context=./')
+  expect(multi).toMatchSnapshot()
+})
+
 test('output should be in outputPath dir', () => {
   const multi = require('../cat-1000.jpg?outputPath=img/')
   expect(multi).toMatchSnapshot()
