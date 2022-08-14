@@ -6,12 +6,12 @@ Object {
   "images": Array [
     Object {
       "height": 451,
-      "path": "foobar/0cbf4e06fb8adef26b85a194fc9d4c5d-501.jpg",
+      "path": "foobar/ab790bc248982116-501.jpg",
       "width": 501,
     },
   ],
-  "src": "foobar/0cbf4e06fb8adef26b85a194fc9d4c5d-501.jpg",
-  "srcSet": "foobar/0cbf4e06fb8adef26b85a194fc9d4c5d-501.jpg 501w",
+  "src": "foobar/ab790bc248982116-501.jpg",
+  "srcSet": "foobar/ab790bc248982116-501.jpg 501w",
   "toString": [Function],
   "width": 501,
 }
