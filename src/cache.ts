@@ -6,16 +6,16 @@
  *
  * @see https://github.com/babel/babel-loader/
  */
-import * as fs from "fs"
-import * as os from "os"
-import * as path from "path"
-import * as zlib from "zlib"
-import * as crypto from "crypto"
-import * as findCacheDir from "find-cache-dir"
-import * as makeDir from "make-dir"
-import { promisify } from "util"
-import { CacheOptions, TransformParams } from "./types"
-import { transform } from "."
+import * as fs from 'fs'
+import * as os from 'os'
+import * as path from 'path'
+import * as zlib from 'zlib'
+import * as crypto from 'crypto'
+import * as findCacheDir from 'find-cache-dir'
+import * as makeDir from 'make-dir'
+import { promisify } from 'util'
+import { CacheOptions, TransformParams } from './types'
+import { transform } from '.'
 
 // Lazily instantiated when needed
 let defaultCacheDirectory: string | null = null
@@ -33,7 +33,7 @@ const gzip = promisify(zlib.gzip)
  * @params {Boolean} compress
  */
 const read = async function (filename: string, compress: boolean) {
-  const data = await readFile(filename + (compress ? ".gz" : ""))
+  const data = await readFile(filename + (compress ? '.gz' : ''))
   const content = compress ? await gunzip(data) : data
 
   return JSON.parse(content.toString())
@@ -51,7 +51,7 @@ const write = async function (filename: string, compress: boolean, result: strin
   const content = JSON.stringify(result)
 
   const data = compress ? await gzip(content) : content
-  return await writeFile(filename + (compress ? ".gz" : ""), data)
+  return await writeFile(filename + (compress ? '.gz' : ''), data)
 }
 
 /**
@@ -63,13 +63,13 @@ const write = async function (filename: string, compress: boolean, result: strin
  * @return {String}
  */
 const filename = function (source: string, identifier: string) {
-  const hash = crypto.createHash("md4")
+  const hash = crypto.createHash('md4')
 
   const contents = JSON.stringify({ source, identifier })
 
   hash.update(contents)
 
-  return hash.digest("hex") + ".json"
+  return hash.digest('hex') + '.json'
 }
 
 /**
@@ -95,7 +95,7 @@ const handleCache = async function (
     // continue regardless of error
   }
 
-  const fallback = typeof cacheDirectory !== "string" && directory !== os.tmpdir()
+  const fallback = typeof cacheDirectory !== 'string' && directory !== os.tmpdir()
 
   // Make sure the directory exists.
   try {
@@ -138,11 +138,11 @@ const handleCache = async function (
 export async function cache(cacheOptions: CacheOptions, transformParams: TransformParams): Promise<string> {
   let directory
 
-  if (typeof cacheOptions.cacheDirectory === "string") {
+  if (typeof cacheOptions.cacheDirectory === 'string') {
     directory = cacheOptions.cacheDirectory
   } else {
     if (defaultCacheDirectory === null) {
-      defaultCacheDirectory = findCacheDir({ name: "responsive-loader" }) || os.tmpdir()
+      defaultCacheDirectory = findCacheDir({ name: 'responsive-loader' }) || os.tmpdir()
     }
 
     directory = defaultCacheDirectory

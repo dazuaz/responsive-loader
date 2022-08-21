@@ -146,7 +146,7 @@ async function orchestrate(params: OrchestrateParams) {
 }
 
 // Transform based on the parameters
-async function transform({
+export async function transform({
   adapterModule,
   resourcePath,
   createFile,
