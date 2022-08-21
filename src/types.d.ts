@@ -59,6 +59,5 @@ export interface TransformParams {
   placeholderSize: number
   mime: MimeType
   sizes: number[]
-  esModule: boolean
   adapterOptions: Options & ImageOptions
 }

@@ -122,7 +122,6 @@ export default function loader(this: LoaderContext<Options>, content: string): v
     placeholderSize,
     mime,
     sizes,
-    esModule: options.esModule,
   }
   orchestrate({ cacheOptions, transformParams })
     .then((result) => loaderCallback(null, result))
@@ -147,7 +146,7 @@ async function orchestrate(params: OrchestrateParams) {
 }
 
 // Transform based on the parameters
-export async function transform({
+async function transform({
   adapterModule,
   resourcePath,
   createFile,
@@ -156,7 +155,6 @@ export async function transform({
   outputPlaceholder,
   placeholderSize,
   adapterOptions,
-  esModule,
 }: TransformParams): Promise<string> {
   const adapter: Adapter = adapterModule || require('./adapters/sharp')
   const img = adapter(resourcePath)
@@ -177,7 +175,7 @@ export async function transform({
   // default to the biggest image
   const defaultImage = files[files.length - 1]
 
-  return `${esModule ? 'export default' : 'module.exports ='} {
+  return `${adapterOptions.esModule ? 'export default' : 'module.exports ='} {
         srcSet: ${srcset},
         images: [${images}],
         src: ${defaultImage.path},

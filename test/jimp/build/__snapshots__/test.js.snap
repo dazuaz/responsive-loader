@@ -310,6 +310,35 @@ Object {
 }
 `;
 
+exports[`public path should replace global publicPath absolute 1`] = `
+Object {
+  "default": Object {
+    "height": 900,
+    "images": Array [
+      Object {
+        "height": 450,
+        "path": "/public/c869fe04ebafd01d-500.jpg",
+        "width": 500,
+      },
+      Object {
+        "height": 675,
+        "path": "/public/76a7b8dd076af418-750.jpg",
+        "width": 750,
+      },
+      Object {
+        "height": 900,
+        "path": "/public/076d6ca8665b1d94-1000.jpg",
+        "width": 1000,
+      },
+    ],
+    "src": "/public/076d6ca8665b1d94-1000.jpg",
+    "srcSet": "/public/c869fe04ebafd01d-500.jpg 500w,/public/76a7b8dd076af418-750.jpg 750w,/public/076d6ca8665b1d94-1000.jpg 1000w",
+    "toString": [Function],
+    "width": 1000,
+  },
+}
+`;
+
 exports[`single size 1`] = `
 Object {
   "default": Object {

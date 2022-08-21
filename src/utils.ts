@@ -146,7 +146,7 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
     if (typeof configOutputPath === 'function') {
       outputPath = configOutputPath(fileName)
     } else {
-      outputPath = path.posix.join(configOutputPath, fileName)
+      outputPath = path.join(configOutputPath, fileName)
     }
   }
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`
@@ -155,7 +155,7 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
     if (typeof configPublicPath === 'function') {
       publicPath = configPublicPath(fileName)
     } else {
-      publicPath = path.posix.join(configPublicPath, fileName)
+      publicPath = path.join(configPublicPath, fileName)
     }
     publicPath = JSON.stringify(publicPath)
   }

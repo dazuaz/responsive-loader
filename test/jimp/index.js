@@ -38,6 +38,10 @@ test('public path should replace global publicPath', () => {
   const multi = require('../cat-1000.jpg?outputPath=img/&publicPath=public/')
   expect(multi).toMatchSnapshot()
 })
+test('public path should replace global publicPath absolute', () => {
+  const multi = require('../cat-1000.jpg?outputPath=/img2/&publicPath=/public/')
+  expect(multi).toMatchSnapshot()
+})
 
 test('with placeholder image', () => {
   const output = require('../cat-1000.jpg?placeholder=true')

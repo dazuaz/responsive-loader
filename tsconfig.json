@@ -6,6 +6,7 @@
     "lib": ["es2018"],
     "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
     "outDir": "lib",
+    "allowJs": true,
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,
     "moduleResolution": "node",
@@ -14,5 +15,5 @@
     /* Additional Checks */
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*"],
 }
