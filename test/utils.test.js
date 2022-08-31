@@ -18,4 +18,12 @@ describe('Utils package', () => {
     expect(outputPath).toBe('dist/img/file.png')
     expect(publicPath).toBe('"public/file.png"')
   })
+
+  it('https:// slashes are kept on public path', () => {
+    const { outputPath, publicPath } = getOutputAndPublicPath('file.png', {
+      outputPath: 'dist/img/',
+      publicPath: 'https://example.com/public/',
+    })
+    expect(publicPath).toBe('"https://example.com/public/file.png"')
+  })
 })

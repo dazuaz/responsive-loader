@@ -307,12 +307,12 @@ Object {
   "images": Array [
     Object {
       "height": 595,
-      "path": "foobar/6f6751159d27af0a-513.avif",
+      "path": "foobar/22e433fe295fe71f-513.avif",
       "width": 513,
     },
   ],
-  "src": "foobar/6f6751159d27af0a-513.avif",
-  "srcSet": "foobar/6f6751159d27af0a-513.avif 513w",
+  "src": "foobar/22e433fe295fe71f-513.avif",
+  "srcSet": "foobar/22e433fe295fe71f-513.avif 513w",
   "toString": [Function],
   "width": 513,
 }
@@ -324,22 +324,22 @@ Object {
   "images": Array [
     Object {
       "height": 450,
-      "path": "foobar/399c087b36a41dc7-500.avif",
+      "path": "foobar/714fef5a20dd125d-500.avif",
       "width": 500,
     },
     Object {
       "height": 675,
-      "path": "foobar/2b2c71d7c209afa8-750.avif",
+      "path": "foobar/52e04abc8f536b03-750.avif",
       "width": 750,
     },
     Object {
       "height": 900,
-      "path": "foobar/41db421bee56e18f-1000.avif",
+      "path": "foobar/9effc76d2d205f82-1000.avif",
       "width": 1000,
     },
   ],
-  "src": "foobar/41db421bee56e18f-1000.avif",
-  "srcSet": "foobar/399c087b36a41dc7-500.avif 500w,foobar/2b2c71d7c209afa8-750.avif 750w,foobar/41db421bee56e18f-1000.avif 1000w",
+  "src": "foobar/9effc76d2d205f82-1000.avif",
+  "srcSet": "foobar/714fef5a20dd125d-500.avif 500w,foobar/52e04abc8f536b03-750.avif 750w,foobar/9effc76d2d205f82-1000.avif 1000w",
   "toString": [Function],
   "width": 1000,
 }

@@ -146,7 +146,7 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
     if (typeof configOutputPath === 'function') {
       outputPath = configOutputPath(fileName)
     } else {
-      outputPath = path.join(configOutputPath, fileName)
+      outputPath = path.posix.join(configOutputPath, fileName)
     }
   }
   let publicPath = `__webpack_public_path__ + ${JSON.stringify(outputPath)}`
@@ -155,7 +155,15 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
     if (typeof configPublicPath === 'function') {
       publicPath = configPublicPath(fileName)
     } else {
-      publicPath = path.join(configPublicPath, fileName)
+      // publicPath can be a url or local path
+      // check if it's a valid url
+      if (isValidUrl(configPublicPath)) {
+        const url = new URL(configPublicPath)
+        url.pathname = path.posix.join(url.pathname, fileName)
+        publicPath = url.toString()
+      } else {
+        publicPath = path.posix.join(configPublicPath, fileName)
+      }
     }
     publicPath = JSON.stringify(publicPath)
   }
@@ -163,6 +171,13 @@ const getOutputAndPublicPath: GetOutputAndPublicPath = (
   return {
     outputPath,
     publicPath,
+  }
+}
+const isValidUrl = (urlString: string) => {
+  try {
+    return Boolean(new URL(urlString))
+  } catch (e) {
+    return false
   }
 }
 
