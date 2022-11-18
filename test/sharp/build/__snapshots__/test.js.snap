@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Works with the cache 1`] = `
-Object {
+{
   "height": 451,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 451,
       "path": "foobar/ab790bc248982116-501.jpg",
       "width": 501,
@@ -18,10 +18,10 @@ Object {
 `;
 
 exports[`creates jpeg extension 1`] = `
-Object {
+{
   "height": 395,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 395,
       "path": "foobar/f93d9af4a72634bc-439.jpeg",
       "width": 439,
@@ -35,9 +35,9 @@ Object {
 `;
 
 exports[`disable 1`] = `
-Object {
-  "images": Array [
-    Object {
+{
+  "images": [
+    {
       "height": 100,
       "path": "foobar/82e6d197b5ce433a-100.jpg",
       "width": 100,
@@ -50,10 +50,10 @@ Object {
 `;
 
 exports[`doesn't emit file 1`] = `
-Object {
+{
   "height": 225,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 225,
       "path": "foobar/0a229ed85b2f5618-250.jpg",
       "width": 250,
@@ -67,20 +67,20 @@ Object {
 `;
 
 exports[`hash lenght output should be relative to context 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/test/282d046d-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/test/b8e60128-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/test/3cf3c375-1000.jpg",
       "width": 1000,
@@ -94,20 +94,20 @@ Object {
 `;
 
 exports[`jpg to webp 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/8593c1f9da542c50-500.webp",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/72befca36bd004a7-750.webp",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/c66204d304cfe4fd-1000.webp",
       "width": 1000,
@@ -121,15 +121,15 @@ Object {
 `;
 
 exports[`multiple sizes 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -143,10 +143,10 @@ Object {
 `;
 
 exports[`output first resized image height & width 1`] = `
-Object {
+{
   "height": 450,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
@@ -160,20 +160,20 @@ Object {
 `;
 
 exports[`output should be in outputPath dir 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/img/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/img/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/img/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -187,20 +187,20 @@ Object {
 `;
 
 exports[`output should be relative to context 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/test/282d046d550fa19c-500x450.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/test/b8e6012830c98919-750x675.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/test/3cf3c37514578847-1000x900.jpg",
       "width": 1000,
@@ -214,10 +214,10 @@ Object {
 `;
 
 exports[`override min and max with size 1`] = `
-Object {
+{
   "height": 90,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 90,
       "path": "foobar/661fbbbdbe7372a2-100.jpg",
       "width": 100,
@@ -231,15 +231,15 @@ Object {
 `;
 
 exports[`override min and max with sizes 1`] = `
-Object {
+{
   "height": 180,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 90,
       "path": "foobar/661fbbbdbe7372a2-100.jpg",
       "width": 100,
     },
-    Object {
+    {
       "height": 180,
       "path": "foobar/daae2e5f7f65b269-200.jpg",
       "width": 200,
@@ -253,20 +253,20 @@ Object {
 `;
 
 exports[`parses json notation 1`] = `
-Object {
+{
   "height": 180,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 45,
       "path": "foobar/b58d8935f3e689e3-50.webp",
       "width": 50,
     },
-    Object {
+    {
       "height": 90,
       "path": "foobar/fffbb70a2c269cf1-100.webp",
       "width": 100,
     },
-    Object {
+    {
       "height": 180,
       "path": "foobar/701bf549670b5294-200.webp",
       "width": 200,
@@ -280,15 +280,15 @@ Object {
 `;
 
 exports[`png 1`] = `
-Object {
+{
   "height": 595,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 580,
       "path": "foobar/ed6170e9b0b0edf0-500.png",
       "width": 500,
     },
-    Object {
+    {
       "height": 595,
       "path": "foobar/418c98c2d061efc6-513.png",
       "width": 513,
@@ -302,59 +302,59 @@ Object {
 `;
 
 exports[`png to avif 1`] = `
-Object {
+{
   "height": 595,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 595,
-      "path": "foobar/22e433fe295fe71f-513.avif",
+      "path": "foobar/54f4e72270566ed5-513.avif",
       "width": 513,
     },
   ],
-  "src": "foobar/22e433fe295fe71f-513.avif",
-  "srcSet": "foobar/22e433fe295fe71f-513.avif 513w",
+  "src": "foobar/54f4e72270566ed5-513.avif",
+  "srcSet": "foobar/54f4e72270566ed5-513.avif 513w",
   "toString": [Function],
   "width": 513,
 }
 `;
 
 exports[`png to avif 2`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
-      "path": "foobar/714fef5a20dd125d-500.avif",
+      "path": "foobar/99b6b84c23e8a9b4-500.avif",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
-      "path": "foobar/52e04abc8f536b03-750.avif",
+      "path": "foobar/d0b22cf68e1f393a-750.avif",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
-      "path": "foobar/9effc76d2d205f82-1000.avif",
+      "path": "foobar/6f9cba284621e494-1000.avif",
       "width": 1000,
     },
   ],
-  "src": "foobar/9effc76d2d205f82-1000.avif",
-  "srcSet": "foobar/714fef5a20dd125d-500.avif 500w,foobar/52e04abc8f536b03-750.avif 750w,foobar/9effc76d2d205f82-1000.avif 1000w",
+  "src": "foobar/6f9cba284621e494-1000.avif",
+  "srcSet": "foobar/99b6b84c23e8a9b4-500.avif 500w,foobar/d0b22cf68e1f393a-750.avif 750w,foobar/6f9cba284621e494-1000.avif 1000w",
   "toString": [Function],
   "width": 1000,
 }
 `;
 
 exports[`png to jpeg with background color 1`] = `
-Object {
+{
   "height": 595,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 580,
       "path": "foobar/0be420cbedde023f-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 595,
       "path": "foobar/9e08ba9531804694-513.jpg",
       "width": 513,
@@ -368,32 +368,32 @@ Object {
 `;
 
 exports[`png to webp with transparent background 1`] = `
-Object {
+{
   "height": 595,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 580,
-      "path": "foobar/c6cf8cc072ec32d0-500.webp",
+      "path": "foobar/548d85cfef6a6c88-500.webp",
       "width": 500,
     },
-    Object {
+    {
       "height": 595,
       "path": "foobar/924e13d10c98fb28-513.webp",
       "width": 513,
     },
   ],
   "src": "foobar/924e13d10c98fb28-513.webp",
-  "srcSet": "foobar/c6cf8cc072ec32d0-500.webp 500w,foobar/924e13d10c98fb28-513.webp 513w",
+  "srcSet": "foobar/548d85cfef6a6c88-500.webp 500w,foobar/924e13d10c98fb28-513.webp 513w",
   "toString": [Function],
   "width": 513,
 }
 `;
 
 exports[`preserves rotation 1`] = `
-Object {
+{
   "height": 554,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 554,
       "path": "foobar/eb9b881857272a9d-499.jpg",
       "width": 499,
@@ -407,15 +407,15 @@ Object {
 `;
 
 exports[`progressive image 1`] = `
-Object {
+{
   "height": 864,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 684,
       "path": "foobar/e971e26ec2eea1f1-760.jpg",
       "width": 760,
     },
-    Object {
+    {
       "height": 864,
       "path": "foobar/e5e8c73f5f931a48-960.jpg",
       "width": 960,
@@ -429,20 +429,20 @@ Object {
 `;
 
 exports[`public path should replace global publicPath 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "public/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "public/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "public/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -456,10 +456,10 @@ Object {
 `;
 
 exports[`rotates 90 1`] = `
-Object {
+{
   "height": 666,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 666,
       "path": "foobar/aa309fc022524f4b-599.jpg",
       "width": 599,
@@ -473,10 +473,10 @@ Object {
 `;
 
 exports[`single size 1`] = `
-Object {
+{
   "height": 450,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
@@ -490,20 +490,20 @@ Object {
 `;
 
 exports[`with min and max sizes 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -517,25 +517,25 @@ Object {
 `;
 
 exports[`with min and max sizes options 1`] = `
-Object {
+{
   "height": 270,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 90,
       "path": "foobar/661fbbbdbe7372a2-100.jpg",
       "width": 100,
     },
-    Object {
+    {
       "height": 150,
       "path": "foobar/87ddc3296017abd7-167.jpg",
       "width": 167,
     },
-    Object {
+    {
       "height": 211,
       "path": "foobar/c792e1e8f501c416-234.jpg",
       "width": 234,
     },
-    Object {
+    {
       "height": 270,
       "path": "foobar/5de63dd31e93ce82-300.jpg",
       "width": 300,
@@ -549,20 +549,20 @@ Object {
 `;
 
 exports[`with min and max sizes, and default steps 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -576,20 +576,20 @@ Object {
 `;
 
 exports[`with placeholder image 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/3cf3c37514578847-1000.jpg",
       "width": 1000,
@@ -604,10 +604,10 @@ Object {
 `;
 
 exports[`with placeholder image on image with size 1`] = `
-Object {
+{
   "height": 360,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 360,
       "path": "foobar/c985fe28cb56f01d-400.jpg",
       "width": 400,
@@ -622,20 +622,20 @@ Object {
 `;
 
 exports[`with size defined in webpack.config.js 1`] = `
-Object {
+{
   "height": 900,
-  "images": Array [
-    Object {
+  "images": [
+    {
       "height": 450,
       "path": "foobar/282d046d550fa19c-500.jpg",
       "width": 500,
     },
-    Object {
+    {
       "height": 675,
       "path": "foobar/b8e6012830c98919-750.jpg",
       "width": 750,
     },
-    Object {
+    {
       "height": 900,
       "path": "foobar/3cf3c37514578847-1000.jpg",
       "width": 1000,

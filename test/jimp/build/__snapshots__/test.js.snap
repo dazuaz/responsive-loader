@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`disable 1`] = `
-Object {
-  "default": Object {
-    "images": Array [
-      Object {
+{
+  "default": {
+    "images": [
+      {
         "height": 100,
         "path": "foobar/82e6d197b5ce433a-100.jpg",
         "width": 100,
@@ -18,11 +18,11 @@ Object {
 `;
 
 exports[`doesn't emit file 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 225,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 225,
         "path": "foobar/445db0be601e84d6-250.jpg",
         "width": 250,
@@ -37,16 +37,16 @@ Object {
 `;
 
 exports[`multiple sizes 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -61,11 +61,11 @@ Object {
 `;
 
 exports[`output first resized image height & width 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 450,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
@@ -80,21 +80,21 @@ Object {
 `;
 
 exports[`output should be in outputPath dir 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/img/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/img/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/img/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -109,21 +109,21 @@ Object {
 `;
 
 exports[`output should be relative to context 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/test/c869fe04ebafd01d-500x450.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/test/76a7b8dd076af418-750x675.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/test/076d6ca8665b1d94-1000x900.jpg",
         "width": 1000,
@@ -138,11 +138,11 @@ Object {
 `;
 
 exports[`override min and max with size 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 90,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 90,
         "path": "foobar/f7443232972a8934-100.jpg",
         "width": 100,
@@ -157,16 +157,16 @@ Object {
 `;
 
 exports[`override min and max with sizes 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 180,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 90,
         "path": "foobar/f7443232972a8934-100.jpg",
         "width": 100,
       },
-      Object {
+      {
         "height": 180,
         "path": "foobar/974831fb3cc31ef7-200.jpg",
         "width": 200,
@@ -181,21 +181,21 @@ Object {
 `;
 
 exports[`parses json notation 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 180,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 45,
         "path": "foobar/843b57924a32e9ff-50.jpg",
         "width": 50,
       },
-      Object {
+      {
         "height": 90,
         "path": "foobar/f7443232972a8934-100.jpg",
         "width": 100,
       },
-      Object {
+      {
         "height": 180,
         "path": "foobar/974831fb3cc31ef7-200.jpg",
         "width": 200,
@@ -210,16 +210,16 @@ Object {
 `;
 
 exports[`png 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 595,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 580,
         "path": "foobar/f64253666cd2fe13-500.png",
         "width": 500,
       },
-      Object {
+      {
         "height": 595,
         "path": "foobar/a44dff6b028c41f7-513.png",
         "width": 513,
@@ -234,16 +234,16 @@ Object {
 `;
 
 exports[`png to jpeg with background color 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 595,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 580,
         "path": "foobar/940321b5b2ba9532-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 595,
         "path": "foobar/07deb4eb4e131586-513.jpg",
         "width": 513,
@@ -258,16 +258,16 @@ Object {
 `;
 
 exports[`png to jpeg with background color 2`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 595,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 580,
         "path": "foobar/940321b5b2ba9532-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 595,
         "path": "foobar/07deb4eb4e131586-513.jpg",
         "width": 513,
@@ -282,21 +282,21 @@ Object {
 `;
 
 exports[`public path should replace global publicPath 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "public/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "public/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "public/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -311,21 +311,21 @@ Object {
 `;
 
 exports[`public path should replace global publicPath absolute 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "/public/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "/public/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "/public/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -340,11 +340,11 @@ Object {
 `;
 
 exports[`single size 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 450,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
@@ -359,21 +359,21 @@ Object {
 `;
 
 exports[`with min and max sizes 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -388,26 +388,26 @@ Object {
 `;
 
 exports[`with min and max sizes options 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 270,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 90,
         "path": "foobar/f7443232972a8934-100.jpg",
         "width": 100,
       },
-      Object {
+      {
         "height": 150,
         "path": "foobar/fb90951ca5da54c2-167.jpg",
         "width": 167,
       },
-      Object {
+      {
         "height": 211,
         "path": "foobar/fe6debad717249e9-234.jpg",
         "width": 234,
       },
-      Object {
+      {
         "height": 270,
         "path": "foobar/a990e2f8f763852a-300.jpg",
         "width": 300,
@@ -422,21 +422,21 @@ Object {
 `;
 
 exports[`with min and max sizes, and default steps 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -451,21 +451,21 @@ Object {
 `;
 
 exports[`with placeholder image 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
@@ -481,21 +481,21 @@ Object {
 `;
 
 exports[`with size defined in webpack.config.js 1`] = `
-Object {
-  "default": Object {
+{
+  "default": {
     "height": 900,
-    "images": Array [
-      Object {
+    "images": [
+      {
         "height": 450,
         "path": "foobar/c869fe04ebafd01d-500.jpg",
         "width": 500,
       },
-      Object {
+      {
         "height": 675,
         "path": "foobar/76a7b8dd076af418-750.jpg",
         "width": 750,
       },
-      Object {
+      {
         "height": 900,
         "path": "foobar/076d6ca8665b1d94-1000.jpg",
         "width": 1000,
