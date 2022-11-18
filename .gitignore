@@ -10,3 +10,5 @@ test/**/build/**/*.webp
 .node-version
 lib
 .vscode
+.envrc
+.tool-versions
