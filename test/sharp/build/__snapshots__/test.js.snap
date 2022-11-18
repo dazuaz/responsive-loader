@@ -285,17 +285,17 @@ Object {
   "images": Array [
     Object {
       "height": 580,
-      "path": "foobar/8168d0505a82f948-500.png",
+      "path": "foobar/ed6170e9b0b0edf0-500.png",
       "width": 500,
     },
     Object {
       "height": 595,
-      "path": "foobar/ed7f6f89e4d82d00-513.png",
+      "path": "foobar/418c98c2d061efc6-513.png",
       "width": 513,
     },
   ],
-  "src": "foobar/ed7f6f89e4d82d00-513.png",
-  "srcSet": "foobar/8168d0505a82f948-500.png 500w,foobar/ed7f6f89e4d82d00-513.png 513w",
+  "src": "foobar/418c98c2d061efc6-513.png",
+  "srcSet": "foobar/ed6170e9b0b0edf0-500.png 500w,foobar/418c98c2d061efc6-513.png 513w",
   "toString": [Function],
   "width": 513,
 }

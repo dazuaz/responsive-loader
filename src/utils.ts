@@ -113,8 +113,8 @@ interface GetOutputAndPublicPath {
   (
     fileName: string,
     {
-      outputPath: configOutputPath,
-      publicPath: configPublicPath,
+      outputPath,
+      publicPath,
     }: {
       outputPath?: ((...args: Array<unknown>) => string) | string
       publicPath?: ((...args: Array<unknown>) => string) | string
