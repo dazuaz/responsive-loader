@@ -40,6 +40,12 @@ class SharpAdapter {
           progressive: options.progressive,
         })
       }
+      if (mime === 'image/png') {
+        resized = resized.png({
+          quality: options.quality,
+          progressive: options.progressive,
+        })
+      }
       if (mime === 'image/webp') {
         resized = resized.webp({
           quality: options.quality,
